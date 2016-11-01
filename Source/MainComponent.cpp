@@ -1,0 +1,130 @@
+#include "MainComponent.h"
+
+
+
+MainContentComponent::MainContentComponent() {
+  Colour colorLabel = Colours::white;
+
+  labelMapWidth = new Label("map width", "Width");
+  labelMapWidth->setBounds(0, 0, bar, 25);
+  labelMapWidth->setColour(labelFrame->textColourId, colorLabel);
+
+  labelMapHeight = new Label("map height", "Height");
+  labelMapHeight->setBounds(0, 25, bar, 25);
+  labelMapHeight->setColour(labelFrame->textColourId, colorLabel);
+
+  labelFrame = new Label("frame", "Frame");
+  labelFrame->setBounds(0, 80, bar, 25);
+  labelFrame->setColour(labelFrame->textColourId, colorLabel);
+
+  labelAlive = new Label("alive", "Alive");
+  labelAlive->setBounds(0, 105, bar, 25);
+  labelAlive->setColour(labelFrame->textColourId, colorLabel);
+
+  labelDStep = new Label("duration step", "Step");
+  labelDStep->setBounds(0, 150, bar, 25);
+  labelDStep->setColour(labelFrame->textColourId, colorLabel);
+
+  labelDDraw = new Label("duration darw", "Draw");
+  labelDDraw->setBounds(0, 175, bar, 25);
+  labelDDraw->setColour(labelFrame->textColourId, colorLabel);
+
+  buttonNewGame = new CustomButton("new game", "new game");
+  buttonNewGame->setBounds(10, 240, 110, 30);
+  buttonNewGame->addListener(this);
+
+  buttonPlay = new CustomButton("play", "play");
+  buttonPlay->setBounds(10, 280, 110, 30);
+  buttonPlay->addListener(this);
+
+  buttonClear = new CustomButton("clear", "clear");
+  buttonClear->setBounds(10, 320, 110, 30);
+  buttonClear->addListener(this);
+
+
+  canvas = new gameCanvas(gameCellSize);
+
+
+  addAndMakeVisible(labelMapWidth);
+  addAndMakeVisible(labelMapHeight);
+
+  addAndMakeVisible(labelFrame);
+  addAndMakeVisible(labelAlive);
+
+  addAndMakeVisible(labelDStep);
+  addAndMakeVisible(labelDDraw);
+
+  addAndMakeVisible(buttonNewGame);
+  addAndMakeVisible(buttonPlay);
+  addAndMakeVisible(buttonClear);
+
+  addAndMakeVisible(canvas);
+
+
+  setSize(bar + gameMapWidth * gameCellSize, gameMapHeight * gameCellSize);
+  setWantsKeyboardFocus(true);
+  grabKeyboardFocus();
+}
+
+
+MainContentComponent::~MainContentComponent() {
+  deleteAllChildren();
+}
+
+
+//void MainContentComponent::hiResTimerCallback() {
+void MainContentComponent::timerCallback() {
+  repaint();
+
+  labelFrame->setText(String::formatted("Frame: %i", canvas->frame), NotificationType::dontSendNotification);
+  labelAlive->setText(String::formatted("Alive: %i", canvas->alive), NotificationType::dontSendNotification);
+  labelDStep->setText(String::formatted("Step per: %i", canvas->durationStep), NotificationType::dontSendNotification);
+  labelDDraw->setText(String::formatted("Draw per: %i", canvas->durationDraw), NotificationType::dontSendNotification);
+}
+
+
+void MainContentComponent::resized() {
+  canvas->setBounds(bar, 0, getWidth() - bar, getHeight());
+
+  labelMapWidth->setText(String::formatted("Width: %i", canvas->mapWidth), NotificationType::dontSendNotification);
+  labelMapHeight->setText(String::formatted("height: %i", canvas->mapHeight), NotificationType::dontSendNotification);
+}
+
+
+void MainContentComponent::buttonClicked(Button* button) {
+  if (button == buttonPlay) {
+    if (isTimerRunning()) {
+      stopTimer();
+      canvas->running = false;
+      buttonPlay->setText("start");
+    } else {
+      startTimer(1);
+      canvas->running = true;
+      buttonPlay->setText("pause");
+    }
+  } else if (button == buttonNewGame) {
+    canvas->newGame();
+    repaint();
+  } else if (button == buttonClear) {
+    canvas->newGame(true);
+    repaint();
+  }
+}
+
+
+bool MainContentComponent::keyPressed(const KeyPress& key) {
+  int keyCode = key.getKeyCode();
+  char keyChar = key.getTextCharacter();
+
+  if (keyCode == key.spaceKey) buttonClicked(buttonPlay);
+  else if (keyCode == key.returnKey) buttonClicked(buttonNewGame);
+  else if (keyCode == key.escapeKey) JUCEApplication::getInstance()->systemRequestedQuit();
+  else if (keyChar == 'c') buttonClicked(buttonClear);
+  else if (keyCode == key.rightKey) {
+    canvas->running = true;
+    repaint();
+    canvas->running = false;
+  }
+
+  return false;
+}
