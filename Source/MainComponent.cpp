@@ -53,7 +53,11 @@ MainContentComponent::MainContentComponent() {
   buttonDraw->setBounds(10, 420, 110, 30);
   buttonDraw->addListener(this);
 
-  canvas = new gameCanvas(gameCellSize);
+  buttonCellSize = new CustomButton("cell size", "cell size");
+  buttonCellSize->setBounds(10, 470, 110, 30);
+  buttonCellSize->addListener(this);
+
+  canvas = new GameCanvas(gameCellSize);
 
 
   addAndMakeVisible(labelMapWidth);
@@ -72,6 +76,7 @@ MainContentComponent::MainContentComponent() {
   addAndMakeVisible(buttonPlay);
   addAndMakeVisible(buttonClear);
   addAndMakeVisible(buttonDraw);
+  addAndMakeVisible(buttonCellSize);
 
   addAndMakeVisible(canvas);
 
@@ -133,13 +138,42 @@ void MainContentComponent::buttonClicked(Button* button) {
   } else if (button == buttonDraw) {
     canvas->draw = !canvas->draw;
     buttonDraw->setText(canvas->draw ? "draw" : "erase");
+  } else if (button == buttonCellSize) {
+    DialogWindow::LaunchOptions options;
+
+    Component* main = new Component("main");
+
+    CustomButton* btnOk = new CustomButton("ok", "ok");
+    btnOk->setBounds(30, 150, 110, 30);
+
+    CustomButton* btnCancle = new CustomButton("cancle", "cancle");
+    btnCancle->setBounds(160, 150, 110, 30);
+    btnCancle->addListener(this);
+
+    main->addAndMakeVisible(btnOk);
+    main->addAndMakeVisible(btnCancle);
+    options.content.setOwned(main);
+
+    options.content->setSize(300, 200);
+
+    options.dialogTitle = "cell size";
+    options.dialogBackgroundColour = Colours::black;
+    options.escapeKeyTriggersCloseButton = true;
+    //options.useNativeTitleBar = false;
+    //options.resizable = true;
+
+    dw = options.launchAsync();
+    dw->centreWithSize(300, 200);
+  } else if (button->getName() == "cancle") {
+    dw->closeButtonPressed();
+    //delete dw;
   }
 }
 
 
 bool MainContentComponent::keyPressed(const KeyPress& key) {
   int keyCode = key.getKeyCode();
-  char keyChar = key.getTextCharacter();
+  juce_wchar keyChar = key.getTextCharacter();
 
   if (keyCode == key.spaceKey) buttonClicked(buttonPlay);
   else if (keyCode == key.returnKey) buttonClicked(buttonNewGame);

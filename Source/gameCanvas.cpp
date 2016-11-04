@@ -3,13 +3,13 @@
 
 
 
-gameCanvas::gameCanvas(unsigned char cellSize, Colour color) : penColor(color), cellSize(cellSize) { }
+GameCanvas::GameCanvas(unsigned char cellSize, Colour color) : penColor(color), cellSize(cellSize) { }
 
 
-gameCanvas::~gameCanvas() { }
+GameCanvas::~GameCanvas() { }
 
 
-void gameCanvas::mouseMove(const MouseEvent & event) {
+void GameCanvas::mouseMove(const MouseEvent & event) {
   mouseX = event.x / cellSize;
   mouseY = event.y / cellSize;
   
@@ -19,12 +19,12 @@ void gameCanvas::mouseMove(const MouseEvent & event) {
 }
 
 
-void gameCanvas::mouseDrag(const MouseEvent & event) {
+void GameCanvas::mouseDrag(const MouseEvent & event) {
   mouseDown(event);
 }
 
 
-void gameCanvas::mouseDown(const MouseEvent & event) {
+void GameCanvas::mouseDown(const MouseEvent & event) {
   int x = event.x / cellSize;
   int y = event.y / cellSize;
 
@@ -39,22 +39,20 @@ void gameCanvas::mouseDown(const MouseEvent & event) {
 
 
 
-void gameCanvas::paint(Graphics& g) {
+void GameCanvas::paint(Graphics& g) {
   if (running) step();
 
   g.fillAll(Colours::black);
   g.setColour(penColor);
 
   clock_t t = clock();
-  int x, y, px;
+  unsigned int x, y, px;
 
   for (x = 0; x < mapWidth; x++) {
     px = x * cellSize + 1;
 
     for (y = 0; y < mapHeight; y++) {
       if (map[x][y]) {
-      //if (map[x][y] != prevMap[x][y] || frame == 1) {
-        //g.setColour(map[x][y] ? penColor : Colours::black);
         g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
       }
     }
@@ -65,15 +63,12 @@ void gameCanvas::paint(Graphics& g) {
 
 
 
-void gameCanvas::resized() {
-//  NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "start", "resize" + String(getWidth()));
+void GameCanvas::resized() {
   resizeMap(getWidth() / cellSize, getHeight() / cellSize);
-//  NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "start", "new game");
   newGame();
-//  NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "end", "resize");
 }
 
 
-void gameCanvas::parentHierarchyChanged() {
-//  parent = findParentComponentOfClass<MainContentComponent>();
+void GameCanvas::parentHierarchyChanged() {
+  //parent = findParentComponentOfClass<MainContentComponent>();
 }

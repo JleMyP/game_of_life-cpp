@@ -3,9 +3,9 @@
 
 
 
-class jucegui2Application : public JUCEApplication {
+class lifeApplication : public JUCEApplication {
 public:
-  jucegui2Application() {}
+  lifeApplication() {}
 
   const String getApplicationName() override { return "Life"; }
   const String getApplicationVersion() override { return ProjectInfo::versionString; }
@@ -51,4 +51,4 @@ private:
   ScopedPointer<MainWindow> mainWindow;
 };
 
-START_JUCE_APPLICATION(jucegui2Application)
+START_JUCE_APPLICATION(lifeApplication)

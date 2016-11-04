@@ -13,11 +13,11 @@ class MainContentComponent :
   public Timer,
   public ButtonListener {
 public:
-  int gameMapWidth = 300;
-  int gameMapHeight = 200;
-  int gameCellSize = 3;
+  unsigned int gameMapWidth = 300;
+  unsigned int gameMapHeight = 200;
+  unsigned char gameCellSize = 3;
 
-  int bar = 130;
+  unsigned int bar = 130;
 
   Label* labelMapWidth;
   Label* labelMapHeight;
@@ -33,7 +33,11 @@ public:
   CustomButton* buttonClear;
   CustomButton* buttonDraw;
 
-  gameCanvas* canvas;
+  CustomButton* buttonCellSize;
+
+  GameCanvas* canvas;
+
+  DialogWindow* dw = nullptr;
 
   MainContentComponent();
   ~MainContentComponent();

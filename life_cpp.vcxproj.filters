@@ -1929,6 +1929,9 @@
     <ClCompile Include="Source\MainComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="sizeWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -3684,6 +3687,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\MainComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="sizeWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

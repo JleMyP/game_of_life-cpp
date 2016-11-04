@@ -1,9 +1,10 @@
 #include "life.h"
+#include "../JuceLibraryCode/JuceHeader.h"
 
 
 
 Life::Life() {}
-Life::Life(int width, int height) {
+Life::Life(unsigned int width, unsigned int height) {
   resizeMap(width, height);
   newGame();
 }
@@ -14,21 +15,19 @@ Life::~Life() {
 
   delete[] map;
   delete[] newMap;
-  //delete[] prevMap;
   //delete[] history;
 }
 
 
 void Life::clear() {
-  for (int x = 0; x < mapWidth; x++) {
+  for (unsigned int x = 0; x < mapWidth; x++) {
     delete[] map[x];
     delete[] newMap[x];
-    //delete[] prevMap[x];
   }
 }
 
 
-void Life::resizeMap(int width, int height) {
+void Life::resizeMap(unsigned int width, unsigned int height) {
   if (mapWidth) clear();
 
   mapWidth = width;
@@ -36,13 +35,11 @@ void Life::resizeMap(int width, int height) {
 
   map = new cellType*[width];
   newMap = new cellType*[width];
-  //prevMap = new cellType*[width];
   //history = new cellType**[historySize];
 
-  for (int x = 0; x < width; x++) {
+  for (unsigned int x = 0; x < width; x++) {
     map[x] = new cellType[height];
     newMap[x] = new cellType[height];
-    //prevMap[x] = new unsigned char[height];
   }
 }
 
@@ -54,7 +51,7 @@ void Life::newGame(bool empty) {
 
 
 void Life::generateMap(bool empty) {
-  int x, y;
+  unsigned int x, y;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
@@ -64,7 +61,7 @@ void Life::generateMap(bool empty) {
 }
 
 
-int Life::getCell(int x, int y) {
+cellType Life::getCell(int x, int y) {
   if (x == mapWidth) x = 0;
   else if (x == -1) x = mapWidth - 1;
 
@@ -75,7 +72,7 @@ int Life::getCell(int x, int y) {
 }
 
 
-int Life::getSumMur(int x, int y) {
+unsigned int Life::getSumMur(int x, int y) {
   int sum = 0;
   int xx, yy;
 
@@ -92,8 +89,8 @@ int Life::getSumMur(int x, int y) {
 void Life::step() {
   clock_t t = clock();
 
-  int x, y;
-  int sum;
+  unsigned int x, y;
+  unsigned int sum;
   alive = 0;
 
   for (x = 0; x < mapWidth; x++) {
@@ -106,7 +103,6 @@ void Life::step() {
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
-      //prevMap[x][y] = map[x][y];
       alive += map[x][y] = newMap[x][y];
     }
   }

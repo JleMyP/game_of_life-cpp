@@ -7,20 +7,20 @@
 
 
 
-class gameCanvas : public Component, public Life {
+class GameCanvas : public Component, public Life {
 public:
-//  MainContentComponent* parent;
+  //MainContentComponent* parent;
 
   Colour penColor;
-  bool draw;
+  bool draw = true;
   int mouseX, mouseY;
   unsigned char cellSize;
 
   int durationDraw;
   bool running = false;
 
-  gameCanvas(unsigned char cellSize, Colour color = Colours::lime);
-  ~gameCanvas();
+  GameCanvas(unsigned char cellSize, Colour color = Colours::lime);
+  ~GameCanvas();
 
   void mouseMove(const MouseEvent & event) override;
   void mouseDown(const MouseEvent & event) override;
@@ -31,7 +31,7 @@ public:
   void resized() override;
 
 private:
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(gameCanvas)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GameCanvas)
 };
 
 #endif
