@@ -25,17 +25,20 @@ public:
   Label* labelAlive;
   Label* labelDStep;
   Label* labelDDraw;
+  Label* labelMouseX;
+  Label* labelMouseY;
 
   CustomButton* buttonNewGame;
   CustomButton* buttonPlay;
   CustomButton* buttonClear;
+  CustomButton* buttonDraw;
 
   gameCanvas* canvas;
 
   MainContentComponent();
   ~MainContentComponent();
 
-//  void hiResTimerCallback() override;
+// void hiResTimerCallback() override;
   void timerCallback() override;
   void buttonClicked(Button* button) override;
   bool keyPressed(const KeyPress& key) override;
@@ -46,4 +49,4 @@ private:
 };
 
 
-#endif  // MAINCOMPONENT_H_INCLUDED
+#endif // MAINCOMPONENT_H_INCLUDED

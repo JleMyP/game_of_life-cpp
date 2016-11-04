@@ -35,7 +35,6 @@ public:
   int getCell(int x, int y);
   int getSumMur(int x, int y);
   void step();
-
 };
 
 #endif

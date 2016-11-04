@@ -29,7 +29,7 @@ void Life::clear() {
 
 
 void Life::resizeMap(int width, int height) {
-  if (map) clear();
+  if (mapWidth) clear();
 
   mapWidth = width;
   mapHeight = height;

@@ -29,18 +29,29 @@ MainContentComponent::MainContentComponent() {
   labelDDraw->setBounds(0, 175, bar, 25);
   labelDDraw->setColour(labelFrame->textColourId, colorLabel);
 
+  labelMouseX = new Label("mouse x", "X:");
+  labelMouseX->setBounds(0, 200, bar, 25);
+  labelMouseX->setColour(labelFrame->textColourId, colorLabel);
+
+  labelMouseY = new Label("mouse y", "Y:");
+  labelMouseY->setBounds(0, 225, bar, 25);
+  labelMouseY->setColour(labelFrame->textColourId, colorLabel);
+
   buttonNewGame = new CustomButton("new game", "new game");
-  buttonNewGame->setBounds(10, 240, 110, 30);
+  buttonNewGame->setBounds(10, 290, 110, 30);
   buttonNewGame->addListener(this);
 
   buttonPlay = new CustomButton("play", "play");
-  buttonPlay->setBounds(10, 280, 110, 30);
+  buttonPlay->setBounds(10, 330, 110, 30);
   buttonPlay->addListener(this);
 
   buttonClear = new CustomButton("clear", "clear");
-  buttonClear->setBounds(10, 320, 110, 30);
+  buttonClear->setBounds(10, 370, 110, 30);
   buttonClear->addListener(this);
 
+  buttonDraw = new CustomButton("draw", "draw");
+  buttonDraw->setBounds(10, 420, 110, 30);
+  buttonDraw->addListener(this);
 
   canvas = new gameCanvas(gameCellSize);
 
@@ -54,9 +65,13 @@ MainContentComponent::MainContentComponent() {
   addAndMakeVisible(labelDStep);
   addAndMakeVisible(labelDDraw);
 
+  addAndMakeVisible(labelMouseX);
+  addAndMakeVisible(labelMouseY);
+  
   addAndMakeVisible(buttonNewGame);
   addAndMakeVisible(buttonPlay);
   addAndMakeVisible(buttonClear);
+  addAndMakeVisible(buttonDraw);
 
   addAndMakeVisible(canvas);
 
@@ -106,8 +121,18 @@ void MainContentComponent::buttonClicked(Button* button) {
     canvas->newGame();
     repaint();
   } else if (button == buttonClear) {
+    canvas->running = false;
     canvas->newGame(true);
+
+    labelFrame->setText("Frame: 0", NotificationType::dontSendNotification);
+    labelAlive->setText("Alive: 0", NotificationType::dontSendNotification);
+    buttonPlay->setText("start");
+    
+    stopTimer();
     repaint();
+  } else if (button == buttonDraw) {
+    canvas->draw = !canvas->draw;
+    buttonDraw->setText(canvas->draw ? "draw" : "erase");
   }
 }
 
@@ -121,9 +146,8 @@ bool MainContentComponent::keyPressed(const KeyPress& key) {
   else if (keyCode == key.escapeKey) JUCEApplication::getInstance()->systemRequestedQuit();
   else if (keyChar == 'c') buttonClicked(buttonClear);
   else if (keyCode == key.rightKey) {
-    canvas->running = true;
-    repaint();
-    canvas->running = false;
+    canvas->step();
+    timerCallback();
   }
 
   return false;

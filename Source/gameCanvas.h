@@ -9,8 +9,11 @@
 
 class gameCanvas : public Component, public Life {
 public:
+//  MainContentComponent* parent;
+
   Colour penColor;
-  Graphics* gr;
+  bool draw;
+  int mouseX, mouseY;
   unsigned char cellSize;
 
   int durationDraw;
@@ -19,6 +22,11 @@ public:
   gameCanvas(unsigned char cellSize, Colour color = Colours::lime);
   ~gameCanvas();
 
+  void mouseMove(const MouseEvent & event) override;
+  void mouseDown(const MouseEvent & event) override;
+  void mouseDrag(const MouseEvent & event) override;
+  void parentHierarchyChanged() override;
+  
   void paint(Graphics& g) override;
   void resized() override;
 
