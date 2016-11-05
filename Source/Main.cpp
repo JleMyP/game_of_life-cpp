@@ -31,7 +31,7 @@ public:
   public:
     MainWindow(String name) : DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
       setResizable(true, true);
-//      setResizeLimits();
+      setResizeLimits(200, 600, 1200, 720);
       setUsingNativeTitleBar(true);
       setContentOwned(new MainContentComponent(), true);
 

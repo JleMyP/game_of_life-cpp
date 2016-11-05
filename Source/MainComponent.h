@@ -9,7 +9,6 @@
 
 class MainContentComponent :
   public Component,
-  //public juce::HighResolutionTimer,
   public Timer,
   public ButtonListener {
 public:
@@ -18,6 +17,7 @@ public:
   unsigned char gameCellSize = 3;
 
   unsigned int bar = 130;
+
 
   Label* labelMapWidth;
   Label* labelMapHeight;
@@ -34,27 +34,45 @@ public:
   CustomButton* buttonDraw;
 
   CustomButton* buttonCellSize;
+  CustomButton* buttonColor;
 
-  GameCanvas* canvas;
+  GameCanvas canvas;
+
 
   Component* sizeMain;
   Slider* sizeSlider;
-  CustomButton* btnOk;
-  CustomButton* btnCancle;
-  //DialogWindow* dw = nullptr;
+  CustomButton* sizeBtnOk;
+  CustomButton* sizeBtnCancle;
+
+  Component* colorMain;
+  ColourSelector* selector;
+  CustomButton* colorBtnOk;
+  CustomButton* colorBtnCancle;
+
 
   MainContentComponent();
   ~MainContentComponent();
 
-// void hiResTimerCallback() override;
+
+  void initMainW();
+  void initSizeW();
+  void initRulesW();
+  void initColorW();
+
+  void playCallback();
+  void newGameCallback();
+  void clearCallback();
+  void drawCallback();
+  void sizeCallback();
+  void colorCallback();
+
   void timerCallback() override;
   void buttonClicked(Button* button) override;
   bool keyPressed(const KeyPress& key) override;
   void resized() override;
 
-private:
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };
 
 
-#endif // MAINCOMPONENT_H_INCLUDED
+#endif
