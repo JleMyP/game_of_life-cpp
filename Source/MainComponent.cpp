@@ -60,6 +60,30 @@ MainContentComponent::MainContentComponent() {
   canvas = new GameCanvas(gameCellSize);
 
 
+
+  sizeMain = new Component("size main");
+  sizeMain->setSize(300, 150);
+
+  sizeSlider = new Slider();
+  sizeSlider->setRange(2, 10, 1);
+  sizeSlider->setBounds(50, 30, 200, 50);
+  sizeSlider->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
+  sizeSlider->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
+  sizeSlider->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
+
+  btnOk = new CustomButton("ok", "ok");
+  btnOk->setBounds(30, 100, 110, 30);
+  btnOk->addListener(this);
+
+  btnCancle = new CustomButton("cancle", "cancle");
+  btnCancle->setBounds(160, 100, 110, 30);
+  btnCancle->addListener(this);
+
+  sizeMain->addAndMakeVisible(sizeSlider);
+  sizeMain->addAndMakeVisible(btnOk);
+  sizeMain->addAndMakeVisible(btnCancle);
+
+
   addAndMakeVisible(labelMapWidth);
   addAndMakeVisible(labelMapHeight);
 
@@ -89,6 +113,9 @@ MainContentComponent::MainContentComponent() {
 
 MainContentComponent::~MainContentComponent() {
   deleteAllChildren();
+
+  sizeMain->deleteAllChildren();
+  delete sizeMain;
 }
 
 
@@ -139,34 +166,26 @@ void MainContentComponent::buttonClicked(Button* button) {
     canvas->draw = !canvas->draw;
     buttonDraw->setText(canvas->draw ? "draw" : "erase");
   } else if (button == buttonCellSize) {
-    DialogWindow::LaunchOptions options;
+    sizeSlider->setValue(canvas->cellSize);
 
-    Component* main = new Component("main");
+    unsigned char cell = DialogWindow::showModalDialog("cell size", sizeMain, nullptr, Colours::black, true);
+    
+    if (cell != 0) {
+      unsigned int mapWidth = canvas->getWidth() / cell;
+      unsigned int mapHeight = canvas->getHeight() / cell;
 
-    CustomButton* btnOk = new CustomButton("ok", "ok");
-    btnOk->setBounds(30, 150, 110, 30);
+      labelMapWidth->setText(String::formatted("Width: %i", mapWidth), NotificationType::dontSendNotification);
+      labelMapHeight->setText(String::formatted("height: %i", mapHeight), NotificationType::dontSendNotification);
 
-    CustomButton* btnCancle = new CustomButton("cancle", "cancle");
-    btnCancle->setBounds(160, 150, 110, 30);
-    btnCancle->addListener(this);
-
-    main->addAndMakeVisible(btnOk);
-    main->addAndMakeVisible(btnCancle);
-    options.content.setOwned(main);
-
-    options.content->setSize(300, 200);
-
-    options.dialogTitle = "cell size";
-    options.dialogBackgroundColour = Colours::black;
-    options.escapeKeyTriggersCloseButton = true;
-    //options.useNativeTitleBar = false;
-    //options.resizable = true;
-
-    dw = options.launchAsync();
-    dw->centreWithSize(300, 200);
+      canvas->cellSize = cell;
+      canvas->resizeMap(mapWidth, mapHeight);
+      canvas->newGame();
+      repaint();
+    }
   } else if (button->getName() == "cancle") {
-    dw->closeButtonPressed();
-    //delete dw;
+    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>()) dw->exitModalState(0);
+  } else if (button->getName() == "ok") {
+    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>()) dw->exitModalState(sizeSlider->getValue());
   }
 }
 

@@ -37,7 +37,11 @@ public:
 
   GameCanvas* canvas;
 
-  DialogWindow* dw = nullptr;
+  Component* sizeMain;
+  Slider* sizeSlider;
+  CustomButton* btnOk;
+  CustomButton* btnCancle;
+  //DialogWindow* dw = nullptr;
 
   MainContentComponent();
   ~MainContentComponent();
