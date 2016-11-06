@@ -30,10 +30,14 @@ void GameCanvas::mouseDown(const MouseEvent & event) {
 
   if (x < 0 || y < 0) return;
 
-  if (map[x][y] == 0 && draw) alive++;
-  else if (map[x][y] == 1 && !draw) alive--;
+  if (map[x][y] == 0 && penMode == penModes::draw) {
+    map[x][y] = 1;
+    alive++;
+  } else if (map[x][y] == 1 && penMode == penModes::erase) {
+    map[x][y] = 0;
+    alive--;
+  }
 
-  map[x][y] = draw ? 1 : 0;
   repaint();
 }
 
@@ -66,9 +70,4 @@ void GameCanvas::paint(Graphics& g) {
 void GameCanvas::resized() {
   resizeMap(getWidth() / cellSize, getHeight() / cellSize);
   newGame();
-}
-
-
-void GameCanvas::parentHierarchyChanged() {
-  //parent = findParentComponentOfClass<MainContentComponent>();
 }

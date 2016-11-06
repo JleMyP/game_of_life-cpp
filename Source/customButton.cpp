@@ -15,8 +15,8 @@ CustomButton::~CustomButton() {
 }
 
 
-void CustomButton::setText(char* text) {
-  _text = String(text);
+void CustomButton::setText(char* newText) {
+  _text = String(newText);
 }
 
 

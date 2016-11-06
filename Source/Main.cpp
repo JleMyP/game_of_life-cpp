@@ -23,10 +23,6 @@ public:
     quit();
   }
 
-  void anotherInstanceStarted(const String& commandLine) override {
-    
-  }
-
   class MainWindow : public DocumentWindow {
   public:
     MainWindow(String name) : DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
@@ -43,11 +39,9 @@ public:
       JUCEApplication::getInstance()->systemRequestedQuit();
     }
 
-  private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
   };
 
-private:
   ScopedPointer<MainWindow> mainWindow;
 };
 

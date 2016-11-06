@@ -10,9 +10,11 @@
 class GameCanvas : public Component, public Life {
 public:
   //MainContentComponent* parent;
+  enum penModes { draw, erase, select };
+  char* penStr[3] = { "draw", "erase", "select" };
 
   Colour penColor;
-  bool draw = true;
+  penModes penMode = penModes::draw;
   int mouseX, mouseY;
   unsigned char cellSize;
 
@@ -25,12 +27,10 @@ public:
   void mouseMove(const MouseEvent & event) override;
   void mouseDown(const MouseEvent & event) override;
   void mouseDrag(const MouseEvent & event) override;
-  void parentHierarchyChanged() override;
   
   void paint(Graphics& g) override;
   void resized() override;
 
-private:
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GameCanvas)
 };
 

@@ -72,8 +72,8 @@ cellType Life::getCell(int x, int y) {
 }
 
 
-unsigned int Life::getSumMur(int x, int y) {
-  int sum = 0;
+unsigned char Life::getSumMur(unsigned int x, unsigned int y) {
+  unsigned char sum = 0;
   int xx, yy;
 
   for (xx = x - 1; xx < x + 2; xx++) {
@@ -90,7 +90,7 @@ void Life::step() {
   clock_t t = clock();
 
   unsigned int x, y;
-  unsigned int sum;
+  unsigned char sum;
   alive = 0;
 
   for (x = 0; x < mapWidth; x++) {

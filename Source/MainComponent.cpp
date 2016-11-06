@@ -74,15 +74,15 @@ void MainContentComponent::clearCallback() {
 
 
 void MainContentComponent::drawCallback() {
-  canvas.draw = !canvas.draw;
-  buttonDraw->setText(canvas.draw ? "draw" : "erase");
+  canvas.penMode = (GameCanvas::penModes)((canvas.penMode + 1) % sizeof(canvas.penStr));
+  buttonDraw->setText(canvas.penStr[canvas.penMode]);
 }
 
 
 void MainContentComponent::sizeCallback() {
   sizeSlider->setValue(canvas.cellSize);
 
-  unsigned char cell = DialogWindow::showModalDialog("cell size", sizeMain, nullptr, Colours::black, true);
+  int cell = DialogWindow::showModalDialog("cell size", sizeMain, nullptr, Colours::black, true);
 
   if (cell != 0) {
     unsigned int mapWidth = canvas.getWidth() / cell;
@@ -91,7 +91,7 @@ void MainContentComponent::sizeCallback() {
     labelMapWidth->setText(String::formatted("Width: %i", mapWidth), NotificationType::dontSendNotification);
     labelMapHeight->setText(String::formatted("height: %i", mapHeight), NotificationType::dontSendNotification);
 
-    canvas.cellSize = cell;
+    canvas.cellSize = (unsigned char)cell;
     canvas.resizeMap(mapWidth, mapHeight);
     canvas.newGame();
     repaint();
@@ -113,8 +113,6 @@ void MainContentComponent::colorCallback() {
 
 
 void MainContentComponent::buttonClicked(Button* button) {
-  DialogWindow* dw;
-
   if (button == buttonNewGame) newGameCallback();
   else if (button == buttonPlay) playCallback();
   else if (button == buttonClear) clearCallback();
@@ -122,16 +120,16 @@ void MainContentComponent::buttonClicked(Button* button) {
   else if (button == buttonCellSize) sizeCallback();
   else if (button == buttonColor) colorCallback();
   else if (button == sizeBtnCancle) {
-    if (dw = sizeMain->findParentComponentOfClass<DialogWindow>())
+    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>())
       dw->exitModalState(0);
   } else if (button == sizeBtnOk) {
-    if (dw = sizeMain->findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(sizeSlider->getValue());
+    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>())
+      dw->exitModalState(int(sizeSlider->getValue()));
   } else if (button == colorBtnCancle) {
-    if (dw = colorMain->findParentComponentOfClass<DialogWindow>())
+    if (DialogWindow* dw = colorMain->findParentComponentOfClass<DialogWindow>())
       dw->exitModalState(0);
   } else if (button == colorBtnOk) {
-    if (dw = colorMain->findParentComponentOfClass<DialogWindow>())
+    if (DialogWindow* dw = colorMain->findParentComponentOfClass<DialogWindow>())
       dw->exitModalState(1);
   }
 }
@@ -139,12 +137,11 @@ void MainContentComponent::buttonClicked(Button* button) {
 
 bool MainContentComponent::keyPressed(const KeyPress& key) {
   int keyCode = key.getKeyCode();
-  juce_wchar keyChar = key.getTextCharacter();
 
   if (keyCode == key.returnKey) newGameCallback();
   else if (keyCode == key.spaceKey) playCallback();
   else if (keyCode == key.escapeKey) JUCEApplication::getInstance()->systemRequestedQuit();
-  else if (keyChar == 'c') clearCallback();
+  else if (keyCode == 67) clearCallback(); // key c
   else if (keyCode == key.rightKey) {
     canvas.step();
     timerCallback();
