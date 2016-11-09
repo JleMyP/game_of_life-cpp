@@ -10,12 +10,17 @@
 class GameCanvas : public Component, public Life {
 public:
   //MainContentComponent* parent;
-  enum penModes { draw, erase, select };
-  char* penStr[3] = { "draw", "erase", "select" };
+  enum penModes { erase, draw, select, length };
+  char* penStr[3] = { "erase", "draw", "select" };
 
   Colour penColor;
   penModes penMode = penModes::draw;
-  int mouseX, mouseY;
+  unsigned int penWidth = 2;
+
+  Point<int> selectStart;
+  Point<int> selectEnd;
+  Point<int> mousePos;
+
   unsigned char cellSize;
 
   int durationDraw;
@@ -28,6 +33,8 @@ public:
   void mouseDown(const MouseEvent & event) override;
   void mouseDrag(const MouseEvent & event) override;
   
+  void drawRect(int x, int y);
+
   void paint(Graphics& g) override;
   void resized() override;
 

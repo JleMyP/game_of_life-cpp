@@ -10,12 +10,11 @@ GameCanvas::~GameCanvas() { }
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
-  mouseX = event.x / cellSize;
-  mouseY = event.y / cellSize;
+  mousePos.setXY(event.x / cellSize, event.y / cellSize);
   
   MainContentComponent *parent = findParentComponentOfClass<MainContentComponent>();
-  parent->labelMouseX->setText(String::formatted("X: %i", mouseX), NotificationType::dontSendNotification);
-  parent->labelMouseY->setText(String::formatted("Y: %i", mouseY), NotificationType::dontSendNotification);
+  parent->labelMouseX->setText(String::formatted("X: %i", mousePos.x), NotificationType::dontSendNotification);
+  parent->labelMouseY->setText(String::formatted("Y: %i", mousePos.y), NotificationType::dontSendNotification);
 }
 
 
@@ -30,17 +29,33 @@ void GameCanvas::mouseDown(const MouseEvent & event) {
 
   if (x < 0 || y < 0) return;
 
-  if (map[x][y] == 0 && penMode == penModes::draw) {
-    map[x][y] = 1;
-    alive++;
-  } else if (map[x][y] == 1 && penMode == penModes::erase) {
-    map[x][y] = 0;
-    alive--;
-  }
-
+  drawRect(x, y);
   repaint();
 }
 
+
+void GameCanvas::drawRect(int x, int y) {
+  int diff = 0;
+
+  int pm = (penWidth - penWidth % 2) / 2;
+  int x1 = x - pm + (1 - penWidth % 2);
+  int x2 = x + pm;
+  int y1 = y - pm + (1 - penWidth % 2);
+  int y2 = y + pm;
+  int xx, yy;
+  cellType cell;
+
+  for (xx = x1; xx <= x2; xx++) {
+    for (yy = y1; yy <= y2; yy++) {
+      cell = getCell(xx, yy);
+
+      if (penMode == penModes::draw && !cell) diff--;
+      else if (penMode == penModes::erase && cell) diff++;
+
+      setCell(xx, yy, (cellType)penMode);
+    }
+  }
+}
 
 
 void GameCanvas::paint(Graphics& g) {
@@ -56,7 +71,8 @@ void GameCanvas::paint(Graphics& g) {
     px = x * cellSize + 1;
 
     for (y = 0; y < mapHeight; y++) {
-      if (map[x][y]) {
+      if (map[x][y] > 0) {
+        g.setColour(penColor.withAlpha(1.0f / map[x][y]));
         g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
       }
     }

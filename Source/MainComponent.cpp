@@ -74,7 +74,7 @@ void MainContentComponent::clearCallback() {
 
 
 void MainContentComponent::drawCallback() {
-  canvas.penMode = (GameCanvas::penModes)((canvas.penMode + 1) % sizeof(canvas.penStr));
+  canvas.penMode = (GameCanvas::penModes)((canvas.penMode + 1) % GameCanvas::penModes::length);
   buttonDraw->setText(canvas.penStr[canvas.penMode]);
 }
 

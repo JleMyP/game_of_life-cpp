@@ -61,14 +61,25 @@ void Life::generateMap(bool empty) {
 }
 
 
-cellType Life::getCell(int x, int y) {
+
+void Life::normalize(int& x, int& y) {
   if (x == mapWidth) x = 0;
   else if (x == -1) x = mapWidth - 1;
 
   if (y == mapHeight) y = 0;
   else if (y == -1) y = mapHeight - 1;
+}
 
-  return map[x][y];
+
+cellType Life::getCell(int x, int y) {
+  normalize(x, y);
+  return map[x][y] ? 1 : 0;
+}
+
+
+void Life::setCell(int x, int y, cellType v) {
+  normalize(x, y);
+  map[x][y] = v;
 }
 
 
@@ -82,7 +93,7 @@ unsigned char Life::getSumMur(unsigned int x, unsigned int y) {
     }
   }
 
-  return sum - map[x][y];
+  return sum - (map[x][y] ? 1 : 0);
 }
 
 
@@ -97,13 +108,13 @@ void Life::step() {
     for (y = 0; y < mapHeight; y++) {
       sum = getSumMur(x, y);
 
-      newMap[x][y] = (sum == 3 || map[x][y] && sum == 2);
+      newMap[x][y] = (sum == 3 || map[x][y] && sum == 2) ? (map[x][y] < maxAge ? map[x][y] + 1 : maxAge) : 0;
     }
   }
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
-      alive += map[x][y] = newMap[x][y];
+      alive += (map[x][y] = newMap[x][y]) ? 1 : 0;
     }
   }
 

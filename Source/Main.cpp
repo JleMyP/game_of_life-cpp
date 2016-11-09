@@ -27,7 +27,10 @@ public:
   public:
     MainWindow(String name) : DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
       setResizable(true, true);
-      setResizeLimits(200, 600, 1200, 720);
+
+      Rectangle<int> area = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+      setResizeLimits(200, 600, area.getWidth(), area.getHeight());
+
       setUsingNativeTitleBar(true);
       setContentOwned(new MainContentComponent(), true);
 
