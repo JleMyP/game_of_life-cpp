@@ -35,13 +35,14 @@ void GameCanvas::mouseDown(const MouseEvent & event) {
 
 
 void GameCanvas::drawRect(int x, int y) {
-  int diff = 0;
-
   int pm = (penWidth - penWidth % 2) / 2;
   int x1 = x - pm + (1 - penWidth % 2);
   int x2 = x + pm;
   int y1 = y - pm + (1 - penWidth % 2);
   int y2 = y + pm;
+
+  int diff = 0;
+
   int xx, yy;
   cellType cell;
 

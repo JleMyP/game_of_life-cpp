@@ -2263,7 +2263,7 @@
     <ClInclude Include="Source\colorWindow.h" />
     <ClInclude Include="Source\customButton.h" />
     <ClInclude Include="Source\gameCanvas.h" />
-    <ClInclude Include="Source\initGUI.h" />
+    <ClInclude Include="Source\initGUI.cpp" />
     <ClInclude Include="Source\life.h" />
     <ClInclude Include="Source\MainComponent.h" />
   </ItemGroup>

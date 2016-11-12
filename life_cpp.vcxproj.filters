@@ -3686,10 +3686,10 @@
     <ClInclude Include="Source\MainComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\initGUI.h">
+    <ClInclude Include="Source\colorWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\colorWindow.h">
+    <ClInclude Include="Source\initGUI.cpp">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

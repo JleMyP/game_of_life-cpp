@@ -1,5 +1,5 @@
 #include "MainComponent.h"
-#include "initGUI.h"
+#include "initGUI.cpp"
 #include "colorWindow.h"
 
 

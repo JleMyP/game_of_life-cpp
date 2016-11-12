@@ -9,13 +9,13 @@
 
 class GameCanvas : public Component, public Life {
 public:
-  //MainContentComponent* parent;
   enum penModes { erase, draw, select, length };
   char* penStr[3] = { "erase", "draw", "select" };
 
   Colour penColor;
   penModes penMode = penModes::draw;
   unsigned int penWidth = 2;
+  unsigned int maxPenWidth = 10;
 
   Point<int> selectStart;
   Point<int> selectEnd;

@@ -11,58 +11,62 @@ void MainContentComponent::initMainW() {
 
   labelMapWidth = new Label("map width", "Width");
   labelMapWidth->setBounds(0, 0, bar, 25);
-  labelMapWidth->setColour(labelFrame->textColourId, colorLabel);
+  labelMapWidth->setColour(Label::textColourId, colorLabel);
 
   labelMapHeight = new Label("map height", "Height");
   labelMapHeight->setBounds(0, 25, bar, 25);
-  labelMapHeight->setColour(labelFrame->textColourId, colorLabel);
+  labelMapHeight->setColour(Label::textColourId, colorLabel);
 
   labelFrame = new Label("frame", "Frame");
   labelFrame->setBounds(0, 80, bar, 25);
-  labelFrame->setColour(labelFrame->textColourId, colorLabel);
+  labelFrame->setColour(Label::textColourId, colorLabel);
 
   labelAlive = new Label("alive", "Alive");
   labelAlive->setBounds(0, 105, bar, 25);
-  labelAlive->setColour(labelFrame->textColourId, colorLabel);
+  labelAlive->setColour(Label::textColourId, colorLabel);
 
   labelDStep = new Label("duration step", "Step");
   labelDStep->setBounds(0, 150, bar, 25);
-  labelDStep->setColour(labelFrame->textColourId, colorLabel);
+  labelDStep->setColour(Label::textColourId, colorLabel);
 
   labelDDraw = new Label("duration darw", "Draw");
   labelDDraw->setBounds(0, 175, bar, 25);
-  labelDDraw->setColour(labelFrame->textColourId, colorLabel);
+  labelDDraw->setColour(Label::textColourId, colorLabel);
 
   labelMouseX = new Label("mouse x", "X:");
-  labelMouseX->setBounds(0, 200, bar, 25);
-  labelMouseX->setColour(labelFrame->textColourId, colorLabel);
+  labelMouseX->setBounds(0, 220, bar, 25);
+  labelMouseX->setColour(Label::textColourId, colorLabel);
 
   labelMouseY = new Label("mouse y", "Y:");
-  labelMouseY->setBounds(0, 225, bar, 25);
-  labelMouseY->setColour(labelFrame->textColourId, colorLabel);
+  labelMouseY->setBounds(0, 245, bar, 25);
+  labelMouseY->setColour(Label::textColourId, colorLabel);
+
+  labelPenWidth = new Label("pen width", "pen width: " + String(canvas.penWidth));
+  labelPenWidth->setBounds(0, 270, bar, 25);
+  labelPenWidth->setColour(Label::textColourId, colorLabel);
 
   buttonNewGame = new CustomButton("new game", "new game");
-  buttonNewGame->setBounds(10, 290, 110, 30);
+  buttonNewGame->setBounds(10, 310, 110, 30);
   buttonNewGame->addListener(this);
 
   buttonPlay = new CustomButton("play", "play");
-  buttonPlay->setBounds(10, 330, 110, 30);
+  buttonPlay->setBounds(10, 350, 110, 30);
   buttonPlay->addListener(this);
 
   buttonClear = new CustomButton("clear", "clear");
-  buttonClear->setBounds(10, 370, 110, 30);
+  buttonClear->setBounds(10, 390, 110, 30);
   buttonClear->addListener(this);
 
   buttonDraw = new CustomButton("draw", "draw");
-  buttonDraw->setBounds(10, 420, 110, 30);
+  buttonDraw->setBounds(10, 440, 110, 30);
   buttonDraw->addListener(this);
 
   buttonCellSize = new CustomButton("cell size", "cell size");
-  buttonCellSize->setBounds(10, 470, 110, 30);
+  buttonCellSize->setBounds(10, 490, 110, 30);
   buttonCellSize->addListener(this);
 
   buttonColor = new CustomButton("cell color", "cell color");
-  buttonColor->setBounds(10, 510, 110, 30);
+  buttonColor->setBounds(10, 530, 110, 30);
   buttonColor->addListener(this);
 
 
@@ -79,6 +83,7 @@ void MainContentComponent::initMainW() {
 
   addAndMakeVisible(labelMouseX);
   addAndMakeVisible(labelMouseY);
+  addAndMakeVisible(labelPenWidth);
 
   addAndMakeVisible(buttonNewGame);
   addAndMakeVisible(buttonPlay);

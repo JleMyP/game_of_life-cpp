@@ -27,6 +27,7 @@ public:
   Label* labelDDraw;
   Label* labelMouseX;
   Label* labelMouseY;
+  Label* labelPenWidth;
 
   CustomButton* buttonNewGame;
   CustomButton* buttonPlay;
