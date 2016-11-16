@@ -12,7 +12,7 @@ typedef unsigned char cellType;
 
 class Life {
 public:
-  const cellType maxAge = 4;
+  cellType maxAge = 40;
   unsigned int mapWidth = 0;
   unsigned int mapHeight = 0;
   //int historySize = 100;

@@ -22,6 +22,7 @@ public:
   Point<int> mousePos;
 
   unsigned char cellSize;
+  float rateAging = 5;
 
   int durationDraw;
   bool running = false;

@@ -1,13 +1,14 @@
 #include "MainComponent.h"
 #include "initGUI.cpp"
-#include "colorWindow.h"
 
 
 
 MainContentComponent::MainContentComponent() : canvas(gameCellSize) {
   initMainW();
-  initSizeW();
-  initColorW();
+  sizeW = new SizeQueryWindow(canvas);
+  colorW = new ColorQueryWindow(canvas);
+  agingW = new AgingQueryWindow(canvas);
+  rulesW = new RulesQueryWindow(canvas);
 }
 
 
@@ -15,11 +16,10 @@ MainContentComponent::~MainContentComponent() {
   removeChildComponent(0);
   deleteAllChildren();
 
-  sizeMain->deleteAllChildren();
-  delete sizeMain;
-
-  colorMain->deleteAllChildren();
-  delete colorMain;
+  delete sizeW;
+  delete colorW;
+  delete agingW;
+  delete rulesW;
 }
 
 
@@ -79,59 +79,16 @@ void MainContentComponent::drawCallback() {
 }
 
 
-void MainContentComponent::sizeCallback() {
-  sizeSlider->setValue(canvas.cellSize);
-
-  int cell = DialogWindow::showModalDialog("cell size", sizeMain, nullptr, Colours::black, true);
-
-  if (cell != 0) {
-    unsigned int mapWidth = canvas.getWidth() / cell;
-    unsigned int mapHeight = canvas.getHeight() / cell;
-
-    labelMapWidth->setText(String::formatted("Width: %i", mapWidth), NotificationType::dontSendNotification);
-    labelMapHeight->setText(String::formatted("height: %i", mapHeight), NotificationType::dontSendNotification);
-
-    canvas.cellSize = (unsigned char)cell;
-    canvas.resizeMap(mapWidth, mapHeight);
-    canvas.newGame();
-    repaint();
-  }
-}
-
-
-void MainContentComponent::colorCallback() {
-  selector->setCurrentColour(canvas.penColor);
-
-  int result = DialogWindow::showModalDialog("cell size", colorMain, nullptr, Colours::black, true);
-
-  if (result != 0) {
-    Colour color = selector->getCurrentColour();
-    canvas.penColor = color;
-    repaint();
-  }
-}
-
-
 void MainContentComponent::buttonClicked(Button* button) {
   if (button == buttonNewGame) newGameCallback();
   else if (button == buttonPlay) playCallback();
   else if (button == buttonClear) clearCallback();
   else if (button == buttonDraw) drawCallback();
-  else if (button == buttonCellSize) sizeCallback();
-  else if (button == buttonColor) colorCallback();
-  else if (button == sizeBtnCancle) {
-    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(0);
-  } else if (button == sizeBtnOk) {
-    if (DialogWindow* dw = sizeMain->findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(int(sizeSlider->getValue()));
-  } else if (button == colorBtnCancle) {
-    if (DialogWindow* dw = colorMain->findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(0);
-  } else if (button == colorBtnOk) {
-    if (DialogWindow* dw = colorMain->findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(1);
-  }
+
+  else if (button == buttonCellSize) sizeW->show();
+  else if (button == buttonCellColor) colorW->show();
+  else if (button == buttonCellAging) agingW->show();
+  else if (button == buttonGameRules) rulesW->show();
 }
 
 

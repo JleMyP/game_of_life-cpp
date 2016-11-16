@@ -65,9 +65,17 @@ void MainContentComponent::initMainW() {
   buttonCellSize->setBounds(10, 490, 110, 30);
   buttonCellSize->addListener(this);
 
-  buttonColor = new CustomButton("cell color", "cell color");
-  buttonColor->setBounds(10, 530, 110, 30);
-  buttonColor->addListener(this);
+  buttonCellColor = new CustomButton("cell color", "cell color");
+  buttonCellColor->setBounds(10, 530, 110, 30);
+  buttonCellColor->addListener(this);
+
+  buttonCellAging = new CustomButton("cell aging", "cell aging");
+  buttonCellAging->setBounds(10, 570, 110, 30);
+  buttonCellAging->addListener(this);
+
+  buttonGameRules = new CustomButton("rules", "rules");
+  buttonGameRules->setBounds(10, 610, 110, 30);
+  buttonGameRules->addListener(this);
 
 
   addAndMakeVisible(canvas);
@@ -89,69 +97,16 @@ void MainContentComponent::initMainW() {
   addAndMakeVisible(buttonPlay);
   addAndMakeVisible(buttonClear);
   addAndMakeVisible(buttonDraw);
+
   addAndMakeVisible(buttonCellSize);
-  addAndMakeVisible(buttonColor);
+  addAndMakeVisible(buttonCellColor);
+  addAndMakeVisible(buttonCellAging);
+  addAndMakeVisible(buttonGameRules);
 
 
   setSize(bar + gameMapWidth * gameCellSize, gameMapHeight * gameCellSize);
   setWantsKeyboardFocus(true);
   grabKeyboardFocus();
-}
-
-
-void MainContentComponent::initSizeW() {
-  sizeMain = new Component("size main");
-  sizeMain->setSize(300, 150);
-
-  sizeSlider = new Slider();
-  sizeSlider->setRange(2, 10, 1);
-  sizeSlider->setBounds(50, 30, 200, 50);
-  sizeSlider->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
-  sizeSlider->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
-  sizeSlider->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
-
-  sizeBtnOk = new CustomButton("size ok", "ok");
-  sizeBtnOk->setBounds(30, 100, 110, 30);
-  sizeBtnOk->addListener(this);
-
-  sizeBtnCancle = new CustomButton("size cancle", "cancle");
-  sizeBtnCancle->setBounds(160, 100, 110, 30);
-  sizeBtnCancle->addListener(this);
-
-  sizeMain->addAndMakeVisible(sizeSlider);
-  sizeMain->addAndMakeVisible(sizeBtnOk);
-  sizeMain->addAndMakeVisible(sizeBtnCancle);
-}
-
-
-void MainContentComponent::initRulesW() {
-  
-}
-
-
-void MainContentComponent::initColorW() {
-  colorMain = new Component("color window");
-  colorMain->setBounds(0, 0, 300, 350);
-
-  selector = new ColourSelector(
-    ColourSelector::showColourAtTop |
-    ColourSelector::showColourspace
-  );
-
-  selector->setBounds(0, 0, 300, 300);
-  selector->setColour(ColourSelector::backgroundColourId, Colours::black);
-
-  colorBtnOk = new CustomButton("color ok", "ok");
-  colorBtnOk->setBounds(30, 310, 110, 30);
-  colorBtnOk->addListener(this);
-
-  colorBtnCancle = new CustomButton("color cancle", "cancle");
-  colorBtnCancle->setBounds(160, 310, 110, 30);
-  colorBtnCancle->addListener(this);
-
-  colorMain->addAndMakeVisible(selector);
-  colorMain->addAndMakeVisible(colorBtnOk);
-  colorMain->addAndMakeVisible(colorBtnCancle);
 }
 
 

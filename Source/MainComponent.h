@@ -2,8 +2,14 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
 #include "gameCanvas.h"
 #include "customButton.h"
+
+#include "sizeWindow.h"
+#include "colorWindow.h"
+#include "agingWindow.h"
+#include "rulesWindow.h"
 
 
 
@@ -13,7 +19,7 @@ class MainContentComponent :
   public ButtonListener {
 public:
   unsigned int gameMapWidth = 300;
-  unsigned int gameMapHeight = 200;
+  unsigned int gameMapHeight = 220;
   unsigned char gameCellSize = 3;
 
   unsigned int bar = 130;
@@ -35,20 +41,17 @@ public:
   CustomButton* buttonDraw;
 
   CustomButton* buttonCellSize;
-  CustomButton* buttonColor;
+  CustomButton* buttonCellColor;
+  CustomButton* buttonCellAging;
+  CustomButton* buttonGameRules;
 
   GameCanvas canvas;
 
 
-  Component* sizeMain;
-  Slider* sizeSlider;
-  CustomButton* sizeBtnOk;
-  CustomButton* sizeBtnCancle;
-
-  Component* colorMain;
-  ColourSelector* selector;
-  CustomButton* colorBtnOk;
-  CustomButton* colorBtnCancle;
+  SizeQueryWindow* sizeW;
+  ColorQueryWindow* colorW;
+  AgingQueryWindow* agingW;
+  RulesQueryWindow* rulesW;
 
 
   MainContentComponent();
@@ -56,16 +59,11 @@ public:
 
 
   void initMainW();
-  void initSizeW();
-  void initRulesW();
-  void initColorW();
 
   void playCallback();
   void newGameCallback();
   void clearCallback();
   void drawCallback();
-  void sizeCallback();
-  void colorCallback();
 
   void timerCallback() override;
   void buttonClicked(Button* button) override;

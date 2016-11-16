@@ -1929,6 +1929,18 @@
     <ClCompile Include="Source\MainComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\colorWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\sizeWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\rulesWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\agingWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -3690,6 +3702,15 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\initGUI.cpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\sizeWindow.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\rulesWindow.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\agingWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
