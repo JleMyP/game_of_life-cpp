@@ -3,8 +3,8 @@
 
 
 
-Life::Life() {}
-Life::Life(unsigned int width, unsigned int height) {
+Life::Life() : history(historySize) {}
+Life::Life(unsigned int width, unsigned int height) : history(historySize) {
   resizeMap(width, height);
   newGame();
 }
@@ -15,7 +15,6 @@ Life::~Life() {
 
   delete[] map;
   delete[] newMap;
-  //delete[] history;
 }
 
 
@@ -120,4 +119,10 @@ void Life::step() {
 
   frame++;
   durationStep = clock() - t;
+  //history.push_back(map);
+}
+
+
+void Life::back() {
+  frame--;
 }

@@ -102,6 +102,9 @@ bool MainContentComponent::keyPressed(const KeyPress& key) {
   else if (keyCode == key.rightKey) {
     canvas.step();
     timerCallback();
+  } else if (keyCode == key.leftKey) {
+    canvas.back();
+    timerCallback();
   }
 
   return false;

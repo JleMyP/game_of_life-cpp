@@ -3,11 +3,22 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
 
 
 typedef unsigned char cellType;
 
+
+struct HistoryItem {
+  unsigned int alive;
+  unsigned int frame;
+
+  HistoryItem(unsigned int alive,  unsigned int frame, cellType** map) :
+    alive(alive), frame(frame) {
+    
+  }
+};
 
 
 class Life {
@@ -15,7 +26,7 @@ public:
   cellType maxAge = 40;
   unsigned int mapWidth = 0;
   unsigned int mapHeight = 0;
-  //int historySize = 100;
+  int historySize = 100;
 
   unsigned int alive;
   unsigned int frame;
@@ -23,7 +34,7 @@ public:
 
   cellType** map;
   cellType** newMap;
-  //cellType*** history;
+  std::vector <cellType**> history;
 
   Life();
   Life(unsigned int width, unsigned int height);
@@ -41,6 +52,7 @@ public:
 
   unsigned char getSumMur(unsigned int x, unsigned int y);
   void step();
+  void back();
 };
 
 #endif
