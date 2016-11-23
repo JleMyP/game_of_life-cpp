@@ -3,8 +3,8 @@
 
 
 
-Life::Life() : history(historySize) {}
-Life::Life(unsigned int width, unsigned int height) : history(historySize) {
+Life::Life(): history(historySize) {}
+Life::Life(unsigned int width, unsigned int height): history(historySize) {
   resizeMap(width, height);
   newGame();
 }
@@ -12,6 +12,7 @@ Life::Life(unsigned int width, unsigned int height) : history(historySize) {
 
 Life::~Life() {
   clear();
+  history.clear();
 
   delete[] map;
   delete[] newMap;
@@ -34,7 +35,7 @@ void Life::resizeMap(unsigned int width, unsigned int height) {
 
   map = new cellType*[width];
   newMap = new cellType*[width];
-  //history = new cellType**[historySize];
+  history.clear();
 
   for (unsigned int x = 0; x < width; x++) {
     map[x] = new cellType[height];
@@ -44,7 +45,9 @@ void Life::resizeMap(unsigned int width, unsigned int height) {
 
 
 void Life::newGame(bool empty) {
+  alive = 0;
   frame = 0;
+  history.clear();
   generateMap(empty);
 }
 
@@ -58,7 +61,6 @@ void Life::generateMap(bool empty) {
     }
   }
 }
-
 
 
 void Life::normalize(int& x, int& y) {
@@ -96,8 +98,30 @@ unsigned char Life::getSumMur(unsigned int x, unsigned int y) {
 }
 
 
+cellType** Life::copyMap() {
+  unsigned int x, y;
+  cellType** copyMap = new cellType*[mapWidth];
+
+  for (x = 0; x < mapWidth; x++) {
+    copyMap[x] = new cellType[mapHeight];
+
+    for (y = 0; y < mapHeight; y++) {
+      copyMap[x][y] = map[x][y];
+    }
+  }
+
+  return copyMap;
+}
+
+
+void inline Life::save() {
+  history.push_back(new HistoryItem(alive, copyMap()));
+}
+
+
 void Life::step() {
   clock_t t = clock();
+  save();
 
   unsigned int x, y;
   unsigned char sum;
@@ -119,10 +143,16 @@ void Life::step() {
 
   frame++;
   durationStep = clock() - t;
-  //history.push_back(map);
 }
 
 
 void Life::back() {
+  if (history.size() == 0) return;
+  
+  HistoryItem* prev = history.back();
   frame--;
+  alive = prev->alive;
+  map = prev->map;
+
+  history.pop_back();
 }

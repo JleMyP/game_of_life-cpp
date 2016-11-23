@@ -41,6 +41,10 @@ void MainContentComponent::resized() {
 }
 
 
+/*
+    Buttons callbacks
+*/
+
 void MainContentComponent::newGameCallback() {
   canvas.newGame();
   repaint();

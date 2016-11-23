@@ -12,12 +12,10 @@ typedef unsigned char cellType;
 
 struct HistoryItem {
   unsigned int alive;
-  unsigned int frame;
+  cellType** map;
 
-  HistoryItem(unsigned int alive,  unsigned int frame, cellType** map) :
-    alive(alive), frame(frame) {
-    
-  }
+  //HistoryItem() : alive(0) {}
+  HistoryItem(unsigned int alive, cellType** map): alive(alive), map(map) { }
 };
 
 
@@ -34,7 +32,7 @@ public:
 
   cellType** map;
   cellType** newMap;
-  std::vector <cellType**> history;
+  std::vector <HistoryItem*> history;
 
   Life();
   Life(unsigned int width, unsigned int height);
@@ -45,12 +43,14 @@ public:
   void resizeMap(unsigned int width, unsigned int height);
   void newGame(bool empty = false);
   void generateMap(bool empty = false);
+  cellType** copyMap();
 
   void normalize(int& x, int& y);
   cellType getCell(int x, int y);
   void setCell(int x, int y, cellType v = 1);
 
   unsigned char getSumMur(unsigned int x, unsigned int y);
+  void save();
   void step();
   void back();
 };
