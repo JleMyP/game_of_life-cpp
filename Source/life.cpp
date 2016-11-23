@@ -12,7 +12,7 @@ Life::Life(unsigned int width, unsigned int height): history(historySize) {
 
 Life::~Life() {
   clear();
-  history.clear();
+  clearHistory();
 
   delete[] map;
   delete[] newMap;
@@ -27,15 +27,23 @@ void Life::clear() {
 }
 
 
+void Life::clearHistory() {
+  for (unsigned int h = 0; h < history.size(); h++) delete history[h];
+  history.clear();
+}
+
+
 void Life::resizeMap(unsigned int width, unsigned int height) {
-  if (mapWidth) clear();
+  if (mapWidth) {
+    clear();
+    clearHistory();
+  }
 
   mapWidth = width;
   mapHeight = height;
 
   map = new cellType*[width];
   newMap = new cellType*[width];
-  history.clear();
 
   for (unsigned int x = 0; x < width; x++) {
     map[x] = new cellType[height];
@@ -47,7 +55,7 @@ void Life::resizeMap(unsigned int width, unsigned int height) {
 void Life::newGame(bool empty) {
   alive = 0;
   frame = 0;
-  history.clear();
+  clearHistory();
   generateMap(empty);
 }
 
@@ -99,6 +107,10 @@ unsigned char Life::getSumMur(unsigned int x, unsigned int y) {
 
 
 cellType** Life::copyMap() {
+  return copyMap(map);
+}
+
+cellType** Life::copyMap(cellType** map) {
   unsigned int x, y;
   cellType** copyMap = new cellType*[mapWidth];
 
@@ -115,7 +127,7 @@ cellType** Life::copyMap() {
 
 
 void inline Life::save() {
-  history.push_back(new HistoryItem(alive, copyMap()));
+  history.push_back(new HistoryItem(alive, mapWidth, copyMap()));
 }
 
 
@@ -151,8 +163,15 @@ void Life::back() {
   
   HistoryItem* prev = history.back();
   frame--;
-  alive = prev->alive;
-  map = prev->map;
 
+  for (unsigned int x = 0; x < mapWidth; x++) {
+    delete[] map[x];
+  }
+  delete map;
+
+  alive = prev->alive;
+  map = copyMap(prev->map);
+
+  delete history[history.size() - 1];
   history.pop_back();
 }

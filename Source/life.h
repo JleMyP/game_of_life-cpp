@@ -1,6 +1,8 @@
 #ifndef LIFE_H_INCLUDED
 #define LIFE_H_INCLUDED
 
+
+#include "../JuceLibraryCode/JuceHeader.h"
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -12,15 +14,20 @@ typedef unsigned char cellType;
 
 struct HistoryItem {
   unsigned int alive;
+  unsigned int width;
   cellType** map;
 
-  HistoryItem(unsigned int alive, cellType** map): alive(alive), map(map) { }
+  HistoryItem(unsigned int alive, unsigned int width, cellType** map) : width(width), alive(alive), map(map) { }
+  ~HistoryItem() {
+    for (unsigned int x = 0; x < width; x++) delete[] map[x];
+    delete[] map;
+  }
 };
 
 
 class Life {
 public:
-  cellType maxAge = 40;
+  cellType maxAge = 20;
   unsigned int mapWidth = 0;
   unsigned int mapHeight = 0;
   int historySize = 100;
@@ -38,11 +45,13 @@ public:
   ~Life();
 
   void clear();
+  void clearHistory();
 
   void resizeMap(unsigned int width, unsigned int height);
   void newGame(bool empty = false);
   void generateMap(bool empty = false);
   cellType** copyMap();
+  cellType** copyMap(cellType** map);
 
   void normalize(int& x, int& y);
   cellType getCell(int x, int y);

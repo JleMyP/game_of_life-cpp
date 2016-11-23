@@ -103,10 +103,10 @@ bool MainContentComponent::keyPressed(const KeyPress& key) {
   else if (keyCode == key.spaceKey) playCallback();
   else if (keyCode == key.escapeKey) JUCEApplication::getInstance()->systemRequestedQuit();
   else if (keyCode == 67) clearCallback(); // key c
-  else if (keyCode == key.rightKey) {
+  else if (keyCode == key.rightKey && !canvas.running) {
     canvas.step();
     timerCallback();
-  } else if (keyCode == key.leftKey) {
+  } else if (keyCode == key.leftKey && !canvas.running) {
     canvas.back();
     timerCallback();
   }
