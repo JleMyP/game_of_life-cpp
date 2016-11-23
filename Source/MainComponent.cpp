@@ -28,6 +28,7 @@ void MainContentComponent::timerCallback() {
 
   labelFrame->setText(String::formatted("Frame: %i", canvas.frame), NotificationType::dontSendNotification);
   labelAlive->setText(String::formatted("Alive: %i", canvas.alive), NotificationType::dontSendNotification);
+  labelHistory->setText(String::formatted("History: %i", canvas.history.size()), NotificationType::dontSendNotification);
   labelDStep->setText(String::formatted("Step per: %i", canvas.durationStep), NotificationType::dontSendNotification);
   labelDDraw->setText(String::formatted("Draw per: %i", canvas.durationDraw), NotificationType::dontSendNotification);
 }
@@ -36,8 +37,7 @@ void MainContentComponent::timerCallback() {
 void MainContentComponent::resized() {
   canvas.setBounds(bar, 0, getWidth() - bar, getHeight());
 
-  labelMapWidth->setText(String::formatted("Width: %i", canvas.mapWidth), NotificationType::dontSendNotification);
-  labelMapHeight->setText(String::formatted("height: %i", canvas.mapHeight), NotificationType::dontSendNotification);
+  labelMapSize->setText(String::formatted("Size: %ix%i", canvas.mapWidth, canvas.mapHeight), NotificationType::dontSendNotification);
 }
 
 

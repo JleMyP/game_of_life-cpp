@@ -3,10 +3,8 @@
 
 
 
+GameCanvas::~GameCanvas() {}
 GameCanvas::GameCanvas(unsigned char cellSize, Colour color) : penColor(color), cellSize(cellSize) { }
-
-
-GameCanvas::~GameCanvas() { }
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
@@ -81,7 +79,6 @@ void GameCanvas::paint(Graphics& g) {
 
   durationDraw = clock() - t;
 }
-
 
 
 void GameCanvas::resized() {

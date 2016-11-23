@@ -9,35 +9,35 @@
 void MainContentComponent::initMainW() {
   Colour colorLabel = Colours::white;
 
-  labelMapWidth = new Label("map width", "Width");
-  labelMapWidth->setBounds(0, 0, bar, 25);
-  labelMapWidth->setColour(Label::textColourId, colorLabel);
+  labelMapSize = new Label("map size", String::formatted("Size: %ix%i", gameMapWidth, gameMapHeight));
+  labelMapSize->setBounds(0, 0, bar, 25);
+  labelMapSize->setColour(Label::textColourId, colorLabel);
 
-  labelMapHeight = new Label("map height", "Height");
-  labelMapHeight->setBounds(0, 25, bar, 25);
-  labelMapHeight->setColour(Label::textColourId, colorLabel);
-
-  labelFrame = new Label("frame", "Frame");
-  labelFrame->setBounds(0, 80, bar, 25);
+  labelFrame = new Label("frame", "Frame: 0");
+  labelFrame->setBounds(0, 65, bar, 25);
   labelFrame->setColour(Label::textColourId, colorLabel);
 
-  labelAlive = new Label("alive", "Alive");
-  labelAlive->setBounds(0, 105, bar, 25);
+  labelAlive = new Label("alive", "Alive: -");
+  labelAlive->setBounds(0, 90, bar, 25);
   labelAlive->setColour(Label::textColourId, colorLabel);
 
-  labelDStep = new Label("duration step", "Step");
+  labelHistory = new Label("history", "History: 0");
+  labelHistory->setBounds(0, 115, bar, 25);
+  labelHistory->setColour(Label::textColourId, colorLabel);
+
+  labelDStep = new Label("duration step", "Step: -");
   labelDStep->setBounds(0, 150, bar, 25);
   labelDStep->setColour(Label::textColourId, colorLabel);
 
-  labelDDraw = new Label("duration darw", "Draw");
+  labelDDraw = new Label("duration darw", "Draw: -");
   labelDDraw->setBounds(0, 175, bar, 25);
   labelDDraw->setColour(Label::textColourId, colorLabel);
 
-  labelMouseX = new Label("mouse x", "X:");
+  labelMouseX = new Label("mouse x", "X: -");
   labelMouseX->setBounds(0, 220, bar, 25);
   labelMouseX->setColour(Label::textColourId, colorLabel);
 
-  labelMouseY = new Label("mouse y", "Y:");
+  labelMouseY = new Label("mouse y", "Y: -");
   labelMouseY->setBounds(0, 245, bar, 25);
   labelMouseY->setColour(Label::textColourId, colorLabel);
 
@@ -80,11 +80,11 @@ void MainContentComponent::initMainW() {
 
   addAndMakeVisible(canvas);
 
-  addAndMakeVisible(labelMapWidth);
-  addAndMakeVisible(labelMapHeight);
+  addAndMakeVisible(labelMapSize);
 
   addAndMakeVisible(labelFrame);
   addAndMakeVisible(labelAlive);
+  addAndMakeVisible(labelHistory);
 
   addAndMakeVisible(labelDStep);
   addAndMakeVisible(labelDDraw);

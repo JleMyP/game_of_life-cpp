@@ -14,7 +14,6 @@ struct HistoryItem {
   unsigned int alive;
   cellType** map;
 
-  //HistoryItem() : alive(0) {}
   HistoryItem(unsigned int alive, cellType** map): alive(alive), map(map) { }
 };
 

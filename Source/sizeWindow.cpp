@@ -42,8 +42,7 @@ void SizeQueryWindow::show() {
     unsigned int mapHeight = canvas->getHeight() / cell;
 
     MainContentComponent* parent = canvas->findParentComponentOfClass<MainContentComponent>();
-    parent->labelMapWidth->setText(String::formatted("Width: %i", mapWidth), NotificationType::dontSendNotification);
-    parent->labelMapHeight->setText(String::formatted("height: %i", mapHeight), NotificationType::dontSendNotification);
+    parent->labelMapSize->setText(String::formatted("Size: %ix%i", mapWidth, mapHeight), NotificationType::dontSendNotification);
 
     canvas->cellSize = (unsigned char)cell;
     canvas->resizeMap(mapWidth, mapHeight);

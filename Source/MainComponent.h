@@ -25,14 +25,18 @@ public:
   unsigned int bar = 130;
 
 
-  Label* labelMapWidth;
-  Label* labelMapHeight;
+  Label* labelMapSize;
+
   Label* labelFrame;
   Label* labelAlive;
+  Label* labelHistory;
+  
   Label* labelDStep;
   Label* labelDDraw;
+  
   Label* labelMouseX;
   Label* labelMouseY;
+  
   Label* labelPenWidth;
 
   CustomButton* buttonNewGame;
