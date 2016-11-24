@@ -4,12 +4,13 @@
 
 
 SettingsWindow::SettingsWindow(GameCanvas& _canvas) {
-  setSize(200, 250);
+  setSize(500, 300);
 
-  sizeW =  new SizeQueryWindow(_canvas);
-  colorW = new ColorQueryWindow(_canvas);
-  agingW = new AgingQueryWindow(_canvas);
-  rulesW = new RulesQueryWindow(_canvas);
+  sizeW =  new QuerySize(_canvas);
+  colorW = new QueryColor(_canvas);
+  agingW = new QueryAging(_canvas);
+  historyW = new QueryHistory(_canvas);
+  rulesW = new QueryRules(_canvas);
 
   buttonCellSize = new CustomButton("cell size", "cell size");
   buttonCellSize->setBounds(40, 10, 120, 30);
@@ -23,61 +24,68 @@ SettingsWindow::SettingsWindow(GameCanvas& _canvas) {
   buttonCellAging->setBounds(40, 90, 120, 30);
   buttonCellAging->addListener(this);
 
+  buttonHistory = new CustomButton("history", "history");
+  buttonHistory->setBounds(40, 130, 120, 30);
+  buttonHistory->addListener(this);
+
   buttonGameRules = new CustomButton("rules", "rules");
-  buttonGameRules->setBounds(40, 130, 120, 30);
+  buttonGameRules->setBounds(40, 170, 120, 30);
   buttonGameRules->addListener(this);
   
-  buttonCancle = new CustomButton("cancle", "cancle");
-  buttonCancle->setBounds(40, 190, 120, 30);
-  buttonCancle->addListener(this);
+  buttonClose = new CustomButton("close", "close");
+  buttonClose->setBounds(40, 230, 120, 30);
+  buttonClose->addListener(this);
 
 
   addAndMakeVisible(buttonCellSize);
   addAndMakeVisible(buttonCellColor);
   addAndMakeVisible(buttonCellAging);
+  addAndMakeVisible(buttonHistory);
   addAndMakeVisible(buttonGameRules);
-  addAndMakeVisible(buttonCancle);
+  addAndMakeVisible(buttonClose);
+
+  sizeW->setTopLeftPosition(200, 0);
+  colorW->setTopLeftPosition(200, 0);
+  agingW->setTopLeftPosition(200, 0);
+  historyW->setTopLeftPosition(200, 0);
+  rulesW->setTopLeftPosition(200, 0);
+
+  addChildComponent(sizeW);
+  addChildComponent(colorW);
+  addChildComponent(agingW);
+  addChildComponent(historyW);
+  addChildComponent(rulesW);
 }
 
 
 SettingsWindow::~SettingsWindow() {
   deleteAllChildren();
-
-  delete sizeW;
-  delete colorW;
-  delete agingW;
-  delete rulesW;
 }
 
 
 void SettingsWindow::show() {
-  int btn = DialogWindow::showModalDialog("settings", this, nullptr, Colours::black, true);
+  DialogWindow::showModalDialog("settings", this, nullptr, Colours::black, true);
+}
 
-  switch (btn) {
-    case Buttons::cellSize:  sizeW->show();  break;
-    case Buttons::cellColor: colorW->show(); break;
-    case Buttons::cellAging: agingW->show(); break;
-    case Buttons::gameRules: rulesW->show(); break;
-    default: break;
-  }
+
+void SettingsWindow::hideAll() {
+  sizeW->setVisible(false);
+  colorW->setVisible(false);
+  agingW->setVisible(false);
+  historyW->setVisible(false);
+  rulesW->setVisible(false);
 }
 
 
 void SettingsWindow::buttonClicked(Button* button) {
-  if (button == buttonCancle) {
+  hideAll();
+
+  if (button == buttonClose) {
     if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(Buttons::cancle);
-  } else if (button == buttonCellSize) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(Buttons::cellSize);
-  } else if (button == buttonCellColor) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(Buttons::cellColor);
-  } else if (button == buttonCellAging) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(Buttons::cellAging);
-  } else if (button == buttonGameRules) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(Buttons::gameRules);
-  }
+      dw->exitModalState(0);
+  } else if (button == buttonCellSize) sizeW->show();
+  else if (button == buttonCellColor) colorW->show();
+  else if (button == buttonCellAging) agingW->show();
+  else if (button == buttonHistory) historyW->show();
+  else if (button == buttonGameRules) rulesW->show();
 }

@@ -1,8 +1,6 @@
 #ifndef LIFE_H_INCLUDED
 #define LIFE_H_INCLUDED
 
-
-#include "../JuceLibraryCode/JuceHeader.h"
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -30,7 +28,6 @@ public:
   cellType maxAge = 20;
   unsigned int mapWidth = 0;
   unsigned int mapHeight = 0;
-  int historySize = 100;
 
   unsigned int alive;
   unsigned int frame;
@@ -38,6 +35,9 @@ public:
 
   cellType** map;
   cellType** newMap;
+
+  int historySize = 1000;
+  bool historyEnabled = true;
   std::vector <HistoryItem*> history;
 
   Life();
@@ -50,6 +50,7 @@ public:
   void resizeMap(unsigned int width, unsigned int height);
   void newGame(bool empty = false);
   void generateMap(bool empty = false);
+
   cellType** copyMap();
   cellType** copyMap(cellType** map);
 

@@ -1,24 +1,25 @@
-#include "sizeWindow.h"
+#include "querySize.h"
 #include "MainComponent.h"
 
 
 
-SizeQueryWindow::SizeQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
-  setSize(300, 150);
+QuerySize::QuerySize(GameCanvas& canvas): canvas(&canvas) {
+  setSize(300, 300);
 
   slider = new Slider();
   slider->setRange(2, 10, 1);
-  slider->setBounds(50, 30, 200, 50);
+  slider->setBounds(50, 60, 200, 50);
   slider->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
   slider->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
   slider->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
+  slider->addListener(this);
 
   buttonOk = new CustomButton("size ok", "ok");
-  buttonOk->setBounds(30, 100, 110, 30);
+  buttonOk->setBounds(30, 160, 110, 30);
   buttonOk->addListener(this);
 
   buttonCancle = new CustomButton("size cancle", "cancle");
-  buttonCancle->setBounds(160, 100, 110, 30);
+  buttonCancle->setBounds(160, 160, 110, 30);
   buttonCancle->addListener(this);
 
   addAndMakeVisible(slider);
@@ -27,17 +28,25 @@ SizeQueryWindow::SizeQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
 }
 
 
-SizeQueryWindow::~SizeQueryWindow() {
+QuerySize::~QuerySize() {
   deleteAllChildren();
 }
 
 
-void SizeQueryWindow::show() {
+void QuerySize::show() {
   slider->setValue(canvas->cellSize);
+  buttonOk->setEnabled(false);
+  setVisible(true);
+}
 
-  int cell = DialogWindow::showModalDialog("cell size", this, nullptr, Colours::black, true);
 
-  if (cell != 0) {
+void QuerySize::buttonClicked(Button* button) {
+  if (button == buttonCancle) {
+    slider->setValue(canvas->cellSize);
+    buttonOk->setEnabled(false);
+  } else if (button == buttonOk) {
+    int cell = int(slider->getValue());
+
     unsigned int mapWidth = canvas->getWidth() / cell;
     unsigned int mapHeight = canvas->getHeight() / cell;
 
@@ -48,16 +57,11 @@ void SizeQueryWindow::show() {
     canvas->resizeMap(mapWidth, mapHeight);
     canvas->newGame();
     canvas->repaint();
+    buttonOk->setEnabled(false);
   }
 }
 
 
-void SizeQueryWindow::buttonClicked(Button* button) {
-  if (button == buttonCancle) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(0);
-  } else if (button == buttonOk) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(int(slider->getValue()));
-  }
+void QuerySize::sliderValueChanged(Slider *_slider) {
+  buttonOk->setEnabled(slider->getValue() != canvas->cellSize);
 }

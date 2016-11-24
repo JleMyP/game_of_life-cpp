@@ -20,18 +20,21 @@ MainContentComponent::~MainContentComponent() {
 void MainContentComponent::timerCallback() {
   repaint();
 
-  labelFrame->setText(String::formatted("Frame: %i", canvas.frame), NotificationType::dontSendNotification);
-  labelAlive->setText(String::formatted("Alive: %i", canvas.alive), NotificationType::dontSendNotification);
-  labelHistory->setText(String::formatted("History: %i", canvas.history.size()), NotificationType::dontSendNotification);
-  labelDStep->setText(String::formatted("Step per: %i", canvas.durationStep), NotificationType::dontSendNotification);
-  labelDDraw->setText(String::formatted("Draw per: %i", canvas.durationDraw), NotificationType::dontSendNotification);
+  labelFrame->setText(String::formatted("Frame: %i", canvas.frame), dontSend);
+  labelAlive->setText(String::formatted("Alive: %i", canvas.alive), dontSend);
+
+  if (!canvas.historyEnabled) labelHistory->setText("History: off", dontSend);
+  else labelHistory->setText(String::formatted("History: %i/%i", canvas.history.size(), canvas.historySize), dontSend);
+  
+  labelDStep->setText(String::formatted("Step per: %i", canvas.durationStep), dontSend);
+  labelDDraw->setText(String::formatted("Draw per: %i", canvas.durationDraw), dontSend);
 }
 
 
 void MainContentComponent::resized() {
   canvas.setBounds(bar, 0, getWidth() - bar, getHeight());
 
-  labelMapSize->setText(String::formatted("Size: %ix%i", canvas.mapWidth, canvas.mapHeight), NotificationType::dontSendNotification);
+  labelMapSize->setText(String::formatted("Size: %ix%i", canvas.mapWidth, canvas.mapHeight), dontSend);
 }
 
 
@@ -62,8 +65,8 @@ void MainContentComponent::clearCallback() {
   canvas.running = false;
   canvas.newGame(true);
 
-  labelFrame->setText("Frame: 0", NotificationType::dontSendNotification);
-  labelAlive->setText("Alive: 0", NotificationType::dontSendNotification);
+  labelFrame->setText("Frame: 0", dontSend);
+  labelAlive->setText("Alive: 0", dontSend);
   buttonPlay->setText("start");
 
   stopTimer();

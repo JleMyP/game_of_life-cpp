@@ -28,6 +28,8 @@ void Life::clear() {
 
 
 void Life::clearHistory() {
+  if (!historyEnabled) return;
+
   for (unsigned int h = 0; h < history.size(); h++) delete history[h];
   history.clear();
 }
@@ -128,12 +130,13 @@ cellType** Life::copyMap(cellType** map) {
 
 void inline Life::save() {
   history.push_back(new HistoryItem(alive, mapWidth, copyMap()));
+  if (history.size() > historySize) history.erase(history.begin());
 }
 
 
 void Life::step() {
   clock_t t = clock();
-  save();
+  if (historyEnabled) save();
 
   unsigned int x, y;
   unsigned char sum;
@@ -159,7 +162,7 @@ void Life::step() {
 
 
 void Life::back() {
-  if (history.size() == 0) return;
+  if (!historyEnabled || history.size() == 0) return;
   
   HistoryItem* prev = history.back();
   frame--;

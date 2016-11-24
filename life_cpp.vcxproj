@@ -1672,16 +1672,17 @@
     <ClCompile Include="JuceLibraryCode\juce_gui_extra.cpp" />
     <ClCompile Include="JuceLibraryCode\juce_opengl.cpp" />
     <ClCompile Include="JuceLibraryCode\juce_video.cpp" />
-    <ClCompile Include="Source\agingWindow.cpp" />
-    <ClCompile Include="Source\colorWindow.cpp" />
+    <ClCompile Include="Source\queryAging.cpp" />
+    <ClCompile Include="Source\queryColor.cpp" />
     <ClCompile Include="Source\customButton.cpp" />
     <ClCompile Include="Source\gameCanvas.cpp" />
     <ClCompile Include="Source\life.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MainComponent.cpp" />
-    <ClCompile Include="Source\rulesWindow.cpp" />
+    <ClCompile Include="Source\queryHistory.cpp" />
+    <ClCompile Include="Source\queryRules.cpp" />
     <ClCompile Include="Source\settingsWindow.cpp" />
-    <ClCompile Include="Source\sizeWindow.cpp" />
+    <ClCompile Include="Source\querySize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h" />
@@ -2265,12 +2266,13 @@
     <ClInclude Include="JuceLibraryCode\modules\juce_video\juce_video.h" />
     <ClInclude Include="JuceLibraryCode\AppConfig.h" />
     <ClInclude Include="JuceLibraryCode\JuceHeader.h" />
-    <ClInclude Include="Source\agingWindow.h" />
-    <ClInclude Include="Source\colorWindow.h" />
+    <ClInclude Include="Source\queryAging.h" />
+    <ClInclude Include="Source\queryColor.h" />
     <ClInclude Include="Source\customButton.h" />
-    <ClInclude Include="Source\rulesWindow.h" />
+    <ClInclude Include="Source\queryHistory.h" />
+    <ClInclude Include="Source\queryRules.h" />
     <ClInclude Include="Source\settingsWindow.h" />
-    <ClInclude Include="Source\sizeWindow.h" />
+    <ClInclude Include="Source\querySize.h" />
     <ClInclude Include="Source\gameCanvas.h" />
     <ClInclude Include="Source\initGUI.cpp" />
     <ClInclude Include="Source\life.h" />

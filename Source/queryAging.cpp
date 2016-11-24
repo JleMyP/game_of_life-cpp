@@ -1,8 +1,8 @@
-#include "agingWindow.h"
+#include "queryAging.h"
 
 
 
-AgingQueryWindow::AgingQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
+QueryAging::QueryAging(GameCanvas& canvas): canvas(&canvas) {
   setSize(300, 210);
 
   labelRate = new Label("rate label", "Rate:");
@@ -14,12 +14,13 @@ AgingQueryWindow::AgingQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
   labelGradations->setColour(Label::textColourId, Colours::white);
 
   sliderRate = new Slider();
-  sliderRate->setRange(1, 10, 1);
+  sliderRate->setRange(1, 100, 1);
   sliderRate->setBounds(100, 30, 180, 50);
   sliderRate->setTextBoxStyle(Slider::TextBoxLeft, false, 40, 50);
   sliderRate->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
   sliderRate->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
   sliderRate->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
+  sliderRate->addListener(this);
 
   sliderGradations = new Slider();
   sliderGradations->setRange(1, 10, 1);
@@ -28,6 +29,7 @@ AgingQueryWindow::AgingQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
   sliderGradations->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
   sliderGradations->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
   sliderGradations->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
+  sliderGradations->addListener(this);
 
   buttonOk = new CustomButton("aging ok", "ok");
   buttonOk->setBounds(30, 160, 110, 30);
@@ -49,30 +51,40 @@ AgingQueryWindow::AgingQueryWindow(GameCanvas& canvas) : canvas(&canvas) {
 }
 
 
-AgingQueryWindow::~AgingQueryWindow() {
+QueryAging::~QueryAging() {
   deleteAllChildren();
 }
 
 
-void AgingQueryWindow::show() {
+void QueryAging::show() {
   sliderRate->setValue(canvas->rateAging);
   sliderGradations->setValue(canvas->maxAge / canvas->rateAging);
+  buttonOk->setEnabled(false);
+  setVisible(true);
+}
 
-  int result = DialogWindow::showModalDialog("cell size", this, nullptr, Colours::black, true);
 
-  if (result != 0) {
+void QueryAging::buttonClicked(Button* button) {
+  if (button == buttonCancle) {
+    sliderRate->setValue(canvas->rateAging);
+    sliderGradations->setValue(canvas->maxAge / canvas->rateAging);
+    buttonOk->setEnabled(false);
+  } else if (button == buttonOk) {
     canvas->rateAging = (float)sliderRate->getValue();
     canvas->maxAge = (cellType)(sliderRate->getValue() * sliderGradations->getValue());
+    buttonOk->setEnabled(false);
   }
 }
 
 
-void AgingQueryWindow::buttonClicked(Button* button) {
-  if (button == buttonCancle) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(0);
-  } else if (button == buttonOk) {
-    if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
-      dw->exitModalState(1);
+void QueryAging::sliderValueChanged(Slider *slider) {
+  int rate = sliderRate->getValue();
+  int gradations = sliderGradations->getValue();
+
+  if (slider == sliderGradations) {
+    if (gradations == 1) sliderRate->setEnabled(false);
+    else if (!sliderRate->isEnabled()) sliderRate->setEnabled(true);
   }
+
+  buttonOk->setEnabled(rate != canvas->rateAging || gradations * rate != canvas->maxAge);
 }

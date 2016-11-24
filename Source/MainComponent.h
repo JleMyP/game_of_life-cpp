@@ -7,6 +7,7 @@
 #include "customButton.h"
 #include "settingsWindow.h"
 
+#define dontSend NotificationType::dontSendNotification
 
 
 class MainContentComponent :

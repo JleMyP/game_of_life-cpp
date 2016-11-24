@@ -4,41 +4,34 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "customButton.h"
 
-#include "sizeWindow.h"
-#include "colorWindow.h"
-#include "agingWindow.h"
-#include "rulesWindow.h"
+#include "querySize.h"
+#include "queryColor.h"
+#include "queryAging.h"
+#include "queryHistory.h"
+#include "queryRules.h"
 
 
 
-class SettingsWindow : public Component, public ButtonListener {
+class SettingsWindow: public Component, public ButtonListener {
 public:
   CustomButton* buttonCellSize;
   CustomButton* buttonCellColor;
   CustomButton* buttonCellAging;
+  CustomButton* buttonHistory;
   CustomButton* buttonGameRules;
-  CustomButton* buttonCancle;
+  CustomButton* buttonClose;
 
-  enum Buttons {
-    cancle,
-    cellSize,
-    cellColor,
-    cellAging,
-    gameRules
-  };
-
-
-  SizeQueryWindow* sizeW;
-  ColorQueryWindow* colorW;
-  AgingQueryWindow* agingW;
-  RulesQueryWindow* rulesW;
+  QuerySize* sizeW;
+  QueryColor* colorW;
+  QueryAging* agingW;
+  QueryHistory* historyW;
+  QueryRules* rulesW;
 
   SettingsWindow(GameCanvas& canvas);
-
   ~SettingsWindow();
 
   void show();
-
+  void hideAll();
   void buttonClicked(Button* button) override;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SettingsWindow)

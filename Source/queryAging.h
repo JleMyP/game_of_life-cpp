@@ -1,5 +1,5 @@
-#ifndef AGINGWINDOW_H_INCLUDED
-#define AGINGWINDOW_H_INCLUDED
+#ifndef QUERYAGING_H_INCLUDED
+#define QUERYAGING_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "gameCanvas.h"
@@ -7,7 +7,7 @@
 
 
 
-class AgingQueryWindow : public Component, public ButtonListener {
+class QueryAging: public Component, public ButtonListener, public SliderListener {
 public:
   Label* labelRate;
   Label* labelGradations;
@@ -20,15 +20,14 @@ public:
 
   GameCanvas* canvas;
 
-  AgingQueryWindow(GameCanvas& canvas);
-
-  ~AgingQueryWindow();
+  QueryAging(GameCanvas& canvas);
+  ~QueryAging();
 
   void show();
-
   void buttonClicked(Button* button) override;
+  void sliderValueChanged(Slider *slider) override;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AgingQueryWindow)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QueryAging)
 };
 
 #endif
