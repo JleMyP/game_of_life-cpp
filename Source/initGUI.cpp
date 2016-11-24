@@ -61,21 +61,9 @@ void MainContentComponent::initMainW() {
   buttonDraw->setBounds(10, 440, 110, 30);
   buttonDraw->addListener(this);
 
-  buttonCellSize = new CustomButton("cell size", "cell size");
-  buttonCellSize->setBounds(10, 490, 110, 30);
-  buttonCellSize->addListener(this);
-
-  buttonCellColor = new CustomButton("cell color", "cell color");
-  buttonCellColor->setBounds(10, 530, 110, 30);
-  buttonCellColor->addListener(this);
-
-  buttonCellAging = new CustomButton("cell aging", "cell aging");
-  buttonCellAging->setBounds(10, 570, 110, 30);
-  buttonCellAging->addListener(this);
-
-  buttonGameRules = new CustomButton("rules", "rules");
-  buttonGameRules->setBounds(10, 610, 110, 30);
-  buttonGameRules->addListener(this);
+  buttonSettings = new CustomButton("settings", "settings");
+  buttonSettings->setBounds(10, 490, 110, 30);
+  buttonSettings->addListener(this);
 
 
   addAndMakeVisible(canvas);
@@ -97,11 +85,7 @@ void MainContentComponent::initMainW() {
   addAndMakeVisible(buttonPlay);
   addAndMakeVisible(buttonClear);
   addAndMakeVisible(buttonDraw);
-
-  addAndMakeVisible(buttonCellSize);
-  addAndMakeVisible(buttonCellColor);
-  addAndMakeVisible(buttonCellAging);
-  addAndMakeVisible(buttonGameRules);
+  addAndMakeVisible(buttonSettings);
 
 
   setSize(bar + gameMapWidth * gameCellSize, gameMapHeight * gameCellSize);

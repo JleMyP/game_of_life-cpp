@@ -1680,6 +1680,7 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MainComponent.cpp" />
     <ClCompile Include="Source\rulesWindow.cpp" />
+    <ClCompile Include="Source\settingsWindow.cpp" />
     <ClCompile Include="Source\sizeWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -2268,6 +2269,7 @@
     <ClInclude Include="Source\colorWindow.h" />
     <ClInclude Include="Source\customButton.h" />
     <ClInclude Include="Source\rulesWindow.h" />
+    <ClInclude Include="Source\settingsWindow.h" />
     <ClInclude Include="Source\sizeWindow.h" />
     <ClInclude Include="Source\gameCanvas.h" />
     <ClInclude Include="Source\initGUI.cpp" />

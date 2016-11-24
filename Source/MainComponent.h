@@ -5,11 +5,7 @@
 
 #include "gameCanvas.h"
 #include "customButton.h"
-
-#include "sizeWindow.h"
-#include "colorWindow.h"
-#include "agingWindow.h"
-#include "rulesWindow.h"
+#include "settingsWindow.h"
 
 
 
@@ -44,18 +40,10 @@ public:
   CustomButton* buttonClear;
   CustomButton* buttonDraw;
 
-  CustomButton* buttonCellSize;
-  CustomButton* buttonCellColor;
-  CustomButton* buttonCellAging;
-  CustomButton* buttonGameRules;
+  CustomButton* buttonSettings;
+  SettingsWindow* settingsW;
 
   GameCanvas canvas;
-
-
-  SizeQueryWindow* sizeW;
-  ColorQueryWindow* colorW;
-  AgingQueryWindow* agingW;
-  RulesQueryWindow* rulesW;
 
 
   MainContentComponent();

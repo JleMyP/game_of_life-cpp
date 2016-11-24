@@ -5,10 +5,7 @@
 
 MainContentComponent::MainContentComponent() : canvas(gameCellSize) {
   initMainW();
-  sizeW = new SizeQueryWindow(canvas);
-  colorW = new ColorQueryWindow(canvas);
-  agingW = new AgingQueryWindow(canvas);
-  rulesW = new RulesQueryWindow(canvas);
+  settingsW = new SettingsWindow(canvas);
 }
 
 
@@ -16,10 +13,7 @@ MainContentComponent::~MainContentComponent() {
   removeChildComponent(0);
   deleteAllChildren();
 
-  delete sizeW;
-  delete colorW;
-  delete agingW;
-  delete rulesW;
+  delete settingsW;
 }
 
 
@@ -88,11 +82,7 @@ void MainContentComponent::buttonClicked(Button* button) {
   else if (button == buttonPlay) playCallback();
   else if (button == buttonClear) clearCallback();
   else if (button == buttonDraw) drawCallback();
-
-  else if (button == buttonCellSize) sizeW->show();
-  else if (button == buttonCellColor) colorW->show();
-  else if (button == buttonCellAging) agingW->show();
-  else if (button == buttonGameRules) rulesW->show();
+  else if (button == buttonSettings) settingsW->show();
 }
 
 

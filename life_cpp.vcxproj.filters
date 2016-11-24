@@ -1941,6 +1941,9 @@
     <ClCompile Include="Source\agingWindow.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\settingsWindow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -3711,6 +3714,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\agingWindow.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\settingsWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
