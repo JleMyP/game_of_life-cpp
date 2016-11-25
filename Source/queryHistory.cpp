@@ -61,8 +61,13 @@ void QueryHistory::buttonClicked(Button* button) {
     canvas->historyEnabled = state;
 
     if (state) {
+      if (canvas->history.size() > limit) canvas->clearHistory(0, canvas->history.size() - limit);
+
       canvas->historySize = limit;
       canvas->history.reserve(limit);
+
+      MainContentComponent* parent = canvas->findParentComponentOfClass<MainContentComponent>();
+      parent->labelHistory->setText(String::formatted("History: %i/%i", canvas->history.size(), limit), dontSendNotification);
     }
 
     buttonOk->setEnabled(false);

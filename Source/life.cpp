@@ -27,11 +27,13 @@ void Life::clear() {
 }
 
 
-void Life::clearHistory() {
+void Life::clearHistory(int start, int end) {
+  if (end == -1) end = history.size();
   if (!historyEnabled) return;
 
-  for (unsigned int h = 0; h < history.size(); h++) delete history[h];
-  history.clear();
+  for (unsigned int h = start; h < end; h++) delete history[h];
+
+  history.erase(history.begin() + start, history.begin() + end);
 }
 
 

@@ -51,7 +51,7 @@ void QuerySize::buttonClicked(Button* button) {
     unsigned int mapHeight = canvas->getHeight() / cell;
 
     MainContentComponent* parent = canvas->findParentComponentOfClass<MainContentComponent>();
-    parent->labelMapSize->setText(String::formatted("Size: %ix%i", mapWidth, mapHeight), NotificationType::dontSendNotification);
+    parent->labelMapSize->setText(String::formatted("Size: %ix%i", mapWidth, mapHeight), dontSendNotification);
 
     canvas->cellSize = (unsigned char)cell;
     canvas->resizeMap(mapWidth, mapHeight);

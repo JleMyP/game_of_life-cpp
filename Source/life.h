@@ -15,7 +15,7 @@ struct HistoryItem {
   unsigned int width;
   cellType** map;
 
-  HistoryItem(unsigned int alive, unsigned int width, cellType** map) : width(width), alive(alive), map(map) { }
+  HistoryItem(unsigned int alive, unsigned int width, cellType** map): width(width), alive(alive), map(map) { }
   ~HistoryItem() {
     for (unsigned int x = 0; x < width; x++) delete[] map[x];
     delete[] map;
@@ -45,7 +45,7 @@ public:
   ~Life();
 
   void clear();
-  void clearHistory();
+  void clearHistory(int start = 0, int end = -1);
 
   void resizeMap(unsigned int width, unsigned int height);
   void newGame(bool empty = false);
