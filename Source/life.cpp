@@ -132,7 +132,7 @@ cellType** Life::copyMap(cellType** mapToCopy) {
 
 void inline Life::save() {
   history.push_back(new HistoryItem(alive, mapWidth, copyMap()));
-  if (history.size() > historySize) history.erase(history.begin());
+  if (history.size() > historySize) clearHistory(0, 1);//history.erase(history.begin());
 }
 
 

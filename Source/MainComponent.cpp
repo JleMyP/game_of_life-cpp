@@ -70,6 +70,7 @@ void MainContentComponent::clearCallback() {
 
   labelFrame->setText("Frame: 0", dontSendNotification);
   labelAlive->setText("Alive: 0", dontSendNotification);
+  labelRam->setText(String::formatted("Free ram: %imb", getFreeRam() / 1024), dontSendNotification);
   buttonPlay->setText("start");
 
   stopTimer();
