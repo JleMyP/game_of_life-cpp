@@ -20,16 +20,21 @@ QueryHistory::QueryHistory(GameCanvas& canvas): canvas(&canvas) {
   sliderLimit->setColour(Slider::ColourIds::textBoxTextColourId, Colours::lime);
   sliderLimit->addListener(this);
   
+  labelWarning = new Label("warning", "size of one frame: ");
+  labelWarning->setBounds(50, 150, 150, 30);
+  labelWarning->setColour(Label::textColourId, Colours::white);
+
   buttonOk = new CustomButton("history ok", "ok");
-  buttonOk->setBounds(30, 160, 110, 30);
+  buttonOk->setBounds(30, 200, 110, 30);
   buttonOk->addListener(this);
 
   buttonCancle = new CustomButton("history cancle", "cancle");
-  buttonCancle->setBounds(160, 160, 110, 30);
+  buttonCancle->setBounds(160, 200, 110, 30);
   buttonCancle->addListener(this);
 
   addAndMakeVisible(checkEnabled);
   addAndMakeVisible(sliderLimit);
+  addAndMakeVisible(labelWarning);
   addAndMakeVisible(buttonOk);
   addAndMakeVisible(buttonCancle);
 }
@@ -41,9 +46,12 @@ QueryHistory::~QueryHistory() {
 
 
 void QueryHistory::show() {
+  int size = canvas->mapWidth * canvas->mapHeight * sizeof(cellType) + canvas->mapWidth * sizeof(void*);
+
   setVisible(true);
   checkEnabled->setToggleState(canvas->historyEnabled, false);
   sliderLimit->setValue(canvas->historySize);
+  labelWarning->setText(String::formatted("size of one frame: %ikb", size / 1024), dontSendNotification);
   buttonOk->setEnabled(false);
 }
 
@@ -55,7 +63,7 @@ void QueryHistory::buttonClicked(Button* button) {
     buttonOk->setEnabled(false);
   } else if (button == buttonOk) {
     bool state = checkEnabled->getToggleState();
-    int limit = sliderLimit->getValue();
+    unsigned int limit = (unsigned int)(sliderLimit->getValue());
 
     if (!state && canvas->historyEnabled) canvas->clearHistory();
     canvas->historyEnabled = state;
@@ -79,5 +87,5 @@ void QueryHistory::buttonClicked(Button* button) {
 
 
 void QueryHistory::sliderValueChanged(Slider *slider) {
-  buttonOk->setEnabled(checkEnabled->getToggleState() != canvas->historyEnabled || sliderLimit->getValue() != canvas->historySize);
+  buttonOk->setEnabled(checkEnabled->getToggleState() != canvas->historyEnabled || slider->getValue() != canvas->historySize);
 }

@@ -3702,9 +3702,6 @@
     <ClInclude Include="Source\MainComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\initGUI.cpp">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\settingsWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -3721,6 +3718,10 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\querySize.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\platform.h" />
+    <ClInclude Include="Source\initGUI.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

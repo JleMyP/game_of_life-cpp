@@ -11,6 +11,7 @@ class QueryHistory: public Component, public ButtonListener, public SliderListen
 public:
   ToggleButton* checkEnabled;
   Slider* sliderLimit;
+  Label* labelWarning;
 
   CustomButton* buttonOk;
   CustomButton* buttonCancle;

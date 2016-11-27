@@ -78,8 +78,8 @@ void QueryAging::buttonClicked(Button* button) {
 
 
 void QueryAging::sliderValueChanged(Slider *slider) {
-  int rate = sliderRate->getValue();
-  int gradations = sliderGradations->getValue();
+  int rate = int(sliderRate->getValue());
+  int gradations = int(sliderGradations->getValue());
 
   if (slider == sliderGradations) {
     if (gradations == 1) sliderRate->setEnabled(false);

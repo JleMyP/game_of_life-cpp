@@ -4,7 +4,7 @@
 
 
 Life::Life(): history(historySize) {}
-Life::Life(unsigned int width, unsigned int height): history(historySize) {
+Life::Life(int width, int height): history(historySize) {
   resizeMap(width, height);
   newGame();
 }
@@ -20,7 +20,7 @@ Life::~Life() {
 
 
 void Life::clear() {
-  for (unsigned int x = 0; x < mapWidth; x++) {
+  for (int x = 0; x < mapWidth; x++) {
     delete[] map[x];
     delete[] newMap[x];
   }
@@ -31,13 +31,13 @@ void Life::clearHistory(int start, int end) {
   if (end == -1) end = history.size();
   if (!historyEnabled) return;
 
-  for (unsigned int h = start; h < end; h++) delete history[h];
+  for (int h = start; h < end; h++) delete history[h];
 
   history.erase(history.begin() + start, history.begin() + end);
 }
 
 
-void Life::resizeMap(unsigned int width, unsigned int height) {
+void Life::resizeMap(int width, int height) {
   if (mapWidth) {
     clear();
     clearHistory();
@@ -49,7 +49,7 @@ void Life::resizeMap(unsigned int width, unsigned int height) {
   map = new cellType*[width];
   newMap = new cellType*[width];
 
-  for (unsigned int x = 0; x < width; x++) {
+  for (int x = 0; x < width; x++) {
     map[x] = new cellType[height];
     newMap[x] = new cellType[height];
   }
@@ -65,7 +65,7 @@ void Life::newGame(bool empty) {
 
 
 void Life::generateMap(bool empty) {
-  unsigned int x, y;
+  int x, y;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
@@ -96,7 +96,7 @@ void Life::setCell(int x, int y, cellType v) {
 }
 
 
-unsigned char Life::getSumMur(unsigned int x, unsigned int y) {
+unsigned char Life::getSumMur(int x, int y) {
   unsigned char sum = 0;
   int xx, yy;
 
@@ -114,15 +114,15 @@ cellType** Life::copyMap() {
   return copyMap(map);
 }
 
-cellType** Life::copyMap(cellType** map) {
-  unsigned int x, y;
+cellType** Life::copyMap(cellType** mapToCopy) {
+  int x, y;
   cellType** copyMap = new cellType*[mapWidth];
 
   for (x = 0; x < mapWidth; x++) {
     copyMap[x] = new cellType[mapHeight];
 
     for (y = 0; y < mapHeight; y++) {
-      copyMap[x][y] = map[x][y];
+      copyMap[x][y] = mapToCopy[x][y];
     }
   }
 
@@ -140,7 +140,7 @@ void Life::step() {
   clock_t t = clock();
   if (historyEnabled) save();
 
-  unsigned int x, y;
+  int x, y;
   unsigned char sum;
   alive = 0;
 
@@ -169,7 +169,7 @@ void Life::back() {
   HistoryItem* prev = history.back();
   frame--;
 
-  for (unsigned int x = 0; x < mapWidth; x++) {
+  for (int x = 0; x < mapWidth; x++) {
     delete[] map[x];
   }
   delete map;

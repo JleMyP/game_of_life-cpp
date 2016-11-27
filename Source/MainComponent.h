@@ -8,16 +8,16 @@
 #include "settingsWindow.h"
 
 
-class MainContentComponent :
+class MainContentComponent:
   public Component,
   public Timer,
   public ButtonListener {
 public:
-  unsigned int gameMapWidth = 300;
-  unsigned int gameMapHeight = 220;
-  unsigned char gameCellSize = 3;
+  int gameMapWidth = 300;
+  int gameMapHeight = 220;
+  char gameCellSize = 3;
 
-  unsigned int bar = 130;
+  int bar = 130;
 
 
   Label* labelMapSize;
@@ -25,6 +25,7 @@ public:
   Label* labelFrame;
   Label* labelAlive;
   Label* labelHistory;
+  Label* labelRam;
   
   Label* labelDStep;
   Label* labelDDraw;

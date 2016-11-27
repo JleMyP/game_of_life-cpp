@@ -2266,6 +2266,7 @@
     <ClInclude Include="JuceLibraryCode\modules\juce_video\juce_video.h" />
     <ClInclude Include="JuceLibraryCode\AppConfig.h" />
     <ClInclude Include="JuceLibraryCode\JuceHeader.h" />
+    <ClInclude Include="Source\platform.h" />
     <ClInclude Include="Source\queryAging.h" />
     <ClInclude Include="Source\queryColor.h" />
     <ClInclude Include="Source\customButton.h" />
@@ -2274,7 +2275,7 @@
     <ClInclude Include="Source\settingsWindow.h" />
     <ClInclude Include="Source\querySize.h" />
     <ClInclude Include="Source\gameCanvas.h" />
-    <ClInclude Include="Source\initGUI.cpp" />
+    <ClInclude Include="Source\initGUI.h" />
     <ClInclude Include="Source\life.h" />
     <ClInclude Include="Source\MainComponent.h" />
   </ItemGroup>

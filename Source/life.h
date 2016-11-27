@@ -12,12 +12,12 @@ typedef unsigned char cellType;
 
 struct HistoryItem {
   unsigned int alive;
-  unsigned int width;
+  int width;
   cellType** map;
 
-  HistoryItem(unsigned int alive, unsigned int width, cellType** map): width(width), alive(alive), map(map) { }
+  HistoryItem(unsigned int alive, int width, cellType** map): width(width), alive(alive), map(map) { }
   ~HistoryItem() {
-    for (unsigned int x = 0; x < width; x++) delete[] map[x];
+    for (int x = 0; x < width; x++) delete[] map[x];
     delete[] map;
   }
 };
@@ -26,8 +26,8 @@ struct HistoryItem {
 class Life {
 public:
   cellType maxAge = 20;
-  unsigned int mapWidth = 0;
-  unsigned int mapHeight = 0;
+  int mapWidth = 0;
+  int mapHeight = 0;
 
   unsigned int alive;
   unsigned int frame;
@@ -41,13 +41,13 @@ public:
   std::vector <HistoryItem*> history;
 
   Life();
-  Life(unsigned int width, unsigned int height);
+  Life(int width, int height);
   ~Life();
 
   void clear();
   void clearHistory(int start = 0, int end = -1);
 
-  void resizeMap(unsigned int width, unsigned int height);
+  void resizeMap(int width, int height);
   void newGame(bool empty = false);
   void generateMap(bool empty = false);
 
@@ -58,7 +58,7 @@ public:
   cellType getCell(int x, int y);
   void setCell(int x, int y, cellType v = 1);
 
-  unsigned char getSumMur(unsigned int x, unsigned int y);
+  unsigned char getSumMur(int x, int y);
   void save();
   void step();
   void back();

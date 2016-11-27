@@ -4,7 +4,7 @@
 
 
 GameCanvas::~GameCanvas() {}
-GameCanvas::GameCanvas(unsigned char cellSize, Colour color) : penColor(color), cellSize(cellSize) { }
+GameCanvas::GameCanvas(char cellSize, Colour color): penColor(color), cellSize(cellSize) { }
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
@@ -64,7 +64,7 @@ void GameCanvas::paint(Graphics& g) {
   g.setColour(penColor);
 
   clock_t t = clock();
-  unsigned int x, y, px;
+  int x, y, px;
 
   for (x = 0; x < mapWidth; x++) {
     px = x * cellSize + 1;

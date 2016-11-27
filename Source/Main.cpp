@@ -3,7 +3,7 @@
 
 
 
-class lifeApplication : public JUCEApplication {
+class lifeApplication: public JUCEApplication {
 public:
   lifeApplication() {}
 
@@ -23,12 +23,12 @@ public:
     quit();
   }
 
-  class MainWindow : public DocumentWindow {
+  class MainWindow: public DocumentWindow {
   public:
-    MainWindow(String name) : DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
+    MainWindow(String name): DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
       setResizable(true, true);
 
-      Rectangle<int> area = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+      juce::Rectangle<int> area = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
       setResizeLimits(200, 600, area.getWidth(), area.getHeight());
 
       setUsingNativeTitleBar(true);
