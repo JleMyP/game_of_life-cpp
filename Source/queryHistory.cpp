@@ -52,7 +52,9 @@ void QueryHistory::show() {
   checkEnabled->setToggleState(canvas->historyEnabled, false);
   sliderLimit->setValue(canvas->historySize);
   labelWarning->setText(String::formatted("size of one frame: %ikb", size / 1024), dontSendNotification);
+
   buttonOk->setEnabled(false);
+  buttonCancle->setEnabled(false);
 }
 
 
@@ -60,7 +62,9 @@ void QueryHistory::buttonClicked(Button* button) {
   if (button == buttonCancle) {
     checkEnabled->setToggleState(canvas->historyEnabled, false);
     sliderLimit->setValue(canvas->historySize);
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   } else if (button == buttonOk) {
     bool state = checkEnabled->getToggleState();
     unsigned int limit = (unsigned int)(sliderLimit->getValue());
@@ -79,6 +83,7 @@ void QueryHistory::buttonClicked(Button* button) {
     }
 
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   } else if (button == checkEnabled) {
     sliderLimit->setEnabled(checkEnabled->getToggleState());
   }
@@ -87,5 +92,8 @@ void QueryHistory::buttonClicked(Button* button) {
 
 
 void QueryHistory::sliderValueChanged(Slider *slider) {
-  buttonOk->setEnabled(checkEnabled->getToggleState() != canvas->historyEnabled || slider->getValue() != canvas->historySize);
+  bool enabled = checkEnabled->getToggleState() != canvas->historyEnabled || slider->getValue() != canvas->historySize;
+
+  buttonOk->setEnabled(enabled);
+  buttonCancle->setEnabled(enabled);
 }

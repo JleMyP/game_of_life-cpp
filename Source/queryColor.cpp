@@ -35,24 +35,33 @@ QueryColor::~QueryColor() {
 
 void QueryColor::show() {
   selector->setCurrentColour(canvas->penColor);
+
   setVisible(true);
   buttonOk->setEnabled(false);
+  buttonCancle->setEnabled(false);
 }
 
 
 void QueryColor::buttonClicked(Button* button) {
   if (button == buttonCancle) {
     selector->setCurrentColour(canvas->penColor);
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   } else if (button == buttonOk) {
     Colour color = selector->getCurrentColour();
     canvas->penColor = color;
     canvas->repaint();
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   }
 }
 
 
 void QueryColor::changeListenerCallback(ChangeBroadcaster* sender) {
-  buttonOk->setEnabled(selector->getCurrentColour() != canvas->penColor);
+  bool enabled = selector->getCurrentColour() != canvas->penColor;
+
+  buttonOk->setEnabled(enabled);
+  buttonCancle->setEnabled(enabled);
 }

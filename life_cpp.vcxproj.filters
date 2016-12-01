@@ -1944,7 +1944,9 @@
     <ClCompile Include="Source\querySize.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\queryHistory.cpp" />
+    <ClCompile Include="Source\queryHistory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">

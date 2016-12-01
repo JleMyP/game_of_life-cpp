@@ -35,15 +35,19 @@ QuerySize::~QuerySize() {
 
 void QuerySize::show() {
   slider->setValue(canvas->cellSize);
-  buttonOk->setEnabled(false);
+
   setVisible(true);
+  buttonOk->setEnabled(false);
+  buttonCancle->setEnabled(false);
 }
 
 
 void QuerySize::buttonClicked(Button* button) {
   if (button == buttonCancle) {
     slider->setValue(canvas->cellSize);
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   } else if (button == buttonOk) {
     int cell = int(slider->getValue());
 
@@ -57,11 +61,16 @@ void QuerySize::buttonClicked(Button* button) {
     canvas->resizeMap(mapWidth, mapHeight);
     canvas->newGame();
     canvas->repaint();
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   }
 }
 
 
 void QuerySize::sliderValueChanged(Slider *_slider) {
-  buttonOk->setEnabled(slider->getValue() != canvas->cellSize);
+  bool enabled = slider->getValue() != canvas->cellSize;
+
+  buttonOk->setEnabled(enabled);
+  buttonCancle->setEnabled(enabled);
 }

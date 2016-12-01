@@ -59,8 +59,10 @@ QueryAging::~QueryAging() {
 void QueryAging::show() {
   sliderRate->setValue(canvas->rateAging);
   sliderGradations->setValue(canvas->maxAge / canvas->rateAging);
-  buttonOk->setEnabled(false);
+
   setVisible(true);
+  buttonOk->setEnabled(false);
+  buttonCancle->setEnabled(false);
 }
 
 
@@ -69,10 +71,13 @@ void QueryAging::buttonClicked(Button* button) {
     sliderRate->setValue(canvas->rateAging);
     sliderGradations->setValue(canvas->maxAge / canvas->rateAging);
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   } else if (button == buttonOk) {
     canvas->rateAging = (float)sliderRate->getValue();
     canvas->maxAge = (cellType)(sliderRate->getValue() * sliderGradations->getValue());
+
     buttonOk->setEnabled(false);
+    buttonCancle->setEnabled(false);
   }
 }
 
@@ -86,5 +91,8 @@ void QueryAging::sliderValueChanged(Slider *slider) {
     else if (!sliderRate->isEnabled()) sliderRate->setEnabled(true);
   }
 
-  buttonOk->setEnabled(rate != canvas->rateAging || gradations * rate != canvas->maxAge);
+  bool enabled = rate != canvas->rateAging || gradations * rate != canvas->maxAge;
+
+  buttonOk->setEnabled(enabled);
+  buttonCancle->setEnabled(enabled);
 }
