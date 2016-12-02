@@ -3,6 +3,12 @@
 
 
 
+void removeMap(cellType** map, int width) {
+  for (int x = 0; x < width; x++) delete[] map[x];
+  delete[] map;
+}
+
+
 Life::Life(): history(historySize) {}
 Life::Life(int width, int height): history(historySize) {
   resizeMap(width, height);
@@ -41,6 +47,9 @@ void Life::resizeMap(int width, int height) {
   if (mapWidth) {
     clear();
     clearHistory();
+
+    delete[] map;
+    delete[] newMap;
   }
 
   mapWidth = width;
@@ -132,7 +141,7 @@ cellType** Life::copyMap(cellType** mapToCopy) {
 
 void inline Life::save() {
   history.push_back(new HistoryItem(alive, mapWidth, copyMap()));
-  if (history.size() > historySize) clearHistory(0, 1);//history.erase(history.begin());
+  if (history.size() > historySize) clearHistory(0, 1);
 }
 
 

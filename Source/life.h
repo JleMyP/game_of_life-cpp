@@ -10,16 +10,16 @@
 typedef unsigned char cellType;
 
 
+void removeMap(cellType** map, int width);
+
+
 struct HistoryItem {
   unsigned int alive;
   int width;
   cellType** map;
 
   HistoryItem(unsigned int alive, int width, cellType** map): width(width), alive(alive), map(map) { }
-  ~HistoryItem() {
-    for (int x = 0; x < width; x++) delete[] map[x];
-    delete[] map;
-  }
+  ~HistoryItem() { removeMap(map, width); }
 };
 
 
