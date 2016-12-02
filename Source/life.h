@@ -35,6 +35,7 @@ public:
 
   cellType** map;
   cellType** newMap;
+  cellType** oldMap;
 
   int historySize = 1000;
   bool historyEnabled = true;
@@ -44,15 +45,15 @@ public:
   Life(int width, int height);
   ~Life();
 
-  void clear();
+  //void clear();
   void clearHistory(int start = 0, int end = -1);
 
   void resizeMap(int width, int height);
   void newGame(bool empty = false);
-  void generateMap(bool empty = false);
+  void generateMap(cellType** targetMap, bool empty = false);
 
-  cellType** copyMap();
-  cellType** copyMap(cellType** map);
+  cellType** copyMap(cellType** sourceMap);
+  void copyMap(cellType** sourceMap, cellType** targetMap);
 
   void normalize(int& x, int& y);
   cellType getCell(int x, int y);

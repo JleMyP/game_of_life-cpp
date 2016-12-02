@@ -60,7 +60,7 @@ void GameCanvas::drawRect(int x, int y) {
 void GameCanvas::paint(Graphics& g) {
   if (running) step();
 
-  g.fillAll(Colours::black);
+  //g.fillAll(Colours::black);
   g.setColour(penColor);
 
   clock_t t = clock();
@@ -70,10 +70,10 @@ void GameCanvas::paint(Graphics& g) {
     px = x * cellSize + 1;
 
     for (y = 0; y < mapHeight; y++) {
-      if (map[x][y] > 0) {
-        g.setColour(penColor.withAlpha(1.0f / ceil(map[x][y] / rateAging)));
-        g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
-      }
+      if (map[x][y] == 0) continue;
+
+      g.setColour(penColor.withAlpha(1.0f / ceil(map[x][y] / rateAging)));
+      g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
     }
   }
 

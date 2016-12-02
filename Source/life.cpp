@@ -1,5 +1,4 @@
 #include "life.h"
-#include "../JuceLibraryCode/JuceHeader.h"
 
 
 
@@ -17,19 +16,10 @@ Life::Life(int width, int height): history(historySize) {
 
 
 Life::~Life() {
-  clear();
   clearHistory();
-
-  delete[] map;
-  delete[] newMap;
-}
-
-
-void Life::clear() {
-  for (int x = 0; x < mapWidth; x++) {
-    delete[] map[x];
-    delete[] newMap[x];
-  }
+  removeMap(map, mapWidth);
+  removeMap(newMap, mapWidth);
+  removeMap(oldMap, mapWidth);
 }
 
 
@@ -45,11 +35,10 @@ void Life::clearHistory(int start, int end) {
 
 void Life::resizeMap(int width, int height) {
   if (mapWidth) {
-    clear();
     clearHistory();
-
-    delete[] map;
-    delete[] newMap;
+    removeMap(map, mapWidth);
+    removeMap(newMap, mapWidth);
+    removeMap(oldMap, mapWidth);
   }
 
   mapWidth = width;
@@ -57,10 +46,12 @@ void Life::resizeMap(int width, int height) {
 
   map = new cellType*[width];
   newMap = new cellType*[width];
+  oldMap = new cellType*[width];
 
   for (int x = 0; x < width; x++) {
     map[x] = new cellType[height];
     newMap[x] = new cellType[height];
+    oldMap[x] = new cellType[height];
   }
 }
 
@@ -68,17 +59,18 @@ void Life::resizeMap(int width, int height) {
 void Life::newGame(bool empty) {
   alive = 0;
   frame = 0;
+
   clearHistory();
-  generateMap(empty);
+  generateMap(map, empty);
+  generateMap(oldMap, true);
 }
 
-
-void Life::generateMap(bool empty) {
+void Life::generateMap(cellType** targetMap, bool empty) {
   int x, y;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
-      map[x][y] = empty ? 0 : rand() % 2;
+      targetMap[x][y] = empty ? 0 : rand() % 2;
     }
   }
 }
@@ -119,44 +111,51 @@ unsigned char Life::getSumMur(int x, int y) {
 }
 
 
-cellType** Life::copyMap() {
-  return copyMap(map);
-}
-
-cellType** Life::copyMap(cellType** mapToCopy) {
+cellType** Life::copyMap(cellType** sourceMap) {
   int x, y;
-  cellType** copyMap = new cellType*[mapWidth];
+  cellType** targetMap = new cellType*[mapWidth];
 
   for (x = 0; x < mapWidth; x++) {
-    copyMap[x] = new cellType[mapHeight];
+    targetMap[x] = new cellType[mapHeight];
 
     for (y = 0; y < mapHeight; y++) {
-      copyMap[x][y] = mapToCopy[x][y];
+      targetMap[x][y] = sourceMap[x][y];
     }
   }
 
-  return copyMap;
+  return targetMap;
+}
+
+void Life::copyMap(cellType** sourceMap, cellType** targetMap) {
+  int x, y;
+
+  for (x = 0; x < mapWidth; x++) {
+    for (y = 0; y < mapHeight; y++) {
+      targetMap[x][y] = sourceMap[x][y];
+    }
+  }
 }
 
 
 void inline Life::save() {
-  history.push_back(new HistoryItem(alive, mapWidth, copyMap()));
+  history.push_back(new HistoryItem(alive, mapWidth, copyMap(map)));
   if (history.size() > historySize) clearHistory(0, 1);
 }
 
 
 void Life::step() {
   clock_t t = clock();
+
   if (historyEnabled) save();
 
   int x, y;
-  unsigned char sum;
+  char sum;
   alive = 0;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
       sum = getSumMur(x, y);
-
+      oldMap[x][y] = map[x][y];
       newMap[x][y] = (sum == 3 || map[x][y] && sum == 2) ? (map[x][y] < maxAge ? map[x][y] + 1 : maxAge) : 0;
     }
   }
@@ -173,19 +172,20 @@ void Life::step() {
 
 
 void Life::back() {
-  if (!historyEnabled || history.size() == 0) return;
+  int size = history.size();
+
+  if (!historyEnabled || size == 0) return;
   
   HistoryItem* prev = history.back();
+  alive = prev->alive;
   frame--;
 
-  for (int x = 0; x < mapWidth; x++) {
-    delete[] map[x];
-  }
-  delete map;
+  copyMap(prev->map, map);
+  copyMap(prev->map, map);
 
-  alive = prev->alive;
-  map = copyMap(prev->map);
+  if (size != 1) copyMap(history[size - 2]->map, oldMap);
+  else generateMap(oldMap, true);
 
-  delete history[history.size() - 1];
+  delete history[size - 1];
   history.pop_back();
 }
