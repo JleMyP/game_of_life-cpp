@@ -60,7 +60,6 @@ void GameCanvas::drawRect(int x, int y) {
 void GameCanvas::paint(Graphics& g) {
   if (running) step();
 
-  //g.fillAll(Colours::black);
   g.setColour(penColor);
 
   clock_t t = clock();

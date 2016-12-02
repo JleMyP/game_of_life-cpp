@@ -69,7 +69,7 @@ void QuerySize::buttonClicked(Button* button) {
 
 
 void QuerySize::sliderValueChanged(Slider *_slider) {
-  bool enabled = slider->getValue() != canvas->cellSize;
+  bool enabled = _slider->getValue() != canvas->cellSize;
 
   buttonOk->setEnabled(enabled);
   buttonCancle->setEnabled(enabled);

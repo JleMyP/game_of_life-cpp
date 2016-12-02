@@ -6,6 +6,10 @@
 #include <vector>
 
 
+#ifndef NDEBUG
+srand(666);
+#endif
+
 
 typedef unsigned char cellType;
 
@@ -35,7 +39,6 @@ public:
 
   cellType** map;
   cellType** newMap;
-  cellType** oldMap;
 
   int historySize = 1000;
   bool historyEnabled = true;
@@ -45,12 +48,11 @@ public:
   Life(int width, int height);
   ~Life();
 
-  //void clear();
   void clearHistory(int start = 0, int end = -1);
 
   void resizeMap(int width, int height);
   void newGame(bool empty = false);
-  void generateMap(cellType** targetMap, bool empty = false);
+  void generateMap(bool empty = false);
 
   cellType** copyMap(cellType** sourceMap);
   void copyMap(cellType** sourceMap, cellType** targetMap);
@@ -59,7 +61,7 @@ public:
   cellType getCell(int x, int y);
   void setCell(int x, int y, cellType v = 1);
 
-  unsigned char getSumMur(int x, int y);
+  char getSumMur(int x, int y);
   void save();
   void step();
   void back();

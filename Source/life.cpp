@@ -19,7 +19,6 @@ Life::~Life() {
   clearHistory();
   removeMap(map, mapWidth);
   removeMap(newMap, mapWidth);
-  removeMap(oldMap, mapWidth);
 }
 
 
@@ -38,7 +37,6 @@ void Life::resizeMap(int width, int height) {
     clearHistory();
     removeMap(map, mapWidth);
     removeMap(newMap, mapWidth);
-    removeMap(oldMap, mapWidth);
   }
 
   mapWidth = width;
@@ -46,12 +44,10 @@ void Life::resizeMap(int width, int height) {
 
   map = new cellType*[width];
   newMap = new cellType*[width];
-  oldMap = new cellType*[width];
 
   for (int x = 0; x < width; x++) {
     map[x] = new cellType[height];
     newMap[x] = new cellType[height];
-    oldMap[x] = new cellType[height];
   }
 }
 
@@ -61,16 +57,16 @@ void Life::newGame(bool empty) {
   frame = 0;
 
   clearHistory();
-  generateMap(map, empty);
-  generateMap(oldMap, true);
+  generateMap(empty);
 }
 
-void Life::generateMap(cellType** targetMap, bool empty) {
+
+void Life::generateMap(bool empty) {
   int x, y;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
-      targetMap[x][y] = empty ? 0 : rand() % 2;
+      map[x][y] = empty ? 0 : rand() % 2;
     }
   }
 }
@@ -97,8 +93,8 @@ void Life::setCell(int x, int y, cellType v) {
 }
 
 
-unsigned char Life::getSumMur(int x, int y) {
-  unsigned char sum = 0;
+char Life::getSumMur(int x, int y) {
+  char sum = 0;
   int xx, yy;
 
   for (xx = x - 1; xx < x + 2; xx++) {
@@ -150,13 +146,14 @@ void Life::step() {
 
   int x, y;
   char sum;
+  cellType cell;
   alive = 0;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
+      cell = map[x][y];
       sum = getSumMur(x, y);
-      oldMap[x][y] = map[x][y];
-      newMap[x][y] = (sum == 3 || map[x][y] && sum == 2) ? (map[x][y] < maxAge ? map[x][y] + 1 : maxAge) : 0;
+      newMap[x][y] = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
     }
   }
 
@@ -172,20 +169,15 @@ void Life::step() {
 
 
 void Life::back() {
-  int size = history.size();
-
-  if (!historyEnabled || size == 0) return;
+  if (!historyEnabled || history.size() == 0) return;
   
   HistoryItem* prev = history.back();
   alive = prev->alive;
   frame--;
 
   copyMap(prev->map, map);
-  copyMap(prev->map, map);
 
-  if (size != 1) copyMap(history[size - 2]->map, oldMap);
-  else generateMap(oldMap, true);
-
-  delete history[size - 1];
+  delete history[history.size() - 1];
+  // delete prev;
   history.pop_back();
 }

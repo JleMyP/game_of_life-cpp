@@ -86,6 +86,11 @@ void QueryHistory::buttonClicked(Button* button) {
     buttonCancle->setEnabled(false);
   } else if (button == checkEnabled) {
     sliderLimit->setEnabled(checkEnabled->getToggleState());
+
+    bool enabled = checkEnabled->getToggleState() != canvas->historyEnabled || sliderLimit->getValue() != canvas->historySize;
+
+    buttonOk->setEnabled(enabled);
+    buttonCancle->setEnabled(enabled);
   }
 }
 
