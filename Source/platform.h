@@ -8,17 +8,17 @@ unsigned long getFreeRam() {
   unsigned int ram;
   FILE *meminfo = fopen("/proc/meminfo", "r");
 
-  if (meminfo == NULL) return -1;
+  if (meminfo == NULL) return 0;
 
   while (fgets(line, sizeof(line), meminfo)) {
-    if (sscanf(line, "MemTotal: %d kB", &ram) == 1) {
+    if (sscanf(line, "MemFree: %d kB", &ram) == 1) {
       fclose(meminfo);
       return ram;
     }
   }
 
   fclose(meminfo);
-  return -1;
+  return 0;
 }
 
 #elif _WIN32

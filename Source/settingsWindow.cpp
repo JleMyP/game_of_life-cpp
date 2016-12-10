@@ -1,5 +1,4 @@
 #include "settingsWindow.h"
-#include "MainComponent.h"
 
 
 

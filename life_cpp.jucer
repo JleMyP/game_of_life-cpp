@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="vQmSfF" name="life_cpp" projectType="guiapp" version="1.0.0"
-              bundleIdentifier="com.yourcompany.life_cpp" includeBinaryInAppConfig="1"
-              jucerVersion="4.2.4">
+              bundleIdentifier="com.jlemyp.life_cpp" includeBinaryInAppConfig="1"
+              jucerVersion="4.3.0">
   <MAINGROUP id="B6tCeI" name="life_cpp">
     <GROUP id="{564767B7-20A1-D392-A4BA-65CAE6A291B7}" name="Source">
+      <FILE id="LTEh6S" name="customButton.cpp" compile="1" resource="0"
+            file="Source/customButton.cpp"/>
+      <FILE id="u2aOGo" name="customButton.h" compile="0" resource="0" file="Source/customButton.h"/>
+      <FILE id="KPisic" name="gameCanvas.cpp" compile="1" resource="0" file="Source/gameCanvas.cpp"/>
+      <FILE id="ZHDs4R" name="gameCanvas.h" compile="0" resource="0" file="Source/gameCanvas.h"/>
+      <FILE id="SiUGiL" name="initGUI.h" compile="0" resource="0" file="Source/initGUI.h"/>
+      <FILE id="p2cczA" name="life.cpp" compile="1" resource="0" file="Source/life.cpp"/>
+      <FILE id="TukAtn" name="life.h" compile="0" resource="0" file="Source/life.h"/>
+      <FILE id="YHmUW3" name="platform.h" compile="0" resource="0" file="Source/platform.h"/>
+      <FILE id="v0I73f" name="queryAging.cpp" compile="1" resource="0" file="Source/queryAging.cpp"/>
+      <FILE id="Sk75Zc" name="queryAging.h" compile="0" resource="0" file="Source/queryAging.h"/>
+      <FILE id="K2yswf" name="queryColor.cpp" compile="1" resource="0" file="Source/queryColor.cpp"/>
+      <FILE id="asE1Gj" name="queryColor.h" compile="0" resource="0" file="Source/queryColor.h"/>
+      <FILE id="vYOiwf" name="queryHistory.cpp" compile="1" resource="0"
+            file="Source/queryHistory.cpp"/>
+      <FILE id="oCq5zZ" name="queryHistory.h" compile="0" resource="0" file="Source/queryHistory.h"/>
+      <FILE id="MQYAcU" name="queryRules.cpp" compile="1" resource="0" file="Source/queryRules.cpp"/>
+      <FILE id="FTxPmU" name="queryRules.h" compile="0" resource="0" file="Source/queryRules.h"/>
+      <FILE id="Do7VCY" name="querySize.cpp" compile="1" resource="0" file="Source/querySize.cpp"/>
+      <FILE id="uQMtjv" name="querySize.h" compile="0" resource="0" file="Source/querySize.h"/>
+      <FILE id="ZPYjrO" name="settingsWindow.cpp" compile="1" resource="0"
+            file="Source/settingsWindow.cpp"/>
+      <FILE id="cgy3XO" name="settingsWindow.h" compile="0" resource="0"
+            file="Source/settingsWindow.h"/>
       <FILE id="po7yOo" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="ueBuAX" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
@@ -20,36 +44,27 @@
                        isDebug="0" optimisation="3" targetName="life_cpp"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_video" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../../Downloads/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../../Downloads/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="..\juce\modules"/>
+        <MODULEPATH id="juce_events" path="..\juce\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\juce\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\juce\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\juce\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="..\juce\modules"/>
+        <MODULEPATH id="juce_opengl" path="..\juce\modules"/>
       </MODULEPATHS>
     </VS2015>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_video" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
   <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

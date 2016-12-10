@@ -36,7 +36,6 @@ void MainContentComponent::timerCallback() {
 
 void MainContentComponent::resized() {
   canvas.setBounds(bar, 0, getWidth() - bar, getHeight());
-
   labelMapSize->setText(String::formatted("Size: %ix%i", canvas.mapWidth, canvas.mapHeight), dontSendNotification);
 }
 

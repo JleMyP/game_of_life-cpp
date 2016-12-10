@@ -71,7 +71,7 @@ void GameCanvas::paint(Graphics& g) {
     for (y = 0; y < mapHeight; y++) {
       if (map[x][y] == 0) continue;
 
-      g.setColour(penColor.withAlpha(1.0f / ceil(map[x][y] / rateAging)));
+      g.setColour(penColor.withAlpha(float(1.0f / ceil(map[x][y] / rateAging))));
       g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
     }
   }

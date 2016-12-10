@@ -5,11 +5,11 @@
 #include <ctime>
 #include <vector>
 
-
+/*
 #ifndef NDEBUG
 srand(666);
 #endif
-
+*/
 
 typedef unsigned char cellType;
 
