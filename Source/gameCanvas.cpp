@@ -16,12 +16,12 @@ void GameCanvas::mouseMove(const MouseEvent & event) {
 }
 
 
-void GameCanvas::mouseDrag(const MouseEvent & event) {
+void GameCanvas::mouseDrag(const MouseEvent& event) {
   mouseDown(event);
 }
 
 
-void GameCanvas::mouseDown(const MouseEvent & event) {
+void GameCanvas::mouseDown(const MouseEvent& event) {
   int x = event.x / cellSize;
   int y = event.y / cellSize;
 
@@ -29,6 +29,17 @@ void GameCanvas::mouseDown(const MouseEvent & event) {
 
   drawRect(x, y);
   repaint();
+}
+
+
+
+void GameCanvas::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) {
+  MainContentComponent* parent = findParentComponentOfClass<MainContentComponent>();
+
+  if (wheel.deltaY > 0 && penWidth < maxPenWidth) penWidth++;
+  else if (wheel.deltaY < 0 && penWidth > 1) penWidth--;
+
+  parent->labelPenWidth->setText("pen width: " + String(penWidth), NotificationType::dontSendNotification);
 }
 
 
@@ -58,7 +69,7 @@ void GameCanvas::drawRect(int x, int y) {
 
 
 void GameCanvas::paint(Graphics& g) {
-  if (running) step();
+  if (running && (alive > 0 || frame == 0 && alive == 0)) step();
 
   g.setColour(penColor);
 
