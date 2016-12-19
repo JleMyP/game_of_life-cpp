@@ -73,11 +73,11 @@ void Life::generateMap(bool empty) {
 
 
 void Life::normalize(int& x, int& y) {
-  if (x == mapWidth) x = 0;
-  else if (x < 0) x = mapWidth + x;
+  if (x >= mapWidth) x -= mapWidth;
+  else if (x < 0) x += mapWidth;
 
-  if (y == mapHeight) y = 0;
-  else if (y < 0) y = mapHeight + y;
+  if (y >= mapHeight) y -= mapHeight;
+  else if (y < 0) y += mapHeight;
 }
 
 

@@ -5,7 +5,7 @@
 
 
 
-class CustomButton : public TextButton {
+class CustomButton: public TextButton {
 public:
   String _text;
   Font* font;

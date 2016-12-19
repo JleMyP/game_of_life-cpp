@@ -1,7 +1,7 @@
 #include "customButton.h"
 
 
-CustomButton::CustomButton(const char* name, const char* text, Colour color) : TextButton(name) {
+CustomButton::CustomButton(const char* name, const char* text, Colour color): TextButton(name) {
   _text = String(text);
   font = new Font(20, Font::FontStyleFlags::bold | Font::FontStyleFlags::italic);
 
