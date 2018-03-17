@@ -3,8 +3,8 @@
 
 
 
+GameCanvas::GameCanvas(char cellSize, Colour color): Life(4), penColor(color), cellSize(cellSize) { }
 GameCanvas::~GameCanvas() {}
-GameCanvas::GameCanvas(char cellSize, Colour color): penColor(color), cellSize(cellSize) { }
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
@@ -69,7 +69,7 @@ void GameCanvas::drawRect(int x, int y) {
 
 
 void GameCanvas::paint(Graphics& g) {
-  if (running && (alive > 0 || frame == 0 && alive == 0)) step();
+  if (running && (alive > 0 || frame == 0 && alive == 0)) stepTh();
 
   g.setColour(penColor);
 

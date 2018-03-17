@@ -1,12 +1,15 @@
 #include "MainComponent.h"
 #include "platform.h"
 #include "initGUI.h"
+#include <iostream>
 
 
 
 MainContentComponent::MainContentComponent(): canvas(gameCellSize) {
   initMainW();
   settingsW = new SettingsWindow(canvas);
+
+  std::cout << "start";
 }
 
 
