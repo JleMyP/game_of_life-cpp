@@ -179,7 +179,7 @@ __forceinline char Life::getSumMurFast(int x, int y) {
 
     for (int xx = x - 1; xx < x + 2; xx++) {
         for (int yy = y - 1; yy < y + 2; yy++) {
-            sum += map[xx][yy];
+            sum += map[xx][yy] ? 1 : 0;
         }
     }
 
@@ -203,37 +203,6 @@ __forceinline char Life::handleCellFast(int x, int y) {
     char calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
     newMap[x][y] = calculate;
     return calculate;
-}
-
-
-void Life::step() {
-    alive = 0;
-    clock_t t = clock();
-
-    if (historyEnabled) save();
-
-    for (int x = 1; x < mapWidth - 1; x++) {
-        for (int y = 1; y < mapHeight - 1; y++) {
-            if (handleCellFast(x, y)) alive++;
-        }
-    }
-
-    for (int x = 1; x < mapWidth - 1; x++) {
-        if (handleCell(x, 0)) alive++;
-        if (handleCell(x, mapHeight - 1)) alive++;
-    }
-
-    for (int y = 0; y < mapHeight; y++) {
-        if (handleCell(0, y)) alive++;
-        if (handleCell(mapWidth - 1, y)) alive++;
-    }
-
-    cellType** tmp = newMap;
-    newMap = map;
-    map = tmp;
-
-    frame++;
-    durationStep = clock() - t;
 }
 
 
@@ -284,7 +253,7 @@ void Life::partStep(ThreadConfig& config) {
 }
 
 
-void Life::stepTh() {
+void Life::step() {
     clock_t t = clock();
 
     if (historyEnabled) save();
@@ -318,6 +287,37 @@ __forceinline void Life::waitThreads() {
             return true;
         });
     } while (!res);
+}
+#else
+
+void Life::step() {
+    alive = 0;
+    clock_t t = clock();
+
+    if (historyEnabled) save();
+
+    for (int x = 1; x < mapWidth - 1; x++) {
+        for (int y = 1; y < mapHeight - 1; y++) {
+            if (handleCellFast(x, y)) alive++;
+        }
+    }
+
+    for (int x = 0; x < mapWidth; x++) {
+        if (handleCell(x, 0)) alive++;
+        if (handleCell(x, mapHeight - 1)) alive++;
+    }
+
+    for (int y = 0; y < mapHeight; y++) {
+        if (handleCell(0, y)) alive++;
+        if (handleCell(mapWidth - 1, y)) alive++;
+    }
+
+    cellType** tmp = newMap;
+    newMap = map;
+    map = tmp;
+
+    frame++;
+    durationStep = clock() - t;
 }
 
 #endif

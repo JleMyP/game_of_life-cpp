@@ -8,7 +8,7 @@
 
 void MainContentComponent::initMainW() {
   Colour colorLabel = Colours::white;
-  int buttonsStart = 335;
+  int buttonsStart = 360;
 
   labelMapSize = new Label("map size", String::formatted("Size: %ix%i", gameMapWidth, gameMapHeight));
   labelMapSize->setBounds(0, 0, bar, 25);
@@ -18,36 +18,40 @@ void MainContentComponent::initMainW() {
   labelFrame->setBounds(0, 65, bar, 25);
   labelFrame->setColour(Label::textColourId, colorLabel);
 
+  labelFps = new Label("fps", "FPS: 0");
+  labelFps->setBounds(0, 90, bar, 25);
+  labelFps->setColour(Label::textColourId, colorLabel);
+
   labelAlive = new Label("alive", "Alive: -");
-  labelAlive->setBounds(0, 90, bar, 25);
+  labelAlive->setBounds(0, 115, bar, 25);
   labelAlive->setColour(Label::textColourId, colorLabel);
 
   labelHistory = new Label("history", "History: 0");
-  labelHistory->setBounds(0, 115, bar, 25);
+  labelHistory->setBounds(0, 140, bar, 25);
   labelHistory->setColour(Label::textColourId, colorLabel);
 
   labelRam = new Label("ram", "Free ram: -");
-  labelRam->setBounds(0, 140, bar, 25);
+  labelRam->setBounds(0, 175, bar, 25);
   labelRam->setColour(Label::textColourId, colorLabel);
 
   labelDStep = new Label("duration step", "Step: -");
-  labelDStep->setBounds(0, 175, bar, 25);
+  labelDStep->setBounds(0, 200, bar, 25);
   labelDStep->setColour(Label::textColourId, colorLabel);
 
   labelDDraw = new Label("duration darw", "Draw: -");
-  labelDDraw->setBounds(0, 200, bar, 25);
+  labelDDraw->setBounds(0, 245, bar, 25);
   labelDDraw->setColour(Label::textColourId, colorLabel);
 
   labelMouseX = new Label("mouse x", "X: -");
-  labelMouseX->setBounds(0, 245, bar, 25);
+  labelMouseX->setBounds(0, 270, bar, 25);
   labelMouseX->setColour(Label::textColourId, colorLabel);
 
   labelMouseY = new Label("mouse y", "Y: -");
-  labelMouseY->setBounds(0, 270, bar, 25);
+  labelMouseY->setBounds(0, 295, bar, 25);
   labelMouseY->setColour(Label::textColourId, colorLabel);
 
   labelPenWidth = new Label("pen width", "pen width: " + String(canvas.penWidth));
-  labelPenWidth->setBounds(0, 295, bar, 25);
+  labelPenWidth->setBounds(0, 320, bar, 25);
   labelPenWidth->setColour(Label::textColourId, colorLabel);
 
   buttonNewGame = new CustomButton("new game", "new game");
@@ -76,6 +80,7 @@ void MainContentComponent::initMainW() {
   addAndMakeVisible(labelMapSize);
 
   addAndMakeVisible(labelFrame);
+  addAndMakeVisible(labelFps);
   addAndMakeVisible(labelAlive);
   addAndMakeVisible(labelHistory);
   addAndMakeVisible(labelRam);
@@ -98,6 +103,5 @@ void MainContentComponent::initMainW() {
   setWantsKeyboardFocus(true);
   grabKeyboardFocus();
 }
-
 
 #endif

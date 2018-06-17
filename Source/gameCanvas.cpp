@@ -69,7 +69,7 @@ void GameCanvas::drawRect(int x, int y) {
 
 
 void GameCanvas::paint(Graphics& g) {
-  if (running && (alive > 0 || frame == 0 && alive == 0)) stepTh();
+  if (running && (alive > 0 || frame == 0 && alive == 0)) step();
 
   g.setColour(penColor);
 
