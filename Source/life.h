@@ -114,7 +114,6 @@ public:
     std::vector<ThreadConfig*> configs;
     std::vector<std::thread*> threads;
 
-    void stepTh();
     void partStep(ThreadConfig& config);
     void waitThreads();
 
