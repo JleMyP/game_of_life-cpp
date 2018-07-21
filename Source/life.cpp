@@ -147,21 +147,23 @@ void Life::step() {
   int x, y;
   char sum;
   cellType cell;
+  cellType calculate;
   alive = 0;
 
   for (x = 0; x < mapWidth; x++) {
     for (y = 0; y < mapHeight; y++) {
       cell = map[x][y];
       sum = getSumMur(x, y);
-      newMap[x][y] = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
+      calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
+
+      newMap[x][y] = calculate;
+      alive += calculate ? 1 : 0;
     }
   }
 
-  for (x = 0; x < mapWidth; x++) {
-    for (y = 0; y < mapHeight; y++) {
-      alive += (map[x][y] = newMap[x][y]) ? 1 : 0;
-    }
-  }
+  cellType** tmp = newMap;
+  newMap = map;
+  map = tmp;
 
   frame++;
   durationStep = clock() - t;
