@@ -5,6 +5,13 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "life.h"
 
+// TODO
+/*
+    считать карту во врем€ отрисовки
+    настройки отступа €чейки
+    выделение
+*/
+
 
 
 class GameCanvas: public Component, public Life {

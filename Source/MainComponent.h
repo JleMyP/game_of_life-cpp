@@ -19,10 +19,12 @@ public:
 
   int bar = 130;
 
+  time_t startTime = 0;
 
   Label* labelMapSize;
 
   Label* labelFrame;
+  Label* labelFps;
   Label* labelAlive;
   Label* labelHistory;
   Label* labelRam;

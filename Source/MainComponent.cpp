@@ -1,12 +1,15 @@
 #include "MainComponent.h"
 #include "platform.h"
 #include "initGUI.h"
+#include <iostream>
 
 
 
 MainContentComponent::MainContentComponent(): canvas(gameCellSize) {
   initMainW();
   settingsW = new SettingsWindow(canvas);
+
+  std::cout << "start";
 }
 
 
@@ -19,9 +22,16 @@ MainContentComponent::~MainContentComponent() {
 
 
 void MainContentComponent::timerCallback() {
+  /*time_t now = time(nullptr);
+  
+  int fps;
+  if (now - startTime) fps = canvas.frame / (now - startTime);
+  else fps = 0;*/
+  
   repaint();
 
   labelFrame->setText(String::formatted("Frame: %i", canvas.frame), dontSendNotification);
+  labelFps->setText(String::formatted("FPS: %i", 0), dontSendNotification);
   labelAlive->setText(String::formatted("Alive: %i", canvas.alive), dontSendNotification);
 
   if (!canvas.historyEnabled) labelHistory->setText("History: off", dontSendNotification);
@@ -56,6 +66,7 @@ void MainContentComponent::playCallback() {
     canvas.running = false;
     buttonPlay->setText("start");
   } else {
+    startTime = time(nullptr);
     startTimer(1);
     canvas.running = true;
     buttonPlay->setText("pause");

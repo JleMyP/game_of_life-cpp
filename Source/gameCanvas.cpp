@@ -3,8 +3,8 @@
 
 
 
+GameCanvas::GameCanvas(char cellSize, Colour color): Life(4), penColor(color), cellSize(cellSize) { }
 GameCanvas::~GameCanvas() {}
-GameCanvas::GameCanvas(char cellSize, Colour color): penColor(color), cellSize(cellSize) { }
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
