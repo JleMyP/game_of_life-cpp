@@ -1,7 +1,7 @@
 #ifndef GAMECANVAS_H_INCLUDED
 #define GAMECANVAS_H_INCLUDED
 
-#include <ctime>
+#include <chrono>
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "life.h"
 
@@ -31,7 +31,9 @@ public:
   char cellSize;
   float rateAging = 5;
 
-  int durationDraw;
+  unsigned long durationDraw;
+  std::chrono::high_resolution_clock::time_point last_draw;
+  unsigned long fps;
   bool running = false;
 
   GameCanvas(char cellSize, Colour color = Colours::lime);

@@ -15,7 +15,7 @@
 
 
 #include <cstdlib>
-#include <ctime>
+#include <chrono>
 #include <vector>
 #include <iostream>
 
@@ -68,7 +68,7 @@ public:
 
     unsigned long alive;
     unsigned long frame;
-    int durationStep;
+    unsigned long durationStep;
 
     cellType** map;
     cellType** newMap;
@@ -79,21 +79,21 @@ public:
 
     Life();
     Life(int threadsCount);
-    Life(int width, int height, int threadsCount = 0);
+    Life(int width, int height, int threadsCount=0);
     ~Life();
 
-    void clearHistory(int start = 0, int end = -1);
+    void clearHistory(int start=0, int end=-1);
 
     void resizeMap(int width, int height);
-    void newGame(bool empty = false);
-    void generateMap(bool empty = false);
+    void newGame(bool empty=false);
+    void generateMap(bool empty=false);
 
     cellType** copyMap(cellType** sourceMap);
     void copyMap(cellType** sourceMap, cellType** targetMap);
 
     void normalize(int& x, int& y);
     cellType getCell(int x, int y);
-    void setCell(int x, int y, cellType v = 1);
+    void setCell(int x, int y, cellType v=1);
 
     char getSumMur(int x, int y);
     char getSumMurFast(int x, int y);
@@ -106,7 +106,6 @@ public:
     int threadsCount;
 
 #ifdef THREADS_ENABLED
-
     std::mutex waitLock;
     std::condition_variable threadsStart;
     std::condition_variable threadsFinish;
@@ -116,7 +115,6 @@ public:
 
     void partStep(ThreadConfig& config);
     void waitThreads();
-
 #endif
 };
 

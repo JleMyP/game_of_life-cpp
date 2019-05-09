@@ -35,7 +35,7 @@ public:
       setContentOwned(new MainContentComponent(), true);
 
       centreWithSize(getWidth(), getHeight());
-      setTopLeftPosition(0, 0);
+      setTopLeftPosition(200, 200);
       setVisible(true);
     }
 

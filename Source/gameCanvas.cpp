@@ -3,7 +3,7 @@
 
 
 
-GameCanvas::GameCanvas(char cellSize, Colour color): Life(4), penColor(color), cellSize(cellSize) { }
+GameCanvas::GameCanvas(char cellSize, Colour color) : Life(4), penColor(color), cellSize(cellSize) { last_draw = std::chrono::high_resolution_clock::now(); }
 GameCanvas::~GameCanvas() {}
 
 
@@ -71,9 +71,9 @@ void GameCanvas::drawRect(int x, int y) {
 void GameCanvas::paint(Graphics& g) {
   if (running && (alive > 0 || frame == 0 && alive == 0)) step();
 
-  g.setColour(penColor);
+  //g.setColour(penColor);
 
-  clock_t t = clock();
+  auto t = std::chrono::high_resolution_clock::now();
   int x, y, px;
 
   for (x = 0; x < mapWidth; x++) {
@@ -87,7 +87,10 @@ void GameCanvas::paint(Graphics& g) {
     }
   }
 
-  durationDraw = clock() - t;
+  durationDraw = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - t).count();
+  auto now = std::chrono::high_resolution_clock::now();
+  fps = std::chrono::duration_cast<std::chrono::microseconds>(now - last_draw).count();
+  last_draw = now;
 }
 
 

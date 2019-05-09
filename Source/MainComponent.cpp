@@ -22,16 +22,10 @@ MainContentComponent::~MainContentComponent() {
 
 
 void MainContentComponent::timerCallback() {
-  /*time_t now = time(nullptr);
-  
-  int fps;
-  if (now - startTime) fps = canvas.frame / (now - startTime);
-  else fps = 0;*/
-  
   repaint();
 
   labelFrame->setText(String::formatted("Frame: %i", canvas.frame), dontSendNotification);
-  labelFps->setText(String::formatted("FPS: %i", 0), dontSendNotification);
+  labelFps->setText(String::formatted("FPS: %i", canvas.fps), dontSendNotification);
   labelAlive->setText(String::formatted("Alive: %i", canvas.alive), dontSendNotification);
 
   if (!canvas.historyEnabled) labelHistory->setText("History: off", dontSendNotification);

@@ -1,5 +1,4 @@
 #include "life.h"
-#include <iostream>
 
 
 
@@ -254,7 +253,7 @@ void Life::partStep(ThreadConfig& config) {
 
 
 void Life::step() {
-    clock_t t = clock();
+    auto t = std::chrono::high_resolution_clock::now();
 
     if (historyEnabled) save();
 
@@ -270,7 +269,7 @@ void Life::step() {
     map = tmp;
 
     frame++;
-    durationStep = clock() - t;
+    durationStep = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - t).count();
 }
 
 
@@ -292,7 +291,7 @@ __forceinline void Life::waitThreads() {
 
 void Life::step() {
     alive = 0;
-    clock_t t = clock();
+    auto t = std::chrono::high_resolution_clock::now();
 
     if (historyEnabled) save();
 
@@ -317,7 +316,7 @@ void Life::step() {
     map = tmp;
 
     frame++;
-    durationStep = clock() - t;
+    durationStep = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - t).count();
 }
 
 #endif
