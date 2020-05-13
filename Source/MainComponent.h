@@ -1,6 +1,8 @@
 #ifndef MAINCOMPONENT_H_INCLUDED
 #define MAINCOMPONENT_H_INCLUDED
 
+#include <iostream>
+
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "gameCanvas.h"
@@ -9,63 +11,60 @@
 
 
 class MainContentComponent:
-  public Component,
-  public Timer,
-  public ButtonListener {
+    public Component,
+    public Timer,
+    public ButtonListener {
 public:
-  int gameMapWidth = 300;
-  int gameMapHeight = 220;
-  char gameCellSize = 3;
+    int gameMapWidth = 300;
+    int gameMapHeight = 220;
+    char gameCellSize = 3;
 
-  int bar = 130;
+    int bar = 130;
 
-  time_t startTime = 0;
+    time_t startTime = 0;
 
-  Label* labelMapSize;
+    Label* labelMapSize;
 
-  Label* labelFrame;
-  Label* labelFps;
-  Label* labelAlive;
-  Label* labelHistory;
-  Label* labelRam;
-  
-  Label* labelDStep;
-  Label* labelDDraw;
-  
-  Label* labelMouseX;
-  Label* labelMouseY;
-  
-  Label* labelPenWidth;
+    Label* labelFrame;
+    Label* labelFps;
+    Label* labelAlive;
+    Label* labelHistory;
+    Label* labelRam;
 
-  CustomButton* buttonNewGame;
-  CustomButton* buttonPlay;
-  CustomButton* buttonClear;
-  CustomButton* buttonDraw;
+    Label* labelDStep;
+    Label* labelDDraw;
 
-  CustomButton* buttonSettings;
-  SettingsWindow* settingsW;
+    Label* labelMouseX;
+    Label* labelMouseY;
 
-  GameCanvas canvas;
+    Label* labelPenWidth;
 
+    CustomButton* buttonNewGame;
+    CustomButton* buttonPlay;
+    CustomButton* buttonClear;
+    CustomButton* buttonDraw;
 
-  MainContentComponent();
-  ~MainContentComponent();
+    CustomButton* buttonSettings;
+    SettingsWindow* settingsW;
 
+    GameCanvas canvas;
 
-  void initMainW();
+    MainContentComponent();
+    ~MainContentComponent();
 
-  void playCallback();
-  void newGameCallback();
-  void clearCallback();
-  void drawCallback();
+    void initMainW();
 
-  void timerCallback() override;
-  void buttonClicked(Button* button) override;
-  bool keyPressed(const KeyPress& key) override;
-  void resized() override;
+    void playCallback();
+    void newGameCallback();
+    void clearCallback();
+    void drawCallback();
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
+    void timerCallback() override;
+    void buttonClicked(Button* button) override;
+    bool keyPressed(const KeyPress& key) override;
+    void resized() override;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };
-
 
 #endif
