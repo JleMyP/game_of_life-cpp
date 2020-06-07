@@ -2,7 +2,8 @@
 #include "MainComponent.h"
 
 
-GameCanvas::GameCanvas(char cellSize, Colour color) : Life(4), penColor(color), cellSize(cellSize) {
+GameCanvas::GameCanvas(char cellSize, Colour color) : Life(12), penColor(color), cellSize(cellSize) {
+    historyEnabled = false;
     last_draw = clock_now();
 }
 GameCanvas::~GameCanvas() {}
@@ -93,9 +94,9 @@ void GameCanvas::paint(Graphics& g) {
         }
     }
 
-    durationDraw = clock_cast_nanosec(clock_now() - t);
+    durationDraw = clock_cast_microsec(clock_now() - t);
     auto now = clock_now();
-    fps = clock_cast_nanosec(now - last_draw);
+    fps = 1000000 / clock_cast_microsec(now - last_draw);
     last_draw = now;
 }
 

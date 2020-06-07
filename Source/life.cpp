@@ -19,12 +19,10 @@ Life::Life(int threadsCount): Life() {
     this->threadsCount = threadsCount;
     auto thread_func = [&](ThreadConfig& config) { partStep(config); };
 
-    if (threadsCount == 2 || threadsCount == 4) {
-        for (int i = 0; i < threadsCount; i++) {
-            ThreadConfig* tc = new ThreadConfig();
-            configs.push_back(tc);
-            threads.push_back(new std::thread(thread_func, std::ref(*tc)));
-        }
+    for (int i = 0; i < threadsCount; i++) {
+        ThreadConfig* tc = new ThreadConfig();
+        configs.push_back(tc);
+        threads.push_back(new std::thread(thread_func, std::ref(*tc)));
     }
 #endif
 }
@@ -92,29 +90,18 @@ void Life::resizeMap(int width, int height) {
     }
 
 #ifdef THREADS_ENABLED
-    if (threadsCount == 2) {
-        configs[0]->stopX = width / 2;
-        configs[0]->stopY = height;
-
-        configs[1]->startX = width / 2;
-        configs[1]->stopX = width;
-        configs[1]->stopY = height;
-    } else if (threadsCount == 4) {
-        configs[0]->stopX = width / 2;
-        configs[0]->stopY = height / 2;
-
-        configs[1]->startX = width / 2;
-        configs[1]->stopX = width;
-        configs[1]->stopY = height / 2;
-
-        configs[2]->startY = height / 2;
-        configs[2]->stopX = width / 2;
-        configs[2]->stopY = height;
-
-        configs[3]->startX = width / 2;
-        configs[3]->startY = height / 2;
-        configs[3]->stopX = width;
-        configs[3]->stopY = height;
+    int linesPerThread = height / threadsCount;
+    for (int threadNum = 0; threadNum < threadsCount; threadNum++) {
+        if (threadNum != threadsCount - 1) {
+            configs[threadNum]->startY = threadNum * linesPerThread;
+            configs[threadNum]->stopX = width;
+            configs[threadNum]->stopY = (threadNum + 1) * linesPerThread;
+            std::cout << threadNum << ": " << threadNum * linesPerThread << " - " << (threadNum + 1) * linesPerThread << std::endl;
+        } else {
+            configs[threadNum]->startY = threadNum * linesPerThread;
+            configs[threadNum]->stopX = width;
+            configs[threadNum]->stopY = (threadNum + 1) * linesPerThread + height % threadsCount;
+        }
     }
 #endif
 }
@@ -280,7 +267,7 @@ void Life::step() {
     map = tmp;
 
     frame++;
-    durationStep = clock_cast_nanosec(clock_now() - t);
+    durationStep = clock_cast_microsec(clock_now() - t);
 }
 
 
@@ -289,7 +276,7 @@ inline void Life::waitThreads() {
     bool res;
 
     do {
-        res = threadsFinish.wait_for(lock, std::chrono::milliseconds(10), [&]() {
+        res = threadsFinish.wait_for(lock, std::chrono::milliseconds(3), [&]() {
             for (auto config : configs) {
                 if (config->run)
                     return false;
@@ -335,7 +322,7 @@ void Life::step() {
     map = tmp;
 
     frame++;
-    durationStep = clock_cast_nanosec(clock_now() - t);
+    durationStep = clock_cast_microsec(clock_now() - t);
 }
 
 #endif

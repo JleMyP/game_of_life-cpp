@@ -3,6 +3,7 @@
 
 #define THREADS_ENABLED
 
+// wtf
 // TODO
 /*
     cuda
@@ -33,7 +34,10 @@ srand(666);
 */
 
 #define clock_now std::chrono::high_resolution_clock::now
-#define clock_cast_nanosec(arg) std::chrono::duration_cast<std::chrono::nanoseconds>(arg).count()
+#define clock_cast_microsec(arg) std::chrono::duration_cast<std::chrono::microseconds>(arg).count()
+
+#define ALIVE 1
+#define DEAD 0
 
 typedef unsigned char cellType;
 
