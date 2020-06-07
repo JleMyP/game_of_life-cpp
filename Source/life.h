@@ -102,8 +102,8 @@ public:
 
     char getSumMur(int x, int y);
     char getSumMurFast(int x, int y);
-    char handleCell(int x, int y);
-    char handleCellFast(int x, int y);
+    cellType  handleCell(int x, int y);
+    cellType handleCellFast(int x, int y);
     void save();
     void step();
     void back();

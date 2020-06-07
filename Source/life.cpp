@@ -163,7 +163,7 @@ void Life::setCell(int x, int y, cellType v) {
 }
 
 
-__forceinline char Life::getSumMur(int x, int y) {
+inline char Life::getSumMur(int x, int y) {
     char sum = 0;
 
     for (int xx = x - 1; xx < x + 2; xx++) {
@@ -175,7 +175,7 @@ __forceinline char Life::getSumMur(int x, int y) {
     return sum - (map[x][y] ? 1 : 0);
 }
 
-__forceinline char Life::getSumMurFast(int x, int y) {
+inline char Life::getSumMurFast(int x, int y) {
     char sum = 0;
 
     for (int xx = x - 1; xx < x + 2; xx++) {
@@ -188,20 +188,20 @@ __forceinline char Life::getSumMurFast(int x, int y) {
 }
 
 
-__forceinline char Life::handleCell(int x, int y) {
+inline cellType Life::handleCell(int x, int y) {
     cellType cell = map[x][y];
     char sum = getSumMur(x, y);
     //calculate = (sum == 3 || cell && sum == 2) ? 1 : 0;
-    char calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
+    cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;
     newMap[x][y] = calculate;
     return calculate;
 }
 
-__forceinline char Life::handleCellFast(int x, int y) {
+inline cellType Life::handleCellFast(int x, int y) {
     cellType cell = map[x][y];
     char sum = getSumMurFast(x, y);
     //calculate = (sum == 3 || cell && sum == 2) ? 1 : 0;
-    char calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : 0;
+    cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;
     newMap[x][y] = calculate;
     return calculate;
 }
@@ -284,7 +284,7 @@ void Life::step() {
 }
 
 
-__forceinline void Life::waitThreads() {
+inline void Life::waitThreads() {
     std::unique_lock<std::mutex> lock(waitLock);
     bool res;
 
