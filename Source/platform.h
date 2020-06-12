@@ -8,7 +8,7 @@ unsigned long getFreeRam() {
     unsigned int ram;
     FILE *meminfo = fopen("/proc/meminfo", "r");
 
-    if (meminfo == NULL)
+    if (meminfo == nullptr)
         return 0;
 
     while (fgets(line, sizeof(line), meminfo)) {

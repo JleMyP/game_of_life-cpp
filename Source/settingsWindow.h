@@ -11,7 +11,7 @@
 #include "queryRules.h"
 
 
-class SettingsWindow: public Component, public ButtonListener {
+class SettingsWindow: public Component, public Button::Listener {
 public:
     CustomButton* buttonCellSize;
     CustomButton* buttonCellColor;
@@ -26,11 +26,11 @@ public:
     QueryHistory* historyW;
     QueryRules* rulesW;
 
-    SettingsWindow(GameCanvas& canvas);
-    ~SettingsWindow();
+    explicit SettingsWindow(GameCanvas& canvas);
+    ~SettingsWindow() override;
 
     void show();
-    void hideAll();
+    void hideAll() const;
     void buttonClicked(Button* button) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SettingsWindow)

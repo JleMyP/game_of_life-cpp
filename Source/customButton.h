@@ -10,7 +10,7 @@ public:
     Font* font;
 
     CustomButton(const char* name, const char* text, Colour color=Colours::lime);
-    ~CustomButton();
+    ~CustomButton() override;
 
     void setText(char* text);
     void paint(Graphics& g) override;

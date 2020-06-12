@@ -13,7 +13,7 @@
 class MainContentComponent:
     public Component,
     public Timer,
-    public ButtonListener {
+    public Button::Listener {
 public:
     int gameMapWidth = 300;
     int gameMapHeight = 220;
@@ -50,7 +50,7 @@ public:
     GameCanvas canvas;
 
     MainContentComponent();
-    ~MainContentComponent();
+    ~MainContentComponent() override;
 
     void initMainW();
 

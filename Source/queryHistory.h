@@ -7,19 +7,19 @@
 #include "customButton.h"
 
 
-class QueryHistory: public Component, public ButtonListener, public SliderListener {
+class QueryHistory: public Component, public Button::Listener, public Slider::Listener {
 public:
     ToggleButton* checkEnabled;
     Slider* sliderLimit;
     Label* labelWarning;
 
     CustomButton* buttonOk;
-    CustomButton* buttonCancle;
+    CustomButton* buttonCancel;
 
     GameCanvas* canvas;
 
-    QueryHistory(GameCanvas& canvas);
-    ~QueryHistory();
+    explicit QueryHistory(GameCanvas& canvas);
+    ~QueryHistory() override;
 
     void show();
     void buttonClicked(Button* button) override;

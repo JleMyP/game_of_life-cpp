@@ -6,7 +6,6 @@
 MainContentComponent::MainContentComponent(): canvas(gameCellSize) {
     initMainW();
     settingsW = new SettingsWindow(canvas);
-    std::cout << "start";
 }
 
 
@@ -56,12 +55,12 @@ void MainContentComponent::playCallback() {
     if (isTimerRunning()) {
         stopTimer();
         canvas.running = false;
-        buttonPlay->setText("start");
+        buttonPlay->setText((char*)"start");
     } else {
         startTime = time(nullptr);
         startTimer(1);
         canvas.running = true;
-        buttonPlay->setText("pause");
+        buttonPlay->setText((char*)"pause");
     }
 }
 
@@ -73,7 +72,7 @@ void MainContentComponent::clearCallback() {
     labelFrame->setText("Frame: 0", dontSendNotification);
     labelAlive->setText("Alive: 0", dontSendNotification);
     labelRam->setText(String::formatted("Free ram: %imb", getFreeRam() / 1024), dontSendNotification);
-    buttonPlay->setText("start");
+    buttonPlay->setText((char*)"start");
 
     stopTimer();
     repaint();
@@ -103,18 +102,18 @@ void MainContentComponent::buttonClicked(Button* button) {
 bool MainContentComponent::keyPressed(const KeyPress& key) {
     int keyCode = key.getKeyCode();
 
-    if (keyCode == key.returnKey)
+    if (keyCode == KeyPress::returnKey)
         newGameCallback();
-    else if (keyCode == key.spaceKey)
+    else if (keyCode == KeyPress::spaceKey)
         playCallback();
-    else if (keyCode == key.escapeKey)
+    else if (keyCode == KeyPress::escapeKey)
         JUCEApplication::getInstance()->systemRequestedQuit();
     else if (keyCode == 67)
         clearCallback(); // key c
-    else if (keyCode == key.rightKey && !canvas.running) {
+    else if (keyCode == KeyPress::rightKey && !canvas.running) {
         canvas.step();
         timerCallback();
-    } else if (keyCode == key.leftKey && !canvas.running) {
+    } else if (keyCode == KeyPress::leftKey && !canvas.running) {
         canvas.back();
         timerCallback();
     }

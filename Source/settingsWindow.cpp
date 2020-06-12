@@ -65,7 +65,7 @@ void SettingsWindow::show() {
 }
 
 
-void SettingsWindow::hideAll() {
+void SettingsWindow::hideAll() const {
     sizeW->setVisible(false);
     colorW->setVisible(false);
     agingW->setVisible(false);
@@ -78,7 +78,7 @@ void SettingsWindow::buttonClicked(Button* button) {
     hideAll();
 
     if (button == buttonClose) {
-        if (DialogWindow* dw = findParentComponentOfClass<DialogWindow>())
+        if (auto* dw = findParentComponentOfClass<DialogWindow>())
             dw->exitModalState(0);
     } else if (button == buttonCellSize)
         sizeW->show();

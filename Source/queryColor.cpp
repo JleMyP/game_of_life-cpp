@@ -17,13 +17,13 @@ QueryColor::QueryColor(GameCanvas& canvas): canvas(&canvas) {
     buttonOk->setBounds(30, 260, 110, 30);
     buttonOk->addListener(this);
 
-    buttonCancle = new CustomButton("color cancle", "cancle");
-    buttonCancle->setBounds(160, 260, 110, 30);
-    buttonCancle->addListener(this);
+    buttonCancel = new CustomButton("color cancel", "cancel");
+    buttonCancel->setBounds(160, 260, 110, 30);
+    buttonCancel->addListener(this);
 
     addAndMakeVisible(selector);
     addAndMakeVisible(buttonOk);
-    addAndMakeVisible(buttonCancle);
+    addAndMakeVisible(buttonCancel);
 }
 
 
@@ -36,21 +36,21 @@ void QueryColor::show() {
     selector->setCurrentColour(canvas->penColor);
     setVisible(true);
     buttonOk->setEnabled(false);
-    buttonCancle->setEnabled(false);
+    buttonCancel->setEnabled(false);
 }
 
 
 void QueryColor::buttonClicked(Button* button) {
-    if (button == buttonCancle) {
+    if (button == buttonCancel) {
         selector->setCurrentColour(canvas->penColor);
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     } else if (button == buttonOk) {
         Colour color = selector->getCurrentColour();
         canvas->penColor = color;
         canvas->repaint();
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     }
 }
 
@@ -58,5 +58,5 @@ void QueryColor::buttonClicked(Button* button) {
 void QueryColor::changeListenerCallback(ChangeBroadcaster* sender) {
     bool enabled = selector->getCurrentColour() != canvas->penColor;
     buttonOk->setEnabled(enabled);
-    buttonCancle->setEnabled(enabled);
+    buttonCancel->setEnabled(enabled);
 }

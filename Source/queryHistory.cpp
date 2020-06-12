@@ -27,15 +27,15 @@ QueryHistory::QueryHistory(GameCanvas& canvas): canvas(&canvas) {
     buttonOk->setBounds(30, 200, 110, 30);
     buttonOk->addListener(this);
 
-    buttonCancle = new CustomButton("history cancle", "cancle");
-    buttonCancle->setBounds(160, 200, 110, 30);
-    buttonCancle->addListener(this);
+    buttonCancel = new CustomButton("history cancel", "cancel");
+    buttonCancel->setBounds(160, 200, 110, 30);
+    buttonCancel->addListener(this);
 
     addAndMakeVisible(checkEnabled);
     addAndMakeVisible(sliderLimit);
     addAndMakeVisible(labelWarning);
     addAndMakeVisible(buttonOk);
-    addAndMakeVisible(buttonCancle);
+    addAndMakeVisible(buttonCancel);
 }
 
 
@@ -48,23 +48,23 @@ void QueryHistory::show() {
     int size = canvas->mapWidth * canvas->mapHeight * sizeof(cellType) + canvas->mapWidth * sizeof(void*);
 
     setVisible(true);
-    checkEnabled->setToggleState(canvas->historyEnabled, false);
+    checkEnabled->setToggleState(canvas->historyEnabled, dontSendNotification);
     sliderLimit->setValue(canvas->historySize);
     labelWarning->setText(String::formatted("size of one frame: %ikb", size / 1024), dontSendNotification);
     buttonOk->setEnabled(false);
-    buttonCancle->setEnabled(false);
+    buttonCancel->setEnabled(false);
 }
 
 
 void QueryHistory::buttonClicked(Button* button) {
-    if (button == buttonCancle) {
-        checkEnabled->setToggleState(canvas->historyEnabled, false);
+    if (button == buttonCancel) {
+        checkEnabled->setToggleState(canvas->historyEnabled, dontSendNotification);
         sliderLimit->setValue(canvas->historySize);
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     } else if (button == buttonOk) {
         bool state = checkEnabled->getToggleState();
-        unsigned int limit = (unsigned int)(sliderLimit->getValue());
+        auto limit = (unsigned int)(sliderLimit->getValue());
 
         if (!state && canvas->historyEnabled)
             canvas->clearHistory();
@@ -77,19 +77,19 @@ void QueryHistory::buttonClicked(Button* button) {
             canvas->historySize = limit;
             canvas->history.reserve(limit);
 
-            MainContentComponent* parent = canvas->findParentComponentOfClass<MainContentComponent>();
+            auto* parent = canvas->findParentComponentOfClass<MainContentComponent>();
             parent->labelHistory->setText(String::formatted("History: %i/%i", canvas->history.size(), limit), dontSendNotification);
         }
 
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     } else if (button == checkEnabled) {
         sliderLimit->setEnabled(checkEnabled->getToggleState());
 
         bool enabled = checkEnabled->getToggleState() != canvas->historyEnabled || sliderLimit->getValue() != canvas->historySize;
 
         buttonOk->setEnabled(enabled);
-        buttonCancle->setEnabled(enabled);
+        buttonCancel->setEnabled(enabled);
     }
 }
 
@@ -98,5 +98,5 @@ void QueryHistory::sliderValueChanged(Slider *slider) {
     bool enabled = checkEnabled->getToggleState() != canvas->historyEnabled || slider->getValue() != canvas->historySize;
 
     buttonOk->setEnabled(enabled);
-    buttonCancle->setEnabled(enabled);
+    buttonCancel->setEnabled(enabled);
 }
