@@ -8,7 +8,6 @@ on:
 
 jobs:
   build-linux:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -22,3 +21,13 @@ jobs:
       with:
         name: linux-release
         path: Builds/LinuxMakefile/build/life_cpp
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup MSBuild.exe
+        uses: warrenbuckley/Setup-MSBuild@v1
+      - name: MSBuild
+        working-directory: Builds/VisualStudio2019
+        run: msbuild life_cpp_App.vcxproj
