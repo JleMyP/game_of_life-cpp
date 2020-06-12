@@ -1,5 +1,5 @@
 #include "queryHistory.h"
-#include "MainComponent.h"
+#include "mainComponent.h"
 
 
 QueryHistory::QueryHistory(GameCanvas& canvas): canvas(&canvas) {

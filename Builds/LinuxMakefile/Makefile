@@ -77,8 +77,8 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/queryRules_708026f8.o \
   $(JUCE_OBJDIR)/querySize_f7f891ea.o \
   $(JUCE_OBJDIR)/settingsWindow_63b3bbdc.o \
-  $(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o \
-  $(JUCE_OBJDIR)/Main_90ebc5c2.o \
+  $(JUCE_OBJDIR)/mainComponent_a6ffb4a5.o \
+  $(JUCE_OBJDIR)/main_90ebc5c2.o \
   $(JUCE_OBJDIR)/include_juce_core_f26d17db.o \
   $(JUCE_OBJDIR)/include_juce_data_structures_7471b1e3.o \
   $(JUCE_OBJDIR)/include_juce_events_fd7d695.o \
@@ -145,14 +145,14 @@ $(JUCE_OBJDIR)/settingsWindow_63b3bbdc.o: ../../Source/settingsWindow.cpp
 	@echo "Compiling settingsWindow.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o: ../../Source/MainComponent.cpp
+$(JUCE_OBJDIR)/mainComponent_a6ffb4a5.o: ../../Source/mainComponent.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling MainComponent.cpp"
+	@echo "Compiling mainComponent.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
+$(JUCE_OBJDIR)/main_90ebc5c2.o: ../../Source/main.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Main.cpp"
+	@echo "Compiling main.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/include_juce_core_f26d17db.o: ../../JuceLibraryCode/include_juce_core.cpp

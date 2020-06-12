@@ -1,5 +1,5 @@
 #include "querySize.h"
-#include "MainComponent.h"
+#include "mainComponent.h"
 
 
 QuerySize::QuerySize(GameCanvas& canvas): canvas(&canvas) {

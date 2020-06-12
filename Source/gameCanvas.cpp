@@ -1,7 +1,5 @@
 #include "gameCanvas.h"
-
-#include <cmath>
-#include "MainComponent.h"
+#include "mainComponent.h"
 
 
 GameCanvas::GameCanvas(char cellSize, Colour color) : Life(12), penColor(color), cellSize(cellSize) {

@@ -2,6 +2,7 @@
 #define GAMECANVAS_H_INCLUDED
 
 #include <chrono>
+#include <cmath>
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -13,7 +14,6 @@
     ��������� ������� ������
     ���������
 */
-
 
 
 class GameCanvas: public Component, public Life {

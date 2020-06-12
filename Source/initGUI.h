@@ -3,7 +3,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "MainComponent.h"
+#include "mainComponent.h"
 
 
 void MainContentComponent::initMainW() {

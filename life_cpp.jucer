@@ -29,10 +29,10 @@
             file="Source/settingsWindow.cpp"/>
       <FILE id="cgy3XO" name="settingsWindow.h" compile="0" resource="0"
             file="Source/settingsWindow.h"/>
-      <FILE id="po7yOo" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="ueBuAX" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="ZjrGuO" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="po7yOo" name="mainComponent.cpp" compile="1" resource="0"
+            file="Source/mainComponent.cpp"/>
+      <FILE id="ueBuAX" name="mainComponent.h" compile="0" resource="0" file="Source/mainComponent.h"/>
+      <FILE id="ZjrGuO" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

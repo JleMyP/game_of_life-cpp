@@ -45,9 +45,9 @@ add_executable (APP
     "../../Source/querySize.h"
     "../../Source/settingsWindow.cpp"
     "../../Source/settingsWindow.h"
-    "../../Source/MainComponent.cpp"
-    "../../Source/MainComponent.h"
-    "../../Source/Main.cpp"
+    "../../Source/mainComponent.cpp"
+    "../../Source/mainComponent.h"
+    "../../Source/main.cpp"
     "../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.cpp"
     "../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.h"
     "../../JuceLibraryCode/modules/juce_core/containers/juce_Array.h"
@@ -923,7 +923,7 @@ set_source_files_properties ("../../Source/queryHistory.h" PROPERTIES HEADER_FIL
 set_source_files_properties ("../../Source/queryRules.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/querySize.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/settingsWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties ("../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../Source/mainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../JuceLibraryCode/modules/juce_core/containers/juce_AbstractFifo.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../JuceLibraryCode/modules/juce_core/containers/juce_Array.h" PROPERTIES HEADER_FILE_ONLY TRUE)

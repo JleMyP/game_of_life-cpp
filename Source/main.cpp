@@ -2,7 +2,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "MainComponent.h"
+#include "mainComponent.h"
 
 
 class lifeApplication: public JUCEApplication {
