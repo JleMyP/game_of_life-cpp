@@ -7,19 +7,19 @@
 #include "customButton.h"
 
 
-class QueryColor: public Component, public ButtonListener, juce::ChangeListener {
+class QueryColor: public Component, public Button::Listener, ChangeListener {
 public:
     ColourSelector* selector;
     CustomButton* buttonOk;
-    CustomButton* buttonCancle;
+    CustomButton* buttonCancel;
     GameCanvas* canvas;
 
-    QueryColor(GameCanvas& canvas);
-    ~QueryColor();
+    explicit QueryColor(GameCanvas& canvas);
+    ~QueryColor() override;
 
     void show();
     void buttonClicked(Button* button) override;
-    void changeListenerCallback(ChangeBroadcaster* sender);
+    void changeListenerCallback(ChangeBroadcaster* sender) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QueryColor)
 };

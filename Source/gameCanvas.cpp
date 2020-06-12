@@ -1,17 +1,20 @@
 #include "gameCanvas.h"
+
+#include <cmath>
 #include "MainComponent.h"
 
 
 GameCanvas::GameCanvas(char cellSize, Colour color) : Life(12), penColor(color), cellSize(cellSize) {
     historyEnabled = false;
-    last_draw = clock_now();
+    lastDraw = clock_now();
+    fps = 0;
+    durationDraw = 0;
 }
-GameCanvas::~GameCanvas() {}
 
 
 void GameCanvas::mouseMove(const MouseEvent & event) {
     mousePos.setXY(event.x / cellSize, event.y / cellSize);
-    MainContentComponent* parent = findParentComponentOfClass<MainContentComponent>();
+    auto* parent = findParentComponentOfClass<MainContentComponent>();
     parent->labelMouseX->setText(String::formatted("X: %i", mousePos.x), NotificationType::dontSendNotification);
     parent->labelMouseY->setText(String::formatted("Y: %i", mousePos.y), NotificationType::dontSendNotification);
 }
@@ -35,7 +38,7 @@ void GameCanvas::mouseDown(const MouseEvent& event) {
 
 
 void GameCanvas::mouseWheelMove(const MouseEvent& event, const MouseWheelDetails& wheel) {
-    MainContentComponent* parent = findParentComponentOfClass<MainContentComponent>();
+    auto* parent = findParentComponentOfClass<MainContentComponent>();
 
     if (wheel.deltaY > 0 && penWidth < maxPenWidth)
         penWidth++;
@@ -77,8 +80,6 @@ void GameCanvas::paint(Graphics& g) {
     if (running && (alive > 0 || frame == 0 && alive == 0))
         step();
 
-    //g.setColour(penColor);
-
     auto t = clock_now();
     int x, y, px;
 
@@ -89,15 +90,15 @@ void GameCanvas::paint(Graphics& g) {
             if (map[x][y] == 0)
                 continue;
 
-            g.setColour(penColor.withAlpha(float(1.0f / ceil(map[x][y] / rateAging))));
+            g.setColour(penColor.withAlpha(1.0f / std::ceil(float(map[x][y]) / rateAging)));
             g.fillRect(px, y * cellSize + 1, cellSize - 1, cellSize - 1);
         }
     }
 
     durationDraw = clock_cast_microsec(clock_now() - t);
     auto now = clock_now();
-    fps = 1000000 / clock_cast_microsec(now - last_draw);
-    last_draw = now;
+    fps = 1000000 / clock_cast_microsec(now - lastDraw);
+    lastDraw = now;
 }
 
 

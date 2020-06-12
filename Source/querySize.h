@@ -7,15 +7,15 @@
 #include "customButton.h"
 
 
-class QuerySize: public Component, public ButtonListener, public SliderListener {
+class QuerySize: public Component, public Button::Listener, public Slider::Listener {
 public:
     Slider* slider;
     CustomButton* buttonOk;
-    CustomButton* buttonCancle;
+    CustomButton* buttonCancel;
     GameCanvas* canvas;
 
-    QuerySize(GameCanvas& canvas);
-    ~QuerySize();
+    explicit QuerySize(GameCanvas& canvas);
+    ~QuerySize() override;
 
     void show();
     void buttonClicked(Button* button) override;

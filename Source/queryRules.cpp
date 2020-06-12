@@ -1,5 +1,4 @@
 #include "queryRules.h"
-#include "MainComponent.h"
 
 
 QueryRules::QueryRules(GameCanvas& canvas): canvas(&canvas) {
@@ -9,12 +8,12 @@ QueryRules::QueryRules(GameCanvas& canvas): canvas(&canvas) {
     buttonOk->setBounds(30, 160, 110, 30);
     buttonOk->addListener(this);
 
-    buttonCancle = new CustomButton("rules cancle", "cancle");
-    buttonCancle->setBounds(160, 160, 110, 30);
-    buttonCancle->addListener(this);
+    buttonCancel = new CustomButton("rules cancel", "cancel");
+    buttonCancel->setBounds(160, 160, 110, 30);
+    buttonCancel->addListener(this);
 
     addAndMakeVisible(buttonOk);
-    addAndMakeVisible(buttonCancle);
+    addAndMakeVisible(buttonCancel);
 }
 
 
@@ -29,7 +28,7 @@ void QueryRules::show() {
 
 
 void QueryRules::buttonClicked(Button* button) {
-    if (button == buttonCancle) {
+    if (button == buttonCancel) {
 
     } else if (button == buttonOk) {
 

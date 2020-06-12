@@ -1,7 +1,7 @@
 #include "life.h"
 
 
-void removeMap(cellType** map, int width) {
+void removeMap(cellType** map, unsigned int width) {
     if (map != nullptr) {
         for (int x = 0; x < width; x++)
             delete[] map[x];
@@ -20,7 +20,7 @@ Life::Life(int threadsCount): Life() {
     auto thread_func = [&](ThreadConfig& config) { partStep(config); };
 
     for (int i = 0; i < threadsCount; i++) {
-        ThreadConfig* tc = new ThreadConfig();
+        auto* tc = new ThreadConfig();
         configs.push_back(tc);
         threads.push_back(new std::thread(thread_func, std::ref(*tc)));
     }
@@ -71,7 +71,7 @@ void Life::clearHistory(int start, int end) {
 }
 
 
-void Life::resizeMap(int width, int height) {
+void Life::resizeMap(unsigned int width, unsigned int height) {
     if (mapWidth) {
         clearHistory();
         removeMap(map, mapWidth);
@@ -90,8 +90,8 @@ void Life::resizeMap(int width, int height) {
     }
 
 #ifdef THREADS_ENABLED
-    int linesPerThread = height / threadsCount;
-    for (int threadNum = 0; threadNum < threadsCount; threadNum++) {
+    unsigned int linesPerThread = height / threadsCount;
+    for (unsigned int threadNum = 0; threadNum < threadsCount; threadNum++) {
         if (threadNum != threadsCount - 1) {
             configs[threadNum]->startY = threadNum * linesPerThread;
             configs[threadNum]->stopX = width;
@@ -116,7 +116,7 @@ void Life::newGame(bool empty) {
 }
 
 
-void Life::generateMap(bool empty) {
+void Life::generateMap(bool empty) const {
     for (int x = 0; x < mapWidth; x++) {
         for (int y = 0; y < mapHeight; y++) {
             map[x][y] = empty ? 0 : rand() % 2;
@@ -125,69 +125,67 @@ void Life::generateMap(bool empty) {
 }
 
 
-void Life::normalize(int& x, int& y) {
+void Life::normalize(int& x, int& y) const {
     if (x >= mapWidth)
-        x -= mapWidth;
+        x -= (int)mapWidth;
     else if (x < 0)
-        x += mapWidth;
+        x += (int)mapWidth;
 
     if (y >= mapHeight)
-        y -= mapHeight;
+        y -= (int)mapHeight;
     else if (y < 0)
-        y += mapHeight;
+        y += (int)mapHeight;
 }
 
 
-cellType Life::getCell(int x, int y) {
+cellType Life::getCell(int x, int y) const {
     normalize(x, y);
-    return map[x][y] ? 1 : 0;
+    return map[x][y] ? ALIVE : DEAD;
 }
 
 
-void Life::setCell(int x, int y, cellType v) {
+void Life::setCell(int x, int y, cellType v) const {
     normalize(x, y);
     map[x][y] = v;
 }
 
 
-inline char Life::getSumMur(int x, int y) {
-    char sum = 0;
+inline unsigned char Life::getSumMur(unsigned int x, unsigned int y) const {
+    unsigned char sum = 0;
 
-    for (int xx = x - 1; xx < x + 2; xx++) {
-        for (int yy = y - 1; yy < y + 2; yy++) {
+    for (int xx = (int)x - 1; xx < x + 2; xx++) {
+        for (int yy = (int)y - 1; yy < y + 2; yy++) {
             sum += getCell(xx, yy);
         }
     }
 
-    return sum - (map[x][y] ? 1 : 0);
+    return sum - (map[x][y] ? ALIVE : DEAD);
 }
 
-inline char Life::getSumMurFast(int x, int y) {
-    char sum = 0;
+inline unsigned char Life::getSumMurFast(unsigned int x, unsigned int y) const {
+    unsigned char sum = 0;
 
-    for (int xx = x - 1; xx < x + 2; xx++) {
-        for (int yy = y - 1; yy < y + 2; yy++) {
+    for (int xx = (int)x - 1; xx < x + 2; xx++) {
+        for (int yy = (int)y - 1; yy < y + 2; yy++) {
             sum += map[xx][yy] ? 1 : 0;
         }
     }
 
-    return sum - (map[x][y] ? 1 : 0);
+    return sum - (map[x][y] ? ALIVE : DEAD);
 }
 
 
-inline cellType Life::handleCell(int x, int y) {
+inline cellType Life::handleCell(unsigned int x, unsigned int y) const {
     cellType cell = map[x][y];
-    char sum = getSumMur(x, y);
-    //calculate = (sum == 3 || cell && sum == 2) ? 1 : 0;
+    unsigned char sum = getSumMur(x, y);
     cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;
     newMap[x][y] = calculate;
     return calculate;
 }
 
-inline cellType Life::handleCellFast(int x, int y) {
+inline cellType Life::handleCellFast(unsigned int x, unsigned int y) const {
     cellType cell = map[x][y];
-    char sum = getSumMurFast(x, y);
-    //calculate = (sum == 3 || cell && sum == 2) ? 1 : 0;
+    unsigned char sum = getSumMurFast(x, y);
     cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;
     newMap[x][y] = calculate;
     return calculate;
@@ -197,16 +195,16 @@ inline cellType Life::handleCellFast(int x, int y) {
 #ifdef THREADS_ENABLED
 
 void Life::partStep(ThreadConfig& config) {
-    int startX;
-    int startY;
-    int stopX;
-    int stopY;
+    unsigned int startX;
+    unsigned int startY;
+    unsigned int stopX;
+    unsigned int stopY;
 
-    int x, y;
-    long aliveCells;
+    unsigned int x, y;
+    unsigned long aliveCells;
     std::mutex m;
 
-    while (42) {
+    while (true) {
         std::unique_lock<std::mutex> lock(m);
         threadsStart.wait(lock, [&]() { return config.run || !config.alive; });
 
@@ -328,9 +326,9 @@ void Life::step() {
 #endif
 
 // TODO: ���������� �� memcpy
-cellType** Life::copyMap(cellType** sourceMap) {
-    int x, y;
-    cellType** targetMap = new cellType*[mapWidth];
+cellType** Life::copyMap(cellType** sourceMap) const {
+    unsigned int x, y;
+    auto** targetMap = new cellType*[mapWidth];
 
     for (x = 0; x < mapWidth; x++) {
         targetMap[x] = new cellType[mapHeight];
@@ -343,8 +341,8 @@ cellType** Life::copyMap(cellType** sourceMap) {
     return targetMap;
 }
 
-void Life::copyMap(cellType** sourceMap, cellType** targetMap) {
-    int x, y;
+void Life::copyMap(cellType** sourceMap, cellType** targetMap) const {
+    unsigned int x, y;
 
     for (x = 0; x < mapWidth; x++) {
         for (y = 0; y < mapHeight; y++) {
@@ -362,7 +360,7 @@ void inline Life::save() {
 
 
 void Life::back() {
-    if (!historyEnabled || history.size() == 0)
+    if (!historyEnabled || history.empty())
         return;
 
     HistoryItem* prev = history.back();

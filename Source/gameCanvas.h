@@ -26,20 +26,17 @@ public:
     int penWidth = 2;
     int maxPenWidth = 10;
 
-    Point<int> selectStart;
-    Point<int> selectEnd;
     Point<int> mousePos;
 
-    char cellSize;
-    float rateAging = 5;
+    unsigned char cellSize;
+    unsigned int rateAging = 5;
 
     unsigned long durationDraw;
-    std::chrono::high_resolution_clock::time_point last_draw;
+    std::chrono::high_resolution_clock::time_point lastDraw;
     unsigned long fps;
     bool running = false;
 
-    GameCanvas(char cellSize, Colour color=Colours::lime);
-    ~GameCanvas();
+    explicit GameCanvas(char cellSize, Colour color=Colours::lime);
 
     void mouseMove(const MouseEvent & event) override;
     void mouseDown(const MouseEvent & event) override;

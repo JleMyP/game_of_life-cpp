@@ -38,8 +38,8 @@ void MainContentComponent::initMainW() {
     labelDStep->setBounds(0, 200, bar, 25);
     labelDStep->setColour(Label::textColourId, colorLabel);
 
-    labelDDraw = new Label("duration darw", "Draw: -");
-    labelDDraw->setBounds(0, 245, bar, 25);
+    labelDDraw = new Label("duration draw", "Draw: -");
+    labelDDraw->setBounds(0, 225, bar, 25);
     labelDDraw->setColour(Label::textColourId, colorLabel);
 
     labelMouseX = new Label("mouse x", "X: -");

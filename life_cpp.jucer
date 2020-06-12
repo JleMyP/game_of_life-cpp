@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="vQmSfF" name="life_cpp" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.jlemyp.life_cpp" includeBinaryInAppConfig="1"
-              jucerVersion="4.3.0">
+              jucerVersion="5.4.7">
   <MAINGROUP id="B6tCeI" name="life_cpp">
     <GROUP id="{564767B7-20A1-D392-A4BA-65CAE6A291B7}" name="Source">
       <FILE id="LTEh6S" name="customButton.cpp" compile="1" resource="0"
@@ -36,6 +36,22 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="life_cpp"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="6" targetName="life_cpp"
+                       linuxArchitecture="-m64"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_opengl" path="../../juce"/>
+        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
     <VS2015 targetFolder="Builds/VisualStudio2015">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
@@ -53,12 +69,7 @@
         <MODULEPATH id="juce_opengl" path="..\juce\modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
-      <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="life_cpp"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="6" targetName="life_cpp"
-                       linuxArchitecture="-m64"/>
-      </CONFIGURATIONS>
+    <CLION targetFolder="Builds/CLion" clionMakefileEnabled="1">
       <MODULEPATHS>
         <MODULEPATH id="juce_opengl" path="../../juce"/>
         <MODULEPATH id="juce_gui_extra" path="../../juce"/>
@@ -68,16 +79,16 @@
         <MODULEPATH id="juce_data_structures" path="../../juce"/>
         <MODULEPATH id="juce_core" path="../../juce"/>
       </MODULEPATHS>
-    </LINUX_MAKE>
+    </CLION>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
   </MODULES>
   <JUCEOPTIONS/>
   <LIVE_SETTINGS>

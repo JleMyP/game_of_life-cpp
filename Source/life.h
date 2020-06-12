@@ -42,27 +42,27 @@ srand(666);
 typedef unsigned char cellType;
 
 
-void removeMap(cellType** map, int width);
+void removeMap(cellType** map, unsigned int width);
 
 
 struct ThreadConfig {
     bool alive = true;
     bool run;
 
-    int startX;
-    int startY;
-    int stopX;
-    int stopY;
-    long aliveCells;
+    unsigned int startX;
+    unsigned int startY;
+    unsigned int stopX;
+    unsigned int stopY;
+    unsigned long aliveCells;
 };
 
 
 struct HistoryItem {
     unsigned long alive;
-    int width;
+    unsigned int width;
     cellType** map;
 
-    HistoryItem(unsigned int alive, int width, cellType** map) : width(width), alive(alive), map(map) { }
+    HistoryItem(unsigned int alive, unsigned int width, cellType** map) : width(width), alive(alive), map(map) { }
     ~HistoryItem() {
         removeMap(map, width);
     }
@@ -72,8 +72,8 @@ struct HistoryItem {
 class Life {
 public:
     cellType maxAge;
-    int mapWidth;
-    int mapHeight;
+    unsigned int mapWidth;
+    unsigned int mapHeight;
 
     unsigned long alive;
     unsigned long frame;
@@ -87,27 +87,27 @@ public:
     std::vector <HistoryItem*> history;
 
     Life();
-    Life(int threadsCount);
+    explicit Life(int threadsCount);
     Life(int width, int height, int threadsCount=0);
     ~Life();
 
     void clearHistory(int start=0, int end=-1);
 
-    void resizeMap(int width, int height);
+    void resizeMap(unsigned int width, unsigned int height);
     void newGame(bool empty=false);
-    void generateMap(bool empty=false);
+    void generateMap(bool empty=false) const;
 
-    cellType** copyMap(cellType** sourceMap);
-    void copyMap(cellType** sourceMap, cellType** targetMap);
+    cellType** copyMap(cellType** sourceMap) const;
+    void copyMap(cellType** sourceMap, cellType** targetMap) const;
 
-    void normalize(int& x, int& y);
-    cellType getCell(int x, int y);
-    void setCell(int x, int y, cellType v=1);
+    void normalize(int& x, int& y) const;
+    cellType getCell(int x, int y) const;
+    void setCell(int x, int y, cellType v=1) const;
 
-    char getSumMur(int x, int y);
-    char getSumMurFast(int x, int y);
-    cellType  handleCell(int x, int y);
-    cellType handleCellFast(int x, int y);
+    unsigned char getSumMur(unsigned int x, unsigned int y) const;
+    unsigned char getSumMurFast(unsigned int x, unsigned int y) const;
+    cellType handleCell(unsigned int x, unsigned int y) const;
+    cellType handleCellFast(unsigned int x, unsigned int y) const;
     void save();
     void step();
     void back();

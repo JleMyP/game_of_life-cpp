@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "MainComponent.h"
@@ -5,14 +7,14 @@
 
 class lifeApplication: public JUCEApplication {
 public:
-    lifeApplication() {}
+    lifeApplication() = default;
 
     const String getApplicationName() override { return "Life"; }
     const String getApplicationVersion() override { return ProjectInfo::versionString; }
     bool moreThanOneInstanceAllowed() override { return true; }
 
     void initialise(const String& commandLine) override {
-        mainWindow = new MainWindow(getApplicationName());
+        mainWindow = std::make_unique<MainWindow>(getApplicationName());
     }
 
     void shutdown() override {
@@ -25,7 +27,7 @@ public:
 
     class MainWindow: public DocumentWindow {
     public:
-        MainWindow(String name): DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
+        explicit MainWindow(const String& name): DocumentWindow(name, Colours::black, DocumentWindow::allButtons) {
             setResizable(true, true);
 
             juce::Rectangle<int> area = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
@@ -46,7 +48,7 @@ public:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
     };
 
-    ScopedPointer<MainWindow> mainWindow;
+    std::unique_ptr<MainWindow> mainWindow;
 };
 
 START_JUCE_APPLICATION(lifeApplication)

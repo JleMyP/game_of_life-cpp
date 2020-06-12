@@ -7,14 +7,14 @@
 #include "customButton.h"
 
 
-class QueryRules: public Component, public ButtonListener {
+class QueryRules: public Component, public Button::Listener {
 public:
     CustomButton* buttonOk;
-    CustomButton* buttonCancle;
+    CustomButton* buttonCancel;
     GameCanvas* canvas;
 
-    QueryRules(GameCanvas& canvas);
-    ~QueryRules();
+    explicit QueryRules(GameCanvas& canvas);
+    ~QueryRules() override;
 
     void show();
     void buttonClicked(Button* button) override;

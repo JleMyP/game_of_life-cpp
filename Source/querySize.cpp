@@ -17,13 +17,13 @@ QuerySize::QuerySize(GameCanvas& canvas): canvas(&canvas) {
     buttonOk->setBounds(30, 160, 110, 30);
     buttonOk->addListener(this);
 
-    buttonCancle = new CustomButton("size cancle", "cancle");
-    buttonCancle->setBounds(160, 160, 110, 30);
-    buttonCancle->addListener(this);
+    buttonCancel = new CustomButton("size cancel", "cancel");
+    buttonCancel->setBounds(160, 160, 110, 30);
+    buttonCancel->addListener(this);
 
     addAndMakeVisible(slider);
     addAndMakeVisible(buttonOk);
-    addAndMakeVisible(buttonCancle);
+    addAndMakeVisible(buttonCancel);
 }
 
 
@@ -36,21 +36,21 @@ void QuerySize::show() {
     slider->setValue(canvas->cellSize);
     setVisible(true);
     buttonOk->setEnabled(false);
-    buttonCancle->setEnabled(false);
+    buttonCancel->setEnabled(false);
 }
 
 
 void QuerySize::buttonClicked(Button* button) {
-    if (button == buttonCancle) {
+    if (button == buttonCancel) {
         slider->setValue(canvas->cellSize);
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     } else if (button == buttonOk) {
         int cell = int(slider->getValue());
         unsigned int mapWidth = canvas->getWidth() / cell;
         unsigned int mapHeight = canvas->getHeight() / cell;
 
-        MainContentComponent* parent = canvas->findParentComponentOfClass<MainContentComponent>();
+        auto* parent = canvas->findParentComponentOfClass<MainContentComponent>();
         parent->labelMapSize->setText(String::formatted("Size: %ix%i", mapWidth, mapHeight), dontSendNotification);
 
         canvas->cellSize = (unsigned char)cell;
@@ -59,7 +59,7 @@ void QuerySize::buttonClicked(Button* button) {
         canvas->repaint();
 
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     }
 }
 
@@ -68,5 +68,5 @@ void QuerySize::sliderValueChanged(Slider *_slider) {
     bool enabled = _slider->getValue() != canvas->cellSize;
 
     buttonOk->setEnabled(enabled);
-    buttonCancle->setEnabled(enabled);
+    buttonCancel->setEnabled(enabled);
 }

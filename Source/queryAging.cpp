@@ -34,9 +34,9 @@ QueryAging::QueryAging(GameCanvas& canvas): canvas(&canvas) {
     buttonOk->setBounds(30, 160, 110, 30);
     buttonOk->addListener(this);
 
-    buttonCancle = new CustomButton("aging cancle", "cancle");
-    buttonCancle->setBounds(160, 160, 110, 30);
-    buttonCancle->addListener(this);
+    buttonCancel = new CustomButton("aging cancel", "cancel");
+    buttonCancel->setBounds(160, 160, 110, 30);
+    buttonCancel->addListener(this);
 
     addAndMakeVisible(labelRate);
     addAndMakeVisible(labelGradations);
@@ -45,7 +45,7 @@ QueryAging::QueryAging(GameCanvas& canvas): canvas(&canvas) {
     addAndMakeVisible(sliderGradations);
 
     addAndMakeVisible(buttonOk);
-    addAndMakeVisible(buttonCancle);
+    addAndMakeVisible(buttonCancel);
 }
 
 
@@ -60,21 +60,21 @@ void QueryAging::show() {
 
     setVisible(true);
     buttonOk->setEnabled(false);
-    buttonCancle->setEnabled(false);
+    buttonCancel->setEnabled(false);
 }
 
 
 void QueryAging::buttonClicked(Button* button) {
-    if (button == buttonCancle) {
+    if (button == buttonCancel) {
         sliderRate->setValue(canvas->rateAging);
         sliderGradations->setValue(canvas->maxAge / canvas->rateAging);
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     } else if (button == buttonOk) {
-        canvas->rateAging = (float)sliderRate->getValue();
+        canvas->rateAging = (int)sliderRate->getValue();
         canvas->maxAge = (cellType)(sliderRate->getValue() * sliderGradations->getValue());
         buttonOk->setEnabled(false);
-        buttonCancle->setEnabled(false);
+        buttonCancel->setEnabled(false);
     }
 }
 
@@ -93,5 +93,5 @@ void QueryAging::sliderValueChanged(Slider *slider) {
     bool enabled = rate != canvas->rateAging || gradations * rate != canvas->maxAge;
 
     buttonOk->setEnabled(enabled);
-    buttonCancle->setEnabled(enabled);
+    buttonCancel->setEnabled(enabled);
 }

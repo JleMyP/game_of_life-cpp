@@ -7,7 +7,7 @@
 #include "customButton.h"
 
 
-class QueryAging: public Component, public ButtonListener, public SliderListener {
+class QueryAging: public Component, public Button::Listener, public Slider::Listener {
 public:
     Label* labelRate;
     Label* labelGradations;
@@ -16,12 +16,12 @@ public:
     Slider* sliderGradations;
 
     CustomButton* buttonOk;
-    CustomButton* buttonCancle;
+    CustomButton* buttonCancel;
 
     GameCanvas* canvas;
 
-    QueryAging(GameCanvas& canvas);
-    ~QueryAging();
+    explicit QueryAging(GameCanvas& canvas);
+    ~QueryAging() override;
 
     void show();
     void buttonClicked(Button* button) override;
