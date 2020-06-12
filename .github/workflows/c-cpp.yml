@@ -13,5 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: requirements
+      run: sudo apt-get install -y libgl-dev libcurl4-openssl-dev libfreetype-dev libfreetype6-dev libxinerama-dev libwebkit2gtk-4.0-dev
     - name: make
       run: make -C Builds/LinuxMakefile
