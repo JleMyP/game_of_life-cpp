@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-linux:
 
     runs-on: ubuntu-latest
 
@@ -16,4 +16,9 @@ jobs:
     - name: requirements
       run: sudo apt-get install -y libgl-dev libcurl4-openssl-dev libfreetype6-dev libxinerama-dev libwebkit2gtk-4.0-dev
     - name: make
-      run: make -C Builds/LinuxMakefile
+      run: make -C Builds/LinuxMakefile CONFIG=Release
+    - name: upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-release
+          path: Builds/LinuxMakefile/build/life_cpp
