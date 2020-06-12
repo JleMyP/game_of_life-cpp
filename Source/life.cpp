@@ -127,14 +127,14 @@ void Life::generateMap(bool empty) const {
 
 void Life::normalize(int& x, int& y) const {
     if (x >= mapWidth)
-        x -= (int)mapWidth;
+        x -= mapWidth;
     else if (x < 0)
-        x += (int)mapWidth;
+        x += mapWidth;
 
     if (y >= mapHeight)
-        y -= (int)mapHeight;
+        y -= mapHeight;
     else if (y < 0)
-        y += (int)mapHeight;
+        y += mapHeight;
 }
 
 
@@ -150,7 +150,7 @@ void Life::setCell(int x, int y, cellType v) const {
 }
 
 
-inline unsigned char Life::getSumMur(unsigned int x, unsigned int y) const {
+inline unsigned char Life::getSumMur(int x, int y) const {
     unsigned char sum = 0;
 
     for (int xx = (int)x - 1; xx < x + 2; xx++) {
@@ -162,7 +162,7 @@ inline unsigned char Life::getSumMur(unsigned int x, unsigned int y) const {
     return sum - (map[x][y] ? ALIVE : DEAD);
 }
 
-inline unsigned char Life::getSumMurFast(unsigned int x, unsigned int y) const {
+inline unsigned char Life::getSumMurFast(int x, int y) const {
     unsigned char sum = 0;
 
     for (int xx = (int)x - 1; xx < x + 2; xx++) {
@@ -175,7 +175,7 @@ inline unsigned char Life::getSumMurFast(unsigned int x, unsigned int y) const {
 }
 
 
-inline cellType Life::handleCell(unsigned int x, unsigned int y) const {
+inline cellType Life::handleCell(int x, int y) const {
     cellType cell = map[x][y];
     unsigned char sum = getSumMur(x, y);
     cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;
@@ -183,7 +183,7 @@ inline cellType Life::handleCell(unsigned int x, unsigned int y) const {
     return calculate;
 }
 
-inline cellType Life::handleCellFast(unsigned int x, unsigned int y) const {
+inline cellType Life::handleCellFast(int x, int y) const {
     cellType cell = map[x][y];
     unsigned char sum = getSumMurFast(x, y);
     cellType calculate = (sum == 3 || cell && sum == 2) ? (cell < maxAge ? cell + 1 : maxAge) : DEAD;

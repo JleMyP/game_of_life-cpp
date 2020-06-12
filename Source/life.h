@@ -72,8 +72,8 @@ struct HistoryItem {
 class Life {
 public:
     cellType maxAge;
-    unsigned int mapWidth;
-    unsigned int mapHeight;
+    int mapWidth;
+    int mapHeight;
 
     unsigned long alive;
     unsigned long frame;
@@ -104,10 +104,10 @@ public:
     cellType getCell(int x, int y) const;
     void setCell(int x, int y, cellType v=1) const;
 
-    unsigned char getSumMur(unsigned int x, unsigned int y) const;
-    unsigned char getSumMurFast(unsigned int x, unsigned int y) const;
-    cellType handleCell(unsigned int x, unsigned int y) const;
-    cellType handleCellFast(unsigned int x, unsigned int y) const;
+    unsigned char getSumMur(int x, int y) const;
+    unsigned char getSumMurFast(int x, int y) const;
+    cellType handleCell(int x, int y) const;
+    cellType handleCellFast(int x, int y) const;
     void save();
     void step();
     void back();

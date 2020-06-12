@@ -24,7 +24,7 @@ public:
     Colour penColor;
     penModes penMode = penModes::draw;
     int penWidth = 2;
-    int maxPenWidth = 10;
+    int maxPenWidth = 30;
 
     Point<int> mousePos;
 
