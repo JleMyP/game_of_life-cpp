@@ -5,6 +5,8 @@
 
 #include "mainComponent.h"
 
+// TODO: to move .cpp
+
 
 void MainContentComponent::initMainW() {
     Colour colorLabel = Colours::white;

@@ -1,6 +1,9 @@
 #ifndef PLATFORM_H_INCLUDED
 #define PLATFORM_H_INCLUDED
 
+
+// TODO: .cpp
+
 #ifdef __unix
 
 unsigned long getFreeRam() {

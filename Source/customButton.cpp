@@ -15,6 +15,10 @@ CustomButton::~CustomButton() {
 }
 
 
+void CustomButton::setText(String newText) {
+    _text = newText;
+}
+
 void CustomButton::setText(char* newText) {
     _text = String(newText);
 }
@@ -22,7 +26,6 @@ void CustomButton::setText(char* newText) {
 
 void CustomButton::paint(Graphics& g) {
     TextButton::paint(g);
-
     g.setFont(*font);
     g.setColour(Colours::black);
     g.drawText(_text, getLocalBounds(), Justification::centred);

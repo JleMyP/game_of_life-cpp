@@ -10,11 +10,8 @@ void removeMap(cellType** map, unsigned int width) {
 }
 
 
-Life::Life(): historySize(1000), history(historySize), maxAge(20) { }
+Life::Life(): history(historySize) { }
 Life::Life(int threadsCount): Life() {
-    map = nullptr;
-    newMap = nullptr;
-
 #ifdef THREADS_ENABLED
     this->threadsCount = threadsCount;
     auto thread_func = [&](ThreadConfig& config) { partStep(config); };
@@ -110,7 +107,6 @@ void Life::resizeMap(unsigned int width, unsigned int height) {
             configs[threadNum]->startY = threadNum * linesPerThread;
             configs[threadNum]->stopX = width;
             configs[threadNum]->stopY = (threadNum + 1) * linesPerThread;
-            std::cout << threadNum << ": " << threadNum * linesPerThread << " - " << (threadNum + 1) * linesPerThread << std::endl;
         } else {
             configs[threadNum]->startY = threadNum * linesPerThread;
             configs[threadNum]->stopX = width;
@@ -339,7 +335,7 @@ void Life::step() {
 
 #endif
 
-// TODO: ���������� �� memcpy
+// TODO: memcpy
 cellType** Life::copyMap(cellType** sourceMap) const {
     unsigned int x, y;
     auto** targetMap = new cellType*[mapWidth];

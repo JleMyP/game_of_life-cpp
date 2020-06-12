@@ -80,7 +80,7 @@ void MainContentComponent::clearCallback() {
 
 
 void MainContentComponent::drawCallback() {
-    canvas.penMode = (GameCanvas::penModes)((canvas.penMode + 1) % GameCanvas::penModes::length);
+    canvas.penMode = (GameCanvas::PenModes)((canvas.penMode + 1) % GameCanvas::PenModes::_length);
     buttonDraw->setText(canvas.penStr[canvas.penMode]);
 }
 
@@ -108,8 +108,8 @@ bool MainContentComponent::keyPressed(const KeyPress& key) {
         playCallback();
     else if (keyCode == KeyPress::escapeKey)
         JUCEApplication::getInstance()->systemRequestedQuit();
-    else if (keyCode == 67)
-        clearCallback(); // key c
+    else if (keyCode == 'C' || keyCode == 'c')
+        clearCallback();
     else if (keyCode == KeyPress::rightKey && !canvas.running) {
         canvas.step();
         timerCallback();

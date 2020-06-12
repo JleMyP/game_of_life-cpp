@@ -18,11 +18,11 @@
 
 class GameCanvas: public Component, public Life {
 public:
-    enum penModes { erase, draw, select, length };
-    char* penStr[3] = { "erase", "draw", "select" };
+    enum PenModes { ERASE, DRAW, _length };
+    String penStr[2] = { "erase", "draw" };
 
     Colour penColor;
-    penModes penMode = penModes::draw;
+    PenModes penMode = PenModes::DRAW;
     int penWidth = 2;
     int maxPenWidth = 30;
 

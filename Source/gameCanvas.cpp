@@ -3,10 +3,7 @@
 
 
 GameCanvas::GameCanvas(char cellSize, Colour color) : Life(12), penColor(color), cellSize(cellSize) {
-    historyEnabled = false;
     lastDraw = clock_now();
-    fps = 0;
-    durationDraw = 0;
 }
 
 
@@ -58,17 +55,18 @@ void GameCanvas::drawRect(int x, int y) {
 
     int xx, yy;
     cellType cell;
+    auto newCell = (cellType)penMode;
 
     for (xx = x1; xx <= x2; xx++) {
         for (yy = y1; yy <= y2; yy++) {
             cell = getCell(xx, yy);
 
-            if (penMode == penModes::draw && !cell)
+            if (penMode == PenModes::DRAW && !cell)
                 diff--;
-            else if (penMode == penModes::erase && cell)
+            else if (penMode == PenModes::ERASE && cell)
                 diff++;
 
-            setCell(xx, yy, (cellType)penMode);
+            setCell(xx, yy, newCell);
         }
     }
 }

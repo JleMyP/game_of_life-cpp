@@ -10,6 +10,7 @@ public:
     ~CustomButton() override;
 
     void setText(char* text);
+    void setText(String text);
     void paint(Graphics& g) override;
 
 private:

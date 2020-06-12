@@ -18,8 +18,6 @@
 #include <cstdlib>
 #include <chrono>
 #include <vector>
-#include <iostream>
-
 
 #ifdef THREADS_ENABLED
 #include <thread>
@@ -47,13 +45,14 @@ void removeMap(cellType** map, unsigned int width);
 
 struct ThreadConfig {
     bool alive = true;
-    bool run;
+    bool run = false;
 
-    unsigned int startX;
-    unsigned int startY;
-    unsigned int stopX;
-    unsigned int stopY;
-    unsigned long aliveCells;
+    unsigned int startX = 0;
+    unsigned int startY = 0;
+    unsigned int stopX = 0;
+    unsigned int stopY = 0;
+    unsigned long aliveCells = 0;
+    // TODO: thread pointer
 };
 
 
@@ -71,18 +70,18 @@ struct HistoryItem {
 
 class Life {
 public:
-    cellType maxAge;
+    cellType maxAge = 20;
     int mapWidth;
     int mapHeight;
 
-    unsigned long alive;
-    unsigned long frame;
-    unsigned long durationStep;
+    unsigned long alive = 0;
+    unsigned long frame = 0;
+    unsigned long durationStep = 0;
 
-    cellType** map;
-    cellType** newMap;
+    cellType** map = nullptr;
+    cellType** newMap = nullptr;
 
-    int historySize;
+    int historySize = 1000;
     bool historyEnabled = true;
     int threadsCount;
 
