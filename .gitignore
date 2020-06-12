@@ -240,6 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/Builds/CLion/cmake-build-debug/
+/Builds/CLion/cmake-build-*
 **/.idea/workspace.xml
 **/.idea/tasks.xml
