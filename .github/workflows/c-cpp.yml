@@ -16,7 +16,7 @@ jobs:
     - name: requirements
       run: sudo apt-get install -y libgl-dev libcurl4-openssl-dev libfreetype6-dev libxinerama-dev libwebkit2gtk-4.0-dev
     - name: make
-      run: make -j3 -C Builds/LinuxMakefile CONFIG=Release
+      run: make -j2 -C Builds/LinuxMakefile CONFIG=Release
     - name: upload artifacts
       uses: actions/upload-artifact@v2
       with:
