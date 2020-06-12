@@ -31,3 +31,8 @@ jobs:
       - name: MSBuild
         working-directory: Builds/VisualStudio2019
         run: msbuild life_cpp_App.vcxproj -m:2 -nologo -p:Configuration=Release -p:Platform=x64
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-release
+          path: Builds/VisualStudio2019/x64/Release/App/life_cpp.exe
