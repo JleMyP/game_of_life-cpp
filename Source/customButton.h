@@ -6,9 +6,6 @@
 
 class CustomButton: public TextButton {
 public:
-    String _text;
-    Font* font;
-
     CustomButton(const char* name, const char* text, Colour color=Colours::lime);
     ~CustomButton() override;
 
@@ -16,6 +13,8 @@ public:
     void paint(Graphics& g) override;
 
 private:
+    String _text;
+    Font* font;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CustomButton)
 };
 

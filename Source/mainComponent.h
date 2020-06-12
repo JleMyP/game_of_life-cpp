@@ -21,8 +21,7 @@ public:
 
     int bar = 130;
 
-    time_t startTime = 0;
-
+    // TODO: encapsulate labels
     Label* labelMapSize;
 
     Label* labelFrame;
@@ -39,20 +38,8 @@ public:
 
     Label* labelPenWidth;
 
-    CustomButton* buttonNewGame;
-    CustomButton* buttonPlay;
-    CustomButton* buttonClear;
-    CustomButton* buttonDraw;
-
-    CustomButton* buttonSettings;
-    SettingsWindow* settingsW;
-
-    GameCanvas canvas;
-
     MainContentComponent();
     ~MainContentComponent() override;
-
-    void initMainW();
 
     void playCallback();
     void newGameCallback();
@@ -63,6 +50,21 @@ public:
     void buttonClicked(Button* button) override;
     bool keyPressed(const KeyPress& key) override;
     void resized() override;
+
+private:
+    time_t startTime = 0;
+
+    CustomButton* buttonNewGame;
+    CustomButton* buttonPlay;
+    CustomButton* buttonClear;
+    CustomButton* buttonDraw;
+
+    CustomButton* buttonSettings;
+    SettingsWindow* settingsW;
+
+    GameCanvas canvas;
+
+    void initMainW();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };

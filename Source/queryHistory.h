@@ -9,6 +9,14 @@
 
 class QueryHistory: public Component, public Button::Listener, public Slider::Listener {
 public:
+    explicit QueryHistory(GameCanvas& canvas);
+    ~QueryHistory() override;
+
+    void show();
+    void buttonClicked(Button* button) override;
+    void sliderValueChanged(Slider *slider) override;
+
+private:
     ToggleButton* checkEnabled;
     Slider* sliderLimit;
     Label* labelWarning;
@@ -17,13 +25,6 @@ public:
     CustomButton* buttonCancel;
 
     GameCanvas* canvas;
-
-    explicit QueryHistory(GameCanvas& canvas);
-    ~QueryHistory() override;
-
-    void show();
-    void buttonClicked(Button* button) override;
-    void sliderValueChanged(Slider *slider) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QueryHistory)
 };

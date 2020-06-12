@@ -26,7 +26,7 @@ void MainContentComponent::timerCallback() {
     if (!canvas.historyEnabled)
         labelHistory->setText("History: off", dontSendNotification);
     else
-        labelHistory->setText(String::formatted("History: %i/%i", canvas.history.size(), canvas.historySize), dontSendNotification);
+        labelHistory->setText(String::formatted("History: %i/%i", canvas.getUsedHistorySize(), canvas.historySize), dontSendNotification);
 
     labelRam->setText(String::formatted("Free ram: %imb", getFreeRam() / 1024), dontSendNotification);
 

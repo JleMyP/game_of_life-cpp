@@ -12,7 +12,7 @@ QueryHistory::QueryHistory(GameCanvas& canvas): canvas(&canvas) {
     checkEnabled->addListener(this);
 
     sliderLimit = new Slider(Slider::SliderStyle::IncDecButtons, Slider::TextEntryBoxPosition::TextBoxRight);
-    sliderLimit->setRange(10, (&canvas)->history.max_size(), 10);
+    sliderLimit->setRange(10, (&canvas)->getMaxHistorySize(), 10);
     sliderLimit->setBounds(75, 90, 150, 30);
     sliderLimit->setColour(Slider::ColourIds::textBoxBackgroundColourId, Colours::black);
     sliderLimit->setColour(Slider::ColourIds::textBoxOutlineColourId, Colours::black);
@@ -71,14 +71,14 @@ void QueryHistory::buttonClicked(Button* button) {
         canvas->historyEnabled = state;
 
         if (state) {
-            if (canvas->history.size() > limit)
-                canvas->clearHistory(0, canvas->history.size() - limit);
+            if (canvas->getUsedHistorySize() > limit)
+                canvas->clearHistory(0, canvas->getUsedHistorySize() - limit);
 
             canvas->historySize = limit;
-            canvas->history.reserve(limit);
+            canvas->historyReserve(limit);
 
             auto* parent = canvas->findParentComponentOfClass<MainContentComponent>();
-            parent->labelHistory->setText(String::formatted("History: %i/%i", canvas->history.size(), limit), dontSendNotification);
+            parent->labelHistory->setText(String::formatted("History: %i/%i", canvas->getUsedHistorySize(), limit), dontSendNotification);
         }
 
         buttonOk->setEnabled(false);

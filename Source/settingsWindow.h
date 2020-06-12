@@ -13,6 +13,14 @@
 
 class SettingsWindow: public Component, public Button::Listener {
 public:
+    explicit SettingsWindow(GameCanvas& canvas);
+    ~SettingsWindow() override;
+
+    void show();
+    void hideAll() const;
+    void buttonClicked(Button* button) override;
+
+private:
     CustomButton* buttonCellSize;
     CustomButton* buttonCellColor;
     CustomButton* buttonCellAging;
@@ -25,13 +33,6 @@ public:
     QueryAging* agingW;
     QueryHistory* historyW;
     QueryRules* rulesW;
-
-    explicit SettingsWindow(GameCanvas& canvas);
-    ~SettingsWindow() override;
-
-    void show();
-    void hideAll() const;
-    void buttonClicked(Button* button) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SettingsWindow)
 };

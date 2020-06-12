@@ -31,9 +31,8 @@ public:
     unsigned char cellSize;
     unsigned int rateAging = 5;
 
-    unsigned long durationDraw;
-    std::chrono::high_resolution_clock::time_point lastDraw;
-    unsigned long fps;
+    unsigned long durationDraw = 0;
+    unsigned long fps = 0;
     bool running = false;
 
     explicit GameCanvas(char cellSize, Colour color=Colours::lime);
@@ -47,6 +46,9 @@ public:
 
     void paint(Graphics& g) override;
     void resized() override;
+
+private:
+    std::chrono::high_resolution_clock::time_point lastDraw;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GameCanvas)
 };

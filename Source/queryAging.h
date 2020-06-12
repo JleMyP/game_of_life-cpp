@@ -9,6 +9,14 @@
 
 class QueryAging: public Component, public Button::Listener, public Slider::Listener {
 public:
+    explicit QueryAging(GameCanvas& canvas);
+    ~QueryAging() override;
+
+    void show();
+    void buttonClicked(Button* button) override;
+    void sliderValueChanged(Slider *slider) override;
+
+private:
     Label* labelRate;
     Label* labelGradations;
 
@@ -19,13 +27,6 @@ public:
     CustomButton* buttonCancel;
 
     GameCanvas* canvas;
-
-    explicit QueryAging(GameCanvas& canvas);
-    ~QueryAging() override;
-
-    void show();
-    void buttonClicked(Button* button) override;
-    void sliderValueChanged(Slider *slider) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(QueryAging)
 };

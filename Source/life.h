@@ -84,35 +84,39 @@ public:
 
     int historySize;
     bool historyEnabled = true;
-    std::vector <HistoryItem*> history;
+    int threadsCount;
 
     Life();
     explicit Life(int threadsCount);
     Life(int width, int height, int threadsCount=0);
     ~Life();
 
-    void clearHistory(int start=0, int end=-1);
+    cellType getCell(int x, int y) const;
+    void setCell(int x, int y, cellType v=1) const;
 
+    unsigned int getUsedHistorySize();
+    unsigned int getMaxHistorySize();
+    void historyReserve(unsigned int size);
+    void clearHistory(int start=0, int end=-1);
     void resizeMap(unsigned int width, unsigned int height);
     void newGame(bool empty=false);
-    void generateMap(bool empty=false) const;
+    void save();
+    void step();
+    void back();
 
+private:
+    std::vector <HistoryItem*> history;
+
+    void generateMap(bool empty=false) const;
     cellType** copyMap(cellType** sourceMap) const;
     void copyMap(cellType** sourceMap, cellType** targetMap) const;
 
     void normalize(int& x, int& y) const;
-    cellType getCell(int x, int y) const;
-    void setCell(int x, int y, cellType v=1) const;
 
     unsigned char getSumMur(int x, int y) const;
     unsigned char getSumMurFast(int x, int y) const;
     cellType handleCell(int x, int y) const;
     cellType handleCellFast(int x, int y) const;
-    void save();
-    void step();
-    void back();
-
-    int threadsCount;
 
 #ifdef THREADS_ENABLED
     std::mutex waitLock;

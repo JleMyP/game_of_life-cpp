@@ -57,6 +57,20 @@ Life::~Life() {
 #endif
 }
 
+unsigned int Life::getUsedHistorySize() {
+    return history.size();
+}
+
+
+unsigned int Life::getMaxHistorySize() {
+    return history.max_size();
+}
+
+
+void Life::historyReserve(unsigned int size) {
+    history.reserve(size);
+}
+
 
 void Life::clearHistory(int start, int end) {
     if (end == -1)
