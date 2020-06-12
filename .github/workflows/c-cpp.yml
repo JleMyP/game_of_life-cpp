@@ -30,4 +30,4 @@ jobs:
         uses: warrenbuckley/Setup-MSBuild@v1
       - name: MSBuild
         working-directory: Builds/VisualStudio2019
-        run: msbuild life_cpp_App.vcxproj
+        run: msbuild life_cpp_App.vcxproj -m2 -nologo -property:Configuration=Release|x64
