@@ -101,7 +101,6 @@ void MainContentComponent::initMainW() {
 
     setSize(bar + gameMapWidth * gameCellSize, gameMapHeight * gameCellSize);
     setWantsKeyboardFocus(true);
-    grabKeyboardFocus();
 }
 
 #endif

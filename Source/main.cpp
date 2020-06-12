@@ -34,11 +34,13 @@ public:
             setResizeLimits(200, 600, area.getWidth(), area.getHeight());
 
             setUsingNativeTitleBar(true);
-            setContentOwned(new MainContentComponent(), true);
+            auto mc = new MainContentComponent();
+            setContentOwned(mc, true);
 
             centreWithSize(getWidth(), getHeight());
             setTopLeftPosition(200, 200);
-            setVisible(true);
+            DocumentWindow::setVisible(true);
+            mc->grabKeyboardFocus();
         }
 
         void closeButtonPressed() override {
